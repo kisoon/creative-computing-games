@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="theme-color" content="#0a1614">
+  <title>해골 기사 · 초원의 나무 괴물</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main class="stage" id="stage">
+    <canvas id="game" width="960" height="540"></canvas>
+
+    <div class="touch-ui" aria-hidden="true">
+      <div class="move-pad">
+        <button class="tbtn" data-act="left" aria-label="왼쪽으로 이동">◀</button>
+        <button class="tbtn" data-act="right" aria-label="오른쪽으로 이동">▶</button>
+      </div>
+      <div class="skill-pad">
+        <button class="tbtn skill" data-act="q" aria-label="검 휘두르기"><b>Q</b><span>베기</span></button>
+        <button class="tbtn skill" data-act="e" aria-label="찌르기"><b>E</b><span>찌르기</span></button>
+      </div>
+    </div>
+  </main>
+
+  <script src="game-core.js"></script>
+  <script src="game-world.js"></script>
+  <script src="game-ui.js"></script>
+  <script src="game-main.js"></script>
+</body>
+</html>

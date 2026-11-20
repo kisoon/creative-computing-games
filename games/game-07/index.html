@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#060812" />
+  <title>NEON BEAT — 리듬게임 MVP</title>
+  <meta name="description" content="악보 위로 흐르는 네온 타일을 건반으로 받아치는 리듬게임. 탭, 홀드, 스네이크 노트를 갖춘 NEON BEAT." />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="grain" aria-hidden="true"></div>
+  <div class="ambient" aria-hidden="true">
+    <span class="ambient-orb ambient-orb--one"></span>
+    <span class="ambient-orb ambient-orb--two"></span>
+    <span class="ambient-orb ambient-orb--three"></span>
+  </div>
+
+  <header class="site-header" id="siteHeader">
+    <a class="brand" href="#" aria-label="NEON BEAT 홈">
+      <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+      <span class="brand-word">NEON<em>BEAT</em></span>
+      <span class="brand-beta">MVP</span>
+    </a>
+    <nav class="header-nav" aria-label="주 메뉴">
+      <button class="text-button" type="button" data-open-help>게임 방법</button>
+      <button class="sound-button" type="button" id="soundToggle" aria-pressed="true">
+        <span class="sound-bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span>
+        <span class="sound-label">SOUND ON</span>
+      </button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="screen home-screen" id="homeScreen">
+      <div class="hero">
+        <div class="hero-copy">
+          <div class="eyebrow"><span class="eyebrow-line"></span>RHYTHM ARCADE / 4 KEYS</div>
+          <h1 class="hero-title"><span>NEON</span><em>BEAT</em></h1>
+          <p class="hero-hangul">악보 위로 흐르는 네온 타일,<br />건반으로 완성하는 나만의 플로우.</p>
+          <p class="hero-description">떨어지는 타일의 박자를 맞춰 <strong>D · F · J · K</strong>를 눌러보세요. 3연속 성공은 <b>PERFECT</b>, 길게 누르는 홀드와 뱀처럼 휘어지는 스네이크 타일은 하이라이트에서 기다리고 있습니다.</p>
+          <div class="hero-actions">
+            <button class="primary-button" type="button" id="startCta">
+              <span>지금 플레이</span>
+              <span class="button-arrow" aria-hidden="true">↘</span>
+            </button>
+            <button class="ghost-button" type="button" data-open-help>
+              <span class="play-dot" aria-hidden="true">?</span>
+              게임 방법
+            </button>
+          </div>
+          <div class="hero-facts" aria-label="게임 정보">
+            <div><strong>06</strong><span>TRACKS</span></div>
+            <div><strong>04</strong><span>KEYS</span></div>
+            <div><strong>∞</strong><span>FLOW</span></div>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-hidden="true">
+          <div class="floating-glyph glyph-a">♪</div>
+          <div class="floating-glyph glyph-b">♫</div>
+          <div class="floating-glyph glyph-c">♩</div>
+          <div class="preview-card">
+            <div class="preview-head">
+              <span class="preview-live"><i></i> LIVE PLAY</span>
+              <span class="preview-song">STEP / HARD</span>
+            </div>
+            <div class="preview-screen">
+              <div class="preview-hud">
+                <div><span>SCORE</span><strong>042<span>750</span></strong></div>
+                <div class="preview-flow"><span>FLOW</span><b>PERFECT</b></div>
+              </div>
+              <div class="preview-highway">
+                <div class="preview-staff"></div>
+                <div class="preview-lane is-hot"></div>
+                <div class="preview-lane"></div>
+                <div class="preview-lane is-hot"></div>
+                <div class="preview-lane"></div>
+                <div class="mini-note mini-note--1"><span>♪</span></div>
+                <div class="mini-note mini-note--2"><span>♫</span></div>
+                <div class="mini-note mini-note--3"><span>♪</span></div>
+                <div class="mini-hold"></div>
+                <svg class="mini-snake" viewBox="0 0 220 260" preserveAspectRatio="none">
+                  <path d="M48 255 C 48 210, 160 215, 160 160 S 54 118, 54 62 S 165 50, 170 8" />
+                </svg>
+                <div class="preview-hitline"></div>
+                <div class="preview-judge">PERFECT</div>
+                <div class="preview-keys">
+                  <span>D</span><span>F</span><span class="is-pressed">J</span><span>K</span>
+                </div>
+              </div>
+              <div class="preview-progress"><i></i></div>
+            </div>
+            <div class="preview-foot">
+              <span>♪ MOONLIGHT SYNTH</span>
+              <span>BPM 138</span>
+            </div>
+          </div>
+          <div class="snake-badge">SNAKE HOLD <span>↝</span></div>
+          <div class="score-badge">+ 300 <span>PERFECT</span></div>
+        </div>
+      </div>
+
+      <section class="library" id="library">
+        <div class="library-head">
+          <div>
+            <div class="eyebrow eyebrow--small"><span class="eyebrow-line"></span>SONG LIBRARY</div>
+            <h2>오늘의 세트리스트</h2>
+          </div>
+          <div class="library-controls">
+            <div class="difficulty-toggle" role="group" aria-label="난이도 선택">
+              <button type="button" class="is-active" data-difficulty="normal">NORMAL</button>
+              <button type="button" data-difficulty="hard">HARD <span>↝</span></button>
+            </div>
+            <div class="speed-control" role="group" aria-label="노트 속도">
+              <span>속도</span>
+              <button type="button" data-speed="1">1.0×</button>
+              <button type="button" class="is-active" data-speed="1.25">1.25×</button>
+              <button type="button" data-speed="1.5">1.5×</button>
+            </div>
+          </div>
+        </div>
+        <div class="song-grid" id="songGrid"></div>
+        <p class="library-note"><span>NOTE</span> 모든 사운드는 Web Audio로 실시간 합성한 오리지널 트랙입니다. 원곡 음원은 포함되어 있지 않아요.</p>
+      </section>
+
+      <section class="how-strip">
+        <div class="how-card">
+          <span class="how-number">01</span>
+          <div><strong>타이밍에 맞춰 누르기</strong><p>판정선에 닿는 순간 D · F · J · K를 누르세요.</p></div>
+        </div>
+        <div class="how-card">
+          <span class="how-number">02</span>
+          <div><strong>길게 눌러 홀드</strong><p>하이라이트의 긴 타일은 끝까지 누르고 있어야 해요.</p></div>
+        </div>
+        <div class="how-card">
+          <span class="how-number">03</span>
+          <div><strong>스네이크를 따라가기</strong><p>HARD에서는 건반을 바꿔가며 구불구불한 길을 따라가세요.</p></div>
+        </div>
+      </section>
+    </section>
+
+    <section class="screen game-screen is-hidden" id="gameScreen" aria-hidden="true">
+      <div class="game-stage" id="gameStage">
+        <canvas id="gameCanvas" aria-label="리듬게임 플레이 화면"></canvas>
+
+        <div class="game-hud">
+          <div class="hud-left">
+            <button type="button" class="hud-icon-button" id="pauseButton" aria-label="일시정지">Ⅱ</button>
+            <div class="hud-track">
+              <span class="hud-difficulty" id="hudDifficulty">NORMAL</span>
+              <div class="hud-title-line">
+                <h2 id="hudTrackTitle">달빛 소나타</h2>
+                <span class="hud-bpm" id="hudBpm">BPM 84</span>
+              </div>
+              <span class="hud-subtitle" id="hudTrackSubtitle">Moonlight Sonata</span>
+            </div>
+          </div>
+          <div class="hud-score">
+            <span>SCORE</span>
+            <strong id="scoreDisplay">0000000</strong>
+          </div>
+          <div class="hud-right">
+            <div class="hud-time"><span id="songTimer">0:00</span><i></i><span id="songDuration">1:20</span></div>
+            <div class="progress-track"><span id="songProgress"></span></div>
+          </div>
+        </div>
+
+        <div class="flow-panel" id="flowPanel">
+          <span class="flow-label">FLOW</span>
+          <strong id="flowGrade">READY</strong>
+          <div class="flow-combo"><span id="comboDisplay">0</span><small>COMBO</small></div>
+          <div class="flow-pips" aria-hidden="true"><i></i><i></i><i></i></div>
+        </div>
+
+        <div class="judgement-wrap" aria-live="polite">
+          <div class="judgement" id="judgement">
+            <strong id="judgementText">PERFECT</strong>
+            <span id="judgementSub">+300</span>
+          </div>
+        </div>
+
+        <div class="key-guide" aria-hidden="true">
+          <span><kbd>D</kbd><kbd>F</kbd><kbd>J</kbd><kbd>K</kbd></span>
+          <em>HOLD &amp; FOLLOW THE SNAKE</em>
+        </div>
+
+        <div class="snake-alert" id="snakeAlert"><span>↝</span> SNAKE HOLD <small>건반을 놓치지 말고 따라가세요</small></div>
+
+        <div class="countdown-overlay" id="countdownOverlay" aria-live="assertive">
+          <span class="countdown-kicker">GET READY</span>
+          <strong id="countdownNumber">3</strong>
+          <span class="countdown-track" id="countdownTrack">STEP · HARD</span>
+        </div>
+
+        <div class="overlay pause-overlay is-hidden" id="pauseOverlay">
+          <div class="overlay-card">
+            <span class="overlay-kicker">PAUSED</span>
+            <h2>잠시 쉬는 중</h2>
+            <p>플로우는 그대로 멈춰 있어요.</p>
+            <div class="overlay-actions">
+              <button class="primary-button primary-button--compact" type="button" id="resumeButton">계속하기 <span>▶</span></button>
+              <button class="ghost-button ghost-button--compact" type="button" id="quitButton">곡 선택</button>
+            </div>
+            <span class="overlay-hint">ESC 로도 다시 시작할 수 있어요</span>
+          </div>
+        </div>
+
+        <div class="overlay result-overlay is-hidden" id="resultOverlay">
+          <div class="result-card">
+            <div class="result-topline">
+              <span class="overlay-kicker">TRACK CLEARED</span>
+              <span class="result-newbest is-hidden" id="newBestBadge">NEW BEST</span>
+            </div>
+            <div class="result-main">
+              <div class="rank-ring" id="rankRing">
+                <span>RANK</span>
+                <strong id="rankLetter">A</strong>
+              </div>
+              <div class="result-summary">
+                <span class="result-track" id="resultTrack">달빛 소나타 · NORMAL</span>
+                <h2 id="resultHeadline">FLOW COMPLETE</h2>
+                <p id="resultMessage">리듬을 잘 타고 있어요.</p>
+                <div class="result-score"><span>FINAL SCORE</span><strong id="resultScore">0000000</strong></div>
+              </div>
+            </div>
+            <div class="result-stats" id="resultStats"></div>
+            <div class="result-actions">
+              <button class="primary-button primary-button--compact" type="button" id="retryButton">한 번 더 <span>↻</span></button>
+              <button class="ghost-button ghost-button--compact" type="button" id="libraryButton">다른 곡 고르기</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="modal-backdrop is-hidden" id="helpModal" role="dialog" aria-modal="true" aria-labelledby="helpTitle">
+    <div class="help-modal">
+      <button type="button" class="modal-close" id="helpClose" aria-label="닫기">×</button>
+      <div class="eyebrow eyebrow--small"><span class="eyebrow-line"></span>HOW TO PLAY</div>
+      <h2 id="helpTitle">네 개의 건반, 하나의 플로우.</h2>
+      <p class="help-intro">타일이 판정선에 닿는 순간 건반을 누르세요. 연속으로 성공할수록 판정이 뜨거워집니다.</p>
+      <div class="help-grid">
+        <div class="help-block">
+          <h3>키 배열</h3>
+          <div class="keyboard-demo" aria-hidden="true">
+            <span><kbd>D</kbd><small>LANE 1</small></span>
+            <span><kbd>F</kbd><small>LANE 2</small></span>
+            <span><kbd>J</kbd><small>LANE 3</small></span>
+            <span><kbd>K</kbd><small>LANE 4</small></span>
+          </div>
+          <p>모바일에서는 하단 건반 영역을 터치해도 플레이할 수 있어요.</p>
+        </div>
+        <div class="help-block">
+          <h3>판정과 색</h3>
+          <div class="grade-legend">
+            <div class="grade grade--perfect"><i></i><strong>PERFECT</strong><span>3연속 성공 이상</span></div>
+            <div class="grade grade--good"><i></i><strong>GOOD</strong><span>2연속 성공</span></div>
+            <div class="grade grade--nice"><i></i><strong>NICE</strong><span>1회 성공</span></div>
+            <div class="grade grade--bad"><i></i><strong>BAD</strong><span>2연속 미스</span></div>
+          </div>
+        </div>
+        <div class="help-block">
+          <h3>세 가지 타일</h3>
+          <div class="tile-legend">
+            <div><span class="tile-icon tile-icon--tap">♪</span><strong>TAP</strong><p>한 번 톡 누르기</p></div>
+            <div><span class="tile-icon tile-icon--hold">━</span><strong>HOLD</strong><p>끝까지 꾹 누르기</p></div>
+            <div><span class="tile-icon tile-icon--snake">↝</span><strong>SNAKE</strong><p>건반을 따라 옮기기</p></div>
+          </div>
+        </div>
+        <div class="help-block help-block--tip">
+          <h3>이렇게 하면 좋아요</h3>
+          <ul>
+            <li>판정은 누른 순간의 타일 위치로 결정돼요. 조금 일찍 누르는 게 안전합니다.</li>
+            <li>스네이크는 시작 건반을 누른 뒤, 현재 위치의 건반으로 옮겨 계속 이어가세요.</li>
+            <li>HARD에서만 스네이크 타일이 등장합니다.</li>
+          </ul>
+        </div>
+      </div>
+      <button class="primary-button primary-button--compact" type="button" id="helpStart">곡 선택하러 가기 <span>↘</span></button>
+    </div>
+  </div>
+
+  <script src="tracks.js"></script>
+  <script src="audio.js"></script>
+  <script src="renderer.js"></script>
+  <script src="game.js"></script>
+</body>
+</html>

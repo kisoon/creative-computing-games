@@ -1,0 +1,1569 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>LEMON TEN · 레몬 텐</title>
+<style>
+  :root{
+    --ink:#2d5f7b;
+    --ink-soft:#6b97ad;
+    --sky:#79cfee;
+    --sky-deep:#3fa9d7;
+    --sky-pale:#e9f9ff;
+    --mint:#8edec7;
+    --mint-deep:#35a885;
+    --danger:#f0a4a4;
+    --white:#fff;
+    --radius-board:28px;
+    --gap:4px;
+  }
+
+  *{box-sizing:border-box;}
+  html,body{min-height:100%;}
+  body{
+    margin:0;
+    overflow-x:hidden;
+    overflow-y:auto;
+    font-family:"Avenir Next","Apple SD Gothic Neo","Trebuchet MS","Segoe UI",sans-serif;
+    color:var(--ink);
+    user-select:none;
+    -webkit-user-select:none;
+    -webkit-font-smoothing:antialiased;
+    background:
+      radial-gradient(900px 640px at 7% -12%, rgba(255,255,255,.98) 0%, rgba(255,255,255,0) 62%),
+      radial-gradient(760px 540px at 96% 4%, rgba(151,222,252,.58) 0%, rgba(151,222,252,0) 66%),
+      radial-gradient(860px 650px at 52% 118%, rgba(185,240,223,.68) 0%, rgba(185,240,223,0) 65%),
+      linear-gradient(158deg,#ddf5ff 0%,#f8fdff 46%,#e8f9f4 100%);
+  }
+  body::before,
+  body::after{
+    content:"";
+    position:fixed;
+    border-radius:50%;
+    pointer-events:none;
+    z-index:0;
+    filter:blur(10px);
+  }
+  body::before{
+    width:380px;height:380px;
+    left:-190px;top:38%;
+    background:radial-gradient(circle,rgba(255,255,255,.95),rgba(255,255,255,0) 70%);
+  }
+  body::after{
+    width:460px;height:460px;
+    right:-210px;top:-130px;
+    background:radial-gradient(circle,rgba(188,237,255,.6),rgba(188,237,255,0) 70%);
+  }
+
+  button{font-family:inherit;}
+  button:focus-visible{outline:3px solid rgba(87,184,226,.7);outline-offset:2px;}
+
+  .app{
+    position:relative;
+    z-index:1;
+    width:100%;
+    max-width:1360px;
+    min-height:100vh;
+    margin:0 auto;
+    padding:10px 16px 8px;
+    display:flex;
+    flex-direction:column;
+    gap:7px;
+  }
+
+  /* ---------- top HUD ---------- */
+  .topbar{
+    width:min(1260px,100%);
+    min-height:58px;
+    margin:0 auto;
+    display:grid;
+    grid-template-columns:1fr auto 1fr;
+    align-items:center;
+    gap:14px;
+  }
+  .brand{display:flex;align-items:center;gap:11px;min-width:0;}
+  .brand-mark{
+    width:47px;height:47px;flex:none;
+    border-radius:16px;
+    display:grid;place-items:center;
+    background:rgba(255,255,255,.8);
+    border:1px solid #fff;
+    box-shadow:0 12px 26px -14px rgba(44,130,171,.55), inset 0 1px 0 #fff;
+    backdrop-filter:blur(12px);
+  }
+  .brand-mark svg{width:37px;height:37px;filter:drop-shadow(0 3px 3px rgba(189,143,42,.18));}
+  .brand h1{
+    margin:0;
+    font-size:21px;
+    line-height:1;
+    letter-spacing:.09em;
+    color:#2d6280;
+    font-weight:800;
+    display:flex;align-items:baseline;gap:5px;
+    white-space:nowrap;
+  }
+  .brand h1 span{color:#58b6df;letter-spacing:.12em;font-weight:700;}
+  .brand p{
+    margin:5px 0 0;
+    font-size:10.5px;
+    font-weight:600;
+    letter-spacing:.015em;
+    color:var(--ink-soft);
+    white-space:nowrap;
+  }
+
+  .glass{
+    background:rgba(255,255,255,.66);
+    border:1px solid rgba(255,255,255,.94);
+    box-shadow:0 16px 34px -22px rgba(52,133,173,.5), inset 0 1px 0 #fff;
+    backdrop-filter:blur(16px);
+    -webkit-backdrop-filter:blur(16px);
+  }
+
+  .timer-card{
+    width:208px;
+    height:56px;
+    border-radius:19px;
+    padding:8px 15px 9px;
+    display:flex;
+    flex-direction:column;
+    justify-content:center;
+    gap:6px;
+  }
+  .timer-row{display:flex;align-items:baseline;justify-content:space-between;gap:10px;}
+  .hud-label{
+    font-size:9px;
+    font-weight:800;
+    letter-spacing:.19em;
+    color:#85a9bb;
+    line-height:1;
+  }
+  #time{
+    font-size:20px;
+    font-weight:800;
+    letter-spacing:.05em;
+    color:#336b89;
+    font-variant-numeric:tabular-nums;
+    line-height:1;
+  }
+  .time-track{
+    height:4px;border-radius:99px;
+    overflow:hidden;
+    background:rgba(115,188,219,.2);
+  }
+  #timeBar{
+    width:100%;height:100%;
+    border-radius:inherit;
+    background:linear-gradient(90deg,#8adcf4,#8fe1cd);
+    transition:width .12s linear, background .25s;
+  }
+  .timer-card.low #time{color:#e08383;}
+  .timer-card.low #timeBar{background:linear-gradient(90deg,#ffc4b7,#f4a5a5);}
+  .timer-card.low{animation:lowPulse .9s ease-in-out infinite;}
+
+  .top-actions{display:flex;align-items:center;justify-content:flex-end;gap:9px;}
+  .sound-btn{
+    width:38px;height:38px;flex:none;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.94);
+    background:rgba(255,255,255,.64);
+    color:#4f8ba8;
+    display:grid;place-items:center;
+    cursor:pointer;
+    box-shadow:0 10px 22px -15px rgba(52,133,173,.5), inset 0 1px 0 #fff;
+    transition:transform .16s, background .16s;
+  }
+  .sound-btn:hover{transform:translateY(-2px);background:#fff;}
+  .sound-btn svg{width:17px;height:17px;}
+  .sound-btn .sound-off{display:none;}
+  .sound-btn.muted .sound-on{display:none;}
+  .sound-btn.muted .sound-off{display:block;}
+
+  .score-card{
+    min-width:148px;
+    height:56px;
+    border-radius:19px;
+    padding:7px 13px 7px 16px;
+    display:flex;
+    align-items:center;
+    justify-content:flex-end;
+    gap:12px;
+  }
+  .score-meta{display:flex;flex-direction:column;align-items:flex-end;gap:2px;}
+  #score{
+    font-size:24px;
+    line-height:1;
+    font-weight:800;
+    letter-spacing:.01em;
+    color:#2e6c8a;
+    font-variant-numeric:tabular-nums;
+  }
+  .score-card.bump #score{animation:scoreBump .36s ease;}
+  .score-star{
+    width:31px;height:31px;flex:none;
+    border-radius:50%;
+    display:grid;place-items:center;
+    background:linear-gradient(145deg,#fff1b9,#ffdf8c);
+    color:#d8a63e;
+    box-shadow:0 5px 12px -5px rgba(210,160,45,.5), inset 0 1px 0 rgba(255,255,255,.8);
+  }
+  .score-star svg{width:16px;height:16px;}
+
+  /* ---------- stage & board ---------- */
+  .stage{
+    flex:1 1 auto;
+    min-height:0;
+    width:100%;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+  }
+  .board{
+    position:relative;
+    width:min(1260px,100%);
+    aspect-ratio:1260 / 610;
+    flex:none;
+    border-radius:var(--radius-board);
+    padding:10px;
+    background:linear-gradient(180deg,rgba(255,255,255,.78),rgba(224,246,255,.66));
+    border:1px solid rgba(255,255,255,.96);
+    box-shadow:
+      0 38px 80px -32px rgba(43,126,166,.46),
+      0 10px 30px -20px rgba(43,126,166,.25),
+      inset 0 1px 0 rgba(255,255,255,.98);
+    backdrop-filter:blur(12px);
+    -webkit-backdrop-filter:blur(12px);
+  }
+  .board::before{
+    content:"";
+    position:absolute;
+    inset:4px;
+    border-radius:calc(var(--radius-board) - 4px);
+    border:1px solid rgba(255,255,255,.7);
+    pointer-events:none;
+    z-index:2;
+  }
+  .grid{
+    position:relative;
+    display:grid;
+    grid-template-columns:repeat(20,minmax(0,1fr));
+    grid-template-rows:repeat(7,minmax(0,1fr));
+    gap:var(--gap);
+    width:100%;
+    height:100%;
+    touch-action:none;
+  }
+
+  /* ---------- lemon tiles ---------- */
+  .tile{
+    appearance:none;
+    -webkit-appearance:none;
+    position:relative;
+    padding:0;
+    border:0;
+    display:grid;
+    place-items:center;
+    overflow:visible;
+    border-radius:0;
+    cursor:pointer;
+    background:transparent;
+    box-shadow:none;
+    color:var(--ink);
+    touch-action:none;
+    -webkit-tap-highlight-color:transparent;
+    contain:layout style;
+  }
+  .tile::before{
+    content:"";
+    position:absolute;
+    width:78%;
+    height:78%;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(255,255,255,.62),rgba(255,255,255,0) 70%);
+    opacity:0;
+    transition:opacity .14s ease;
+    pointer-events:none;
+    z-index:0;
+  }
+  .lemon{
+    position:relative;
+    z-index:1;
+    width:120%;
+    height:120%;
+    display:block;
+    pointer-events:none;
+    filter:drop-shadow(0 4px 4px rgba(188,142,39,.2));
+    transition:transform .15s ease, filter .15s ease;
+    transform:scaleY(1.34);
+    transform-origin:50% 50%;
+  }
+  .num{
+    position:absolute;
+    inset:0;
+    z-index:2;
+    display:grid;
+    place-items:center;
+    padding-top:1px;
+    line-height:1;
+    font-size:clamp(15px,2.05vw,26px);
+    font-weight:900;
+    color:#2e5a73;
+    text-shadow:
+      0 1px 0 rgba(255,255,255,.95),
+      0 0 3px rgba(255,255,255,.95),
+      0 0 10px rgba(255,247,190,.9);
+    pointer-events:none;
+    font-variant-numeric:tabular-nums;
+  }
+  @media (hover:hover){
+    .tile:hover{z-index:4;}
+    .tile:hover .lemon{
+      transform:translateY(-2px) scale(1.04,1.4) rotate(-2deg);
+      filter:drop-shadow(0 6px 6px rgba(188,142,39,.23)) brightness(1.035);
+    }
+  }
+  .tile.selected{z-index:5;}
+  .tile.selected::before{opacity:1;}
+  .tile.selected .lemon{
+    transform:scale(1.08,1.44);
+    filter:
+      drop-shadow(0 0 4px rgba(255,236,155,.95))
+      drop-shadow(0 0 11px rgba(91,193,232,.55))
+      brightness(1.04);
+  }
+  .tile.popping{
+    pointer-events:none;
+    animation:tilePop .42s cubic-bezier(.25,.8,.25,1) forwards;
+  }
+  .tile:disabled{pointer-events:none;cursor:default;}
+  .grid.dealing .tile{
+    animation:dealIn .44s cubic-bezier(.2,.85,.25,1) both;
+    animation-delay:var(--d,0ms);
+  }
+
+  .marquee{
+    position:absolute;
+    left:0;top:0;
+    z-index:7;
+    display:block;
+    border:2px dashed rgba(83,180,222,.92);
+    border-radius:14px;
+    background:rgba(148,224,250,.16);
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.55), 0 12px 30px -14px rgba(62,159,201,.45);
+    pointer-events:none;
+    opacity:0;
+    transition:opacity .08s ease, border-color .12s, background .12s, box-shadow .12s;
+  }
+  .marquee.visible{opacity:1;}
+  .marquee.ten{
+    border-style:solid;
+    border-color:#70d6b2;
+    background:rgba(158,239,210,.22);
+    box-shadow:
+      inset 0 0 0 1px rgba(255,255,255,.75),
+      0 0 0 4px rgba(168,241,216,.24),
+      0 0 38px rgba(87,213,174,.38);
+  }
+  .marquee.over{
+    border-color:rgba(235,145,145,.8);
+    background:rgba(255,185,185,.12);
+  }
+
+  .readout{
+    position:absolute;
+    left:50%;
+    bottom:10px;
+    z-index:11;
+    transform:translateX(-50%) translateY(10px);
+    display:flex;
+    align-items:center;
+    gap:9px;
+    padding:7px 13px 7px 11px;
+    border-radius:99px;
+    border:1px solid rgba(255,255,255,.98);
+    background:rgba(255,255,255,.95);
+    box-shadow:0 12px 28px -13px rgba(52,133,173,.55), inset 0 1px 0 #fff;
+    font-size:11px;
+    font-weight:700;
+    color:#6593aa;
+    opacity:0;
+    pointer-events:none;
+    white-space:nowrap;
+    transition:opacity .1s, transform .1s, background .14s, color .14s;
+  }
+  .readout.visible{opacity:1;transform:translateX(-50%) translateY(0);}
+  .readout-label{
+    font-size:8.5px;
+    font-weight:900;
+    letter-spacing:.16em;
+    color:#9ab9c8;
+  }
+  .readout .sum{
+    min-width:21px;
+    text-align:center;
+    font-size:19px;
+    line-height:1;
+    font-weight:900;
+    color:#3888ad;
+    font-variant-numeric:tabular-nums;
+  }
+  .readout .count{
+    padding:3px 7px;
+    border-radius:99px;
+    background:#eaf8fe;
+    color:#7ba7bb;
+    font-size:9.5px;
+    font-weight:800;
+  }
+  .readout.ten{
+    background:rgba(245,255,251,.97);
+    border-color:#c4f3e1;
+    color:#2e9b7a;
+  }
+  .readout.ten .sum{color:#28a37e;}
+  .readout.ten .count{background:#def8ee;color:#299575;}
+  .readout.over{background:rgba(255,249,249,.97);border-color:#f7d7d7;color:#c37878;}
+  .readout.over .sum{color:#da8181;}
+
+  .toast{
+    position:absolute;
+    left:50%;
+    bottom:42px;
+    z-index:14;
+    transform:translate(-50%,6px);
+    padding:8px 15px;
+    border-radius:99px;
+    border:1px solid #fff;
+    background:rgba(255,255,255,.94);
+    color:#6f9aae;
+    font-size:11px;
+    font-weight:700;
+    box-shadow:0 12px 28px -15px rgba(52,133,173,.5);
+    pointer-events:none;
+    opacity:0;
+    transition:opacity .18s, transform .18s;
+  }
+  .toast.show{opacity:1;transform:translate(-50%,0);}
+
+  .particle{
+    position:absolute;
+    z-index:10;
+    width:7px;height:7px;
+    border-radius:50%;
+    pointer-events:none;
+    animation:particleBurst .64s cubic-bezier(.12,.7,.25,1) forwards;
+  }
+  .float-score{
+    position:absolute;
+    z-index:13;
+    transform:translate(-50%,-50%);
+    font-size:23px;
+    font-weight:900;
+    color:#2aa57f;
+    text-shadow:0 2px 0 #fff, 0 0 14px rgba(255,255,255,.9);
+    pointer-events:none;
+    white-space:nowrap;
+    animation:floatUp .82s cubic-bezier(.2,.8,.3,1) forwards;
+  }
+
+  .grid.nudge{animation:nudge .28s ease;}
+
+  /* ---------- start / end overlay ---------- */
+  .screen{
+    position:absolute;
+    inset:0;
+    z-index:30;
+    border-radius:var(--radius-board);
+    display:grid;
+    place-items:center;
+    overflow:hidden;
+    background:
+      radial-gradient(360px 280px at 50% 22%, rgba(255,255,255,.94), rgba(255,255,255,0) 72%),
+      linear-gradient(155deg,rgba(229,248,255,.76),rgba(214,244,252,.8) 55%,rgba(230,251,245,.8));
+    backdrop-filter:blur(15px) saturate(1.12);
+    -webkit-backdrop-filter:blur(15px) saturate(1.12);
+    transition:opacity .34s ease, visibility .34s ease;
+  }
+  .screen::before,
+  .screen::after{
+    content:"";
+    position:absolute;
+    border-radius:50%;
+    pointer-events:none;
+  }
+  .screen::before{
+    width:440px;height:240px;
+    left:4%;bottom:-150px;
+    background:rgba(255,255,255,.55);
+    filter:blur(6px);
+  }
+  .screen::after{
+    width:380px;height:220px;
+    right:2%;top:-150px;
+    background:rgba(255,255,255,.5);
+    filter:blur(8px);
+  }
+  .screen.hide{opacity:0;visibility:hidden;pointer-events:none;}
+
+  .start-card{
+    position:relative;
+    z-index:2;
+    width:min(486px,84%);
+    max-height:calc(100% - 34px);
+    padding:21px 30px 22px;
+    border-radius:30px;
+    text-align:center;
+    background:rgba(255,255,255,.82);
+    border:1px solid rgba(255,255,255,.98);
+    box-shadow:
+      0 36px 76px -30px rgba(40,122,161,.45),
+      0 2px 0 rgba(255,255,255,.8) inset,
+      0 0 0 1px rgba(255,255,255,.35);
+    backdrop-filter:blur(18px);
+    -webkit-backdrop-filter:blur(18px);
+    animation:cardIn .6s cubic-bezier(.2,.8,.25,1) both;
+    overflow:hidden;
+  }
+  .start-card::before{
+    content:"";
+    position:absolute;
+    width:240px;height:240px;
+    right:-95px;top:-110px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(159,227,253,.52),rgba(159,227,253,0) 70%);
+    pointer-events:none;
+  }
+  .start-card::after{
+    content:"";
+    position:absolute;
+    width:190px;height:190px;
+    left:-85px;bottom:-95px;
+    border-radius:50%;
+    background:radial-gradient(circle,rgba(183,241,222,.55),rgba(183,241,222,0) 70%);
+    pointer-events:none;
+  }
+  .start-card > *{position:relative;z-index:1;}
+
+  .screen-deco{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden;}
+  .float-lemon{
+    position:absolute;
+    opacity:.72;
+    filter:drop-shadow(0 16px 22px rgba(186,142,45,.17));
+  }
+  .float-lemon-a{
+    width:98px;height:98px;
+    left:8%;top:19%;
+    animation:driftA 7s ease-in-out infinite;
+  }
+  .float-lemon-b{
+    width:58px;height:58px;
+    right:9.5%;bottom:16%;
+    opacity:.6;
+    animation:driftB 6.2s ease-in-out infinite;
+  }
+  .float-lemon-c{
+    width:36px;height:36px;
+    right:12%;top:17%;
+    opacity:.42;
+    animation:driftA 8s ease-in-out infinite reverse;
+  }
+  .float-bubble{
+    position:absolute;
+    border-radius:50%;
+    border:1px solid rgba(255,255,255,.8);
+    background:radial-gradient(circle at 35% 30%,rgba(255,255,255,.9),rgba(210,244,255,.25));
+    box-shadow:inset 0 1px 2px rgba(255,255,255,.9);
+  }
+  .float-bubble.b1{width:34px;height:34px;left:19%;bottom:21%;opacity:.56;}
+  .float-bubble.b2{width:17px;height:17px;left:24%;top:20%;opacity:.48;}
+  .float-bubble.b3{width:24px;height:24px;right:19%;top:28%;opacity:.42;}
+
+  .hero-lemon{
+    position:relative;
+    width:72px;height:72px;
+    margin:0 auto 4px;
+    display:grid;place-items:center;
+    border-radius:25px;
+    background:
+      radial-gradient(circle at 38% 30%,#fffdf1 0%,rgba(255,252,229,.9) 30%,rgba(246,254,255,.82) 72%),
+      linear-gradient(145deg,#ffffff,#eefbff);
+    border:1px solid #fff;
+    box-shadow:
+      0 18px 30px -17px rgba(199,151,42,.55),
+      0 0 0 6px rgba(255,255,255,.3),
+      inset 0 1px 0 #fff;
+    animation:lemonFloat 3.6s ease-in-out infinite;
+  }
+  .hero-lemon::before,
+  .hero-lemon::after{
+    position:absolute;
+    color:#ffd56b;
+    text-shadow:0 0 9px rgba(255,255,255,.9);
+    pointer-events:none;
+  }
+  .hero-lemon::before{
+    content:"✦";
+    right:-12px;top:2px;
+    font-size:15px;
+    animation:twinkle 2.4s ease-in-out infinite;
+  }
+  .hero-lemon::after{
+    content:"✧";
+    left:-13px;bottom:3px;
+    font-size:11px;
+    animation:twinkle 2.4s ease-in-out .9s infinite;
+  }
+  .hero-lemon svg{
+    width:59px;height:59px;
+    filter:drop-shadow(0 5px 5px rgba(189,143,42,.19));
+  }
+  .eyebrow{
+    margin:8px 0 0;
+    color:#74a5bb;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:.24em;
+    line-height:1;
+  }
+  .start-card h2{
+    margin:9px 0 0;
+    font-size:37px;
+    line-height:1.06;
+    letter-spacing:-.01em;
+    font-weight:900;
+    color:#28607f;
+    text-shadow:0 1px 0 #fff;
+  }
+  .start-card h2 em{
+    font-style:normal;
+    color:#58b9df;
+  }
+  .lead{
+    margin:9px 0 0;
+    color:#628ea5;
+    font-size:12.5px;
+    line-height:1.58;
+    font-weight:650;
+    letter-spacing:-.005em;
+  }
+  .lead strong{color:#37a887;font-weight:900;}
+
+  .steps{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:8px;
+    margin:16px 0 0;
+  }
+  .step{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    gap:6px;
+    padding:10px 5px 9px;
+    border-radius:15px;
+    background:rgba(238,251,255,.78);
+    border:1px solid rgba(255,255,255,.96);
+  }
+  .step b{
+    width:23px;height:23px;
+    display:grid;place-items:center;
+    border-radius:50%;
+    background:#fff;
+    color:#77b4ce;
+    font-size:9px;
+    font-weight:900;
+    letter-spacing:.03em;
+    box-shadow:0 5px 10px -7px rgba(53,140,178,.55);
+  }
+  .step span{
+    font-size:10.5px;
+    line-height:1.34;
+    font-weight:700;
+    color:#638da4;
+    word-break:keep-all;
+  }
+  .step span em{font-style:normal;color:#2f9d7f;font-weight:900;}
+
+  .primary-btn{
+    position:relative;
+    width:100%;
+    height:53px;
+    margin-top:15px;
+    border:0;
+    border-radius:17px;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:9px;
+    cursor:pointer;
+    overflow:hidden;
+    color:#195972;
+    background:linear-gradient(135deg,#9ee6fa 0%,#8ce4d2 100%);
+    box-shadow:
+      0 15px 28px -12px rgba(53,171,202,.68),
+      inset 0 1px 0 rgba(255,255,255,.8),
+      inset 0 -2px 0 rgba(40,158,150,.12);
+    font-size:16px;
+    font-weight:900;
+    letter-spacing:-.01em;
+    transition:transform .16s ease, box-shadow .16s ease, filter .16s;
+  }
+  .primary-btn::before{
+    content:"";
+    position:absolute;
+    top:-50%;left:-70%;
+    width:60%;height:200%;
+    background:linear-gradient(90deg,transparent,rgba(255,255,255,.45),transparent);
+    transform:rotate(18deg);
+    transition:left .5s ease;
+  }
+  .primary-btn:hover{
+    transform:translateY(-2px);
+    filter:saturate(1.04);
+    box-shadow:
+      0 20px 34px -13px rgba(53,171,202,.76),
+      inset 0 1px 0 rgba(255,255,255,.9);
+  }
+  .primary-btn:hover::before{left:120%;}
+  .primary-btn:active{transform:translateY(0) scale(.99);}
+  .primary-btn small{
+    padding:4px 7px;
+    border-radius:99px;
+    background:rgba(255,255,255,.38);
+    font-size:8.5px;
+    font-weight:900;
+    letter-spacing:.11em;
+    color:#2a7a83;
+  }
+  .fine{
+    margin:11px 0 0;
+    font-size:10px;
+    font-weight:650;
+    color:#8aadb9;
+    line-height:1.4;
+  }
+  .fine strong{color:#5e99ad;font-weight:800;}
+
+  .result-card{padding-top:29px;}
+  .result-badge{
+    width:58px;height:58px;
+    margin:0 auto;
+    display:grid;place-items:center;
+    border-radius:50%;
+    color:#d6a13f;
+    background:linear-gradient(145deg,#fff4c2,#ffdf8b);
+    box-shadow:0 14px 26px -15px rgba(206,155,43,.68), inset 0 1px 0 rgba(255,255,255,.9);
+  }
+  .result-badge svg{width:28px;height:28px;}
+  .result-score{
+    margin:13px auto 0;
+    width:190px;
+    padding:12px 16px 13px;
+    border-radius:20px;
+    background:linear-gradient(155deg,#f4fdff,#e5f8ff);
+    border:1px solid #fff;
+    box-shadow:inset 0 1px 0 #fff, 0 12px 22px -22px rgba(45,130,170,.5);
+  }
+  .result-score span{
+    display:block;
+    font-size:8.5px;
+    font-weight:900;
+    letter-spacing:.2em;
+    color:#8eb4c4;
+  }
+  .result-score strong{
+    display:block;
+    margin-top:2px;
+    font-size:40px;
+    line-height:1;
+    font-weight:900;
+    color:#2e7f9f;
+    font-variant-numeric:tabular-nums;
+  }
+  .result-sub{
+    margin:10px 0 0;
+    font-size:11.5px;
+    font-weight:650;
+    color:#789faf;
+    line-height:1.45;
+  }
+  .result-sub .new-best{color:#2ca37e;font-weight:900;}
+  .result-card .primary-btn{margin-top:13px;}
+
+  .footer-tip{
+    width:min(1260px,100%);
+    min-height:21px;
+    margin:0 auto;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    gap:8px;
+    color:#789eaf;
+    font-size:10.5px;
+    font-weight:650;
+    letter-spacing:.005em;
+    white-space:nowrap;
+  }
+  .footer-tip .spark{color:#75c6e4;font-size:12px;}
+  .footer-tip strong{color:#438bac;font-weight:800;}
+  .footer-tip .dot{width:3px;height:3px;border-radius:50%;background:#aecbd7;}
+
+  /* ---------- animations ---------- */
+  @keyframes lowPulse{0%,100%{box-shadow:0 16px 34px -22px rgba(229,131,131,.4),inset 0 1px 0 #fff;}50%{box-shadow:0 16px 34px -18px rgba(229,131,131,.58),inset 0 1px 0 #fff;}}
+  @keyframes scoreBump{0%{transform:scale(1);}36%{transform:scale(1.25);color:#2da882;}100%{transform:scale(1);}}
+  @keyframes tilePop{0%{transform:scale(1);opacity:1;}30%{transform:scale(1.14) rotate(2deg);opacity:1;box-shadow:0 0 0 4px rgba(255,239,177,.55),0 8px 18px -6px rgba(63,139,175,.4);}100%{transform:scale(.28) rotate(-8deg);opacity:0;}}
+  @keyframes dealIn{0%{opacity:0;transform:scale(.48) translateY(7px);}75%{opacity:1;transform:scale(1.04);}100%{opacity:1;transform:scale(1);}}
+  @keyframes particleBurst{0%{opacity:1;transform:translate(-50%,-50%) scale(1) rotate(0deg);}100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(.18) rotate(var(--rot));}}
+  @keyframes floatUp{0%{opacity:0;transform:translate(-50%,-35%) scale(.72);}22%{opacity:1;transform:translate(-50%,-60%) scale(1.12);}100%{opacity:0;transform:translate(-50%,-190%) scale(.9);}}
+  @keyframes nudge{0%,100%{transform:translateX(0);}22%{transform:translateX(-4px);}46%{transform:translateX(4px);}70%{transform:translateX(-2px);}}
+  @keyframes cardIn{0%{opacity:0;transform:translateY(16px) scale(.97);}100%{opacity:1;transform:translateY(0) scale(1);}}
+  @keyframes lemonFloat{0%,100%{transform:translateY(0) rotate(-2deg);}50%{transform:translateY(-4px) rotate(2deg);}}
+  @keyframes twinkle{0%,100%{opacity:.35;transform:scale(.8) rotate(0deg);}50%{opacity:1;transform:scale(1.12) rotate(18deg);}}
+  @keyframes driftA{0%,100%{transform:translate3d(0,0,0) rotate(-17deg);}50%{transform:translate3d(0,-13px,0) rotate(-9deg);}}
+  @keyframes driftB{0%,100%{transform:translate3d(0,0,0) rotate(14deg);}50%{transform:translate3d(7px,-9px,0) rotate(22deg);}}
+
+  @media (max-width:1000px){
+    .start-card{
+      width:min(430px,88%);
+      max-height:calc(100% - 16px);
+      padding:13px 22px 13px;
+      border-radius:24px;
+    }
+    .hero-lemon{width:54px;height:54px;border-radius:19px;margin-bottom:2px;}
+    .hero-lemon svg{width:44px;height:44px;}
+    .hero-lemon::before{font-size:12px;right:-10px;}
+    .hero-lemon::after{font-size:9px;left:-10px;}
+    .eyebrow{margin-top:5px;font-size:8px;}
+    .start-card h2{font-size:29px;margin-top:6px;}
+    .lead{margin-top:6px;font-size:11px;line-height:1.48;}
+    .steps{margin-top:10px;gap:6px;}
+    .step{padding:7px 4px 6px;border-radius:12px;gap:4px;}
+    .step b{width:19px;height:19px;font-size:8px;}
+    .step span{font-size:9px;line-height:1.3;}
+    .primary-btn{height:43px;margin-top:10px;font-size:14px;border-radius:14px;}
+    .primary-btn small{font-size:7.5px;}
+    .fine{margin-top:7px;font-size:8.5px;}
+    .float-lemon-a{width:60px;height:60px;left:6%;top:12%;}
+    .float-lemon-b{width:39px;height:39px;right:6%;bottom:10%;}
+    .float-lemon-c{display:none;}
+    .float-bubble.b1{left:9%;bottom:14%;}
+    .float-bubble.b2{left:16%;top:12%;}
+    .float-bubble.b3{right:9%;top:16%;}
+    .result-card{padding-top:18px;}
+    .result-badge{width:45px;height:45px;}
+    .result-badge svg{width:22px;height:22px;}
+    .result-score{margin-top:9px;width:160px;padding:9px 12px 10px;}
+    .result-score strong{font-size:32px;}
+    .result-sub{margin-top:7px;font-size:10px;}
+  }
+
+  @media (max-width:900px){
+    .app{padding:10px 14px 8px;}
+    .brand p{display:none;}
+    .brand h1{font-size:18px;}
+    .brand-mark{width:42px;height:42px;border-radius:14px;}
+    .brand-mark svg{width:33px;height:33px;}
+    .timer-card{width:178px;height:52px;}
+    .score-card{min-width:124px;height:52px;}
+  }
+  @media (max-width:640px){
+    .topbar{grid-template-columns:1fr auto;gap:8px;}
+    .timer-card{display:none;}
+    .brand p{display:none;}
+    .score-card{min-width:112px;}
+    .footer-tip{font-size:9px;}
+    .footer-tip .hide-mobile{display:none;}
+    .start-card{width:92%;padding:18px 20px 20px;}
+    .start-card h2{font-size:30px;}
+    .lead{font-size:11.5px;}
+    .steps{margin-top:12px;}
+  }
+</style>
+</head>
+<body>
+  <!-- shared lemon artwork -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <defs>
+      <linearGradient id="lemonGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#fff8c9"/>
+        <stop offset=".42" stop-color="#ffe99b"/>
+        <stop offset="1" stop-color="#ffd87a"/>
+      </linearGradient>
+      <linearGradient id="leafGrad" x1="0" y1="0" x2="1" y2="1">
+        <stop offset="0" stop-color="#c4f0d5"/>
+        <stop offset="1" stop-color="#82d6b1"/>
+      </linearGradient>
+      <symbol id="lemon-symbol" viewBox="0 0 64 64">
+        <g transform="rotate(-17 32 33)">
+          <ellipse cx="9.5" cy="34" rx="5" ry="3.4" fill="#ffe99b"/>
+          <ellipse cx="54.5" cy="34" rx="5" ry="3.4" fill="#ffdf86"/>
+          <ellipse cx="32" cy="34" rx="21.5" ry="15.7" fill="url(#lemonGrad)" stroke="#e8c466" stroke-opacity=".5" stroke-width="1"/>
+          <ellipse cx="25.5" cy="28.4" rx="8.4" ry="4.4" fill="#fffbd9" opacity=".64" transform="rotate(-9 25.5 28.4)"/>
+          <circle cx="40.5" cy="40" r="1.1" fill="#efc968" opacity=".55"/>
+          <circle cx="45" cy="36.5" r=".8" fill="#efc968" opacity=".45"/>
+        </g>
+        <path d="M37.2 18.7c.5-6.7 6.6-10.6 12.4-9.4-.7 6.2-5.2 10.9-12 11.5z" fill="url(#leafGrad)" stroke="#75c7a2" stroke-width=".8"/>
+        <path d="M37.8 19.2c2.2-3.2 4.9-5.3 8.2-6.7" fill="none" stroke="#fff" stroke-opacity=".46" stroke-width="1.15" stroke-linecap="round"/>
+        <path d="M32.8 20.3c.6-3.4 2.4-5.9 4.8-7.7" fill="none" stroke="#9acda9" stroke-width="1.5" stroke-linecap="round"/>
+      </symbol>
+    </defs>
+  </svg>
+
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">
+          <svg viewBox="0 0 64 64" aria-hidden="true"><use href="#lemon-symbol"/></svg>
+        </div>
+        <div>
+          <h1>LEMON <span>TEN</span></h1>
+          <p>합이 10이 되는 레몬을 찾아라!</p>
+        </div>
+      </div>
+
+      <div class="timer-card glass" id="timerCard">
+        <div class="timer-row">
+          <span class="hud-label">TIME</span>
+          <span id="time">02:00</span>
+        </div>
+        <div class="time-track"><div id="timeBar"></div></div>
+      </div>
+
+      <div class="top-actions">
+        <button class="sound-btn" id="soundBtn" type="button" aria-label="소리 끄기" aria-pressed="false">
+          <svg class="sound-on" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 5 6.5 9H3v6h3.5L11 19V5Z"/><path d="M15 9.2a4 4 0 0 1 0 5.6"/><path d="M18 6.5a8 8 0 0 1 0 11"/>
+          </svg>
+          <svg class="sound-off" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path d="M11 5 6.5 9H3v6h3.5L11 19V5Z"/><path d="m16 9 5 5"/><path d="m21 9-5 5"/>
+          </svg>
+        </button>
+        <div class="score-card glass" id="scoreCard">
+          <div class="score-meta">
+            <span class="hud-label">SCORE</span>
+            <strong id="score">0</strong>
+          </div>
+          <div class="score-star">
+            <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.8 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2L3 9.4l6.2-.9L12 2.8Z"/></svg>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main class="stage">
+      <section class="board" aria-label="레몬 텐 게임 보드">
+        <div class="grid" id="grid" aria-label="20 x 10 레몬 숫자 격자"></div>
+        <div class="marquee" id="marquee" aria-hidden="true"></div>
+        <div class="readout" id="readout" aria-live="polite">
+          <span class="readout-label">SUM</span>
+          <strong class="sum" id="readoutSum">0</strong>
+          <span class="count" id="readoutCount">0개</span>
+          <span id="readoutHint">10을 만들어보세요</span>
+        </div>
+        <div class="toast" id="toast" role="status"></div>
+
+        <div class="screen" id="screen">
+          <div class="screen-deco" aria-hidden="true">
+            <svg class="float-lemon float-lemon-a" viewBox="0 0 64 64"><use href="#lemon-symbol"/></svg>
+            <svg class="float-lemon float-lemon-b" viewBox="0 0 64 64"><use href="#lemon-symbol"/></svg>
+            <svg class="float-lemon float-lemon-c" viewBox="0 0 64 64"><use href="#lemon-symbol"/></svg>
+            <span class="float-bubble b1"></span>
+            <span class="float-bubble b2"></span>
+            <span class="float-bubble b3"></span>
+          </div>
+          <div class="start-card" id="screenCard">
+            <div class="hero-lemon">
+              <svg viewBox="0 0 64 64" aria-hidden="true"><use href="#lemon-symbol"/></svg>
+            </div>
+            <p class="eyebrow">SWEET NUMBER PUZZLE</p>
+            <h2>레몬 <em>TEN</em></h2>
+            <p class="lead">드래그로 숫자를 감싸 합이 <strong>10</strong>이 되면<br>레몬이 팡! 터져요.</p>
+            <div class="steps">
+              <div class="step"><b>01</b><span>레몬을<br>드래그</span></div>
+              <div class="step"><b>02</b><span>합이<br><em>10</em> 만들기</span></div>
+              <div class="step"><b>03</b><span>레몬 수만큼<br>점수 획득</span></div>
+            </div>
+            <button class="primary-btn" id="startBtn" type="button">
+              시작하기 <small>120 SEC</small>
+            </button>
+            <p class="fine">최고 점수 <strong id="bestStart">0</strong> · 선택한 레몬 수만큼 점수가 쌓여요</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="footer-tip">
+      <span class="spark">✦</span>
+      <span>드래그로 숫자를 감싸 <strong>합이 10</strong>이 되면 레몬이 팡!</span>
+      <span class="dot hide-mobile"></span>
+      <span class="hide-mobile">점수는 <strong>터진 레몬 수</strong>만큼</span>
+    </footer>
+  </div>
+
+  <script>
+  (() => {
+    "use strict";
+
+    const COLS = 20;
+    const ROWS = 7;
+    const TOTAL = COLS * ROWS;
+    const GAME_SECONDS = 120;
+    const GAME_MS = GAME_SECONDS * 1000;
+
+    const grid = document.getElementById("grid");
+    const marquee = document.getElementById("marquee");
+    const readout = document.getElementById("readout");
+    const readoutSum = document.getElementById("readoutSum");
+    const readoutCount = document.getElementById("readoutCount");
+    const readoutHint = document.getElementById("readoutHint");
+    const toast = document.getElementById("toast");
+    const screen = document.getElementById("screen");
+    const screenCard = document.getElementById("screenCard");
+    const startBtn = document.getElementById("startBtn");
+    const soundBtn = document.getElementById("soundBtn");
+    const scoreEl = document.getElementById("score");
+    const scoreCard = document.getElementById("scoreCard");
+    const timerCard = document.getElementById("timerCard");
+    const timeEl = document.getElementById("time");
+    const timeBar = document.getElementById("timeBar");
+    const bestStart = document.getElementById("bestStart");
+
+    const state = {
+      tiles: [],
+      playing: false,
+      score: 0,
+      best: 0,
+      soundMuted: false,
+      dragging: false,
+      anchor: -1,
+      pointerId: null,
+      cells: [],
+      sum: 0,
+      count: 0,
+      endAt: 0,
+      lastSecond: GAME_SECONDS,
+      raf: 0
+    };
+
+    /* ---------------- storage ---------------- */
+    function readStorage(key, fallback) {
+      try {
+        const value = window.localStorage.getItem(key);
+        return value === null ? fallback : value;
+      } catch (_) {
+        return fallback;
+      }
+    }
+    function writeStorage(key, value) {
+      try { window.localStorage.setItem(key, String(value)); } catch (_) {}
+    }
+
+    state.best = Math.max(0, parseInt(readStorage("lemon-ten-best", "0"), 10) || 0);
+    state.soundMuted = readStorage("lemon-ten-muted", "0") === "1";
+
+    function updateBestLabels() {
+      if (bestStart) bestStart.textContent = String(state.best);
+      const resultBest = document.getElementById("resultBest");
+      if (resultBest) resultBest.textContent = String(state.best);
+    }
+
+    /* ---------------- board ---------------- */
+    function randomValue() {
+      return 1 + Math.floor(Math.random() * 9);
+    }
+
+    function setTileValue(tile, value) {
+      tile.dataset.value = String(value);
+      tile.querySelector(".num").textContent = String(value);
+      tile.setAttribute("aria-label", "레몬 " + value);
+    }
+
+    function createBoard() {
+      const fragment = document.createDocumentFragment();
+      for (let i = 0; i < TOTAL; i++) {
+        const tile = document.createElement("button");
+        tile.type = "button";
+        tile.className = "tile";
+        tile.dataset.index = String(i);
+        tile.setAttribute("aria-label", "레몬 " + randomValue());
+        tile.innerHTML =
+          '<svg class="lemon" viewBox="0 0 64 64" aria-hidden="true"><use href="#lemon-symbol"/></svg>' +
+          '<span class="num"></span>';
+        setTileValue(tile, randomValue());
+        state.tiles.push(tile);
+        fragment.appendChild(tile);
+      }
+      grid.appendChild(fragment);
+    }
+
+    function resetBoard(animate) {
+      state.tiles.forEach((tile) => {
+        tile.disabled = false;
+        tile.classList.remove("selected", "popping");
+        tile.style.removeProperty("--d");
+        setTileValue(tile, randomValue());
+      });
+
+      hideSelectionUI();
+      toast.classList.remove("show");
+      grid.classList.remove("nudge");
+      grid.classList.remove("dealing");
+
+      if (animate) {
+        void grid.offsetWidth;
+        state.tiles.forEach((tile, i) => {
+          const row = Math.floor(i / COLS);
+          const col = i % COLS;
+          tile.style.setProperty("--d", ((row + col) * 9) + "ms");
+        });
+        grid.classList.add("dealing");
+        window.setTimeout(() => {
+          grid.classList.remove("dealing");
+          state.tiles.forEach((tile) => tile.style.removeProperty("--d"));
+        }, 900);
+      }
+    }
+
+    /* ---------------- selection geometry ---------------- */
+    function gridMetrics() {
+      const t0 = state.tiles[0];
+      const t1 = state.tiles[1];
+      const tRow = state.tiles[COLS];
+      if (!t0 || !t1 || !tRow) return null;
+      return {
+        w: t0.offsetWidth,
+        h: t0.offsetHeight,
+        gapX: t1.offsetLeft - (t0.offsetLeft + t0.offsetWidth),
+        gapY: tRow.offsetTop - (t0.offsetTop + t0.offsetHeight)
+      };
+    }
+
+    function cellFromPoint(clientX, clientY) {
+      const metrics = gridMetrics();
+      if (!metrics || metrics.w <= 0 || metrics.h <= 0) return 0;
+      const rect = grid.getBoundingClientRect();
+      const localX = Math.min(Math.max(clientX - rect.left, 0), Math.max(0, rect.width - 0.01));
+      const localY = Math.min(Math.max(clientY - rect.top, 0), Math.max(0, rect.height - 0.01));
+      const col = Math.min(COLS - 1, Math.max(0, Math.floor(localX / (metrics.w + metrics.gapX))));
+      const row = Math.min(ROWS - 1, Math.max(0, Math.floor(localY / (metrics.h + metrics.gapY))));
+      return row * COLS + col;
+    }
+
+    function updateSelection(endIndex) {
+      if (!state.dragging) return;
+      const aRow = Math.floor(state.anchor / COLS);
+      const aCol = state.anchor % COLS;
+      const bRow = Math.floor(endIndex / COLS);
+      const bCol = endIndex % COLS;
+      const r1 = Math.min(aRow, bRow);
+      const r2 = Math.max(aRow, bRow);
+      const c1 = Math.min(aCol, bCol);
+      const c2 = Math.max(aCol, bCol);
+
+      for (const tile of state.cells) tile.classList.remove("selected");
+
+      const cells = [];
+      let sum = 0;
+      let count = 0;
+      for (let r = r1; r <= r2; r++) {
+        for (let c = c1; c <= c2; c++) {
+          const tile = state.tiles[r * COLS + c];
+          cells.push(tile);
+          const value = Number(tile.dataset.value) || 0;
+          if (value > 0) {
+            tile.classList.add("selected");
+            sum += value;
+            count += 1;
+          }
+        }
+      }
+
+      state.cells = cells;
+      state.sum = sum;
+      state.count = count;
+
+      const first = state.tiles[r1 * COLS + c1];
+      const last = state.tiles[r2 * COLS + c2];
+      const x = first.offsetLeft;
+      const y = first.offsetTop;
+      marquee.style.left = (x - 2) + "px";
+      marquee.style.top = (y - 2) + "px";
+      marquee.style.width = (last.offsetLeft + last.offsetWidth - x + 4) + "px";
+      marquee.style.height = (last.offsetTop + last.offsetHeight - y + 4) + "px";
+
+      marquee.classList.add("visible");
+      marquee.classList.toggle("ten", sum === 10);
+      marquee.classList.toggle("over", sum > 10);
+
+      const isTen = sum === 10;
+      const isOver = sum > 10;
+      readout.classList.add("visible");
+      readout.classList.toggle("ten", isTen);
+      readout.classList.toggle("over", isOver);
+      readoutSum.textContent = String(sum);
+      readoutCount.textContent = count + "개";
+      readoutHint.textContent = isTen
+        ? "놓아서 팡! +" + count
+        : isOver
+          ? "10보다 " + (sum - 10) + " 커요"
+          : "10까지 " + (10 - sum);
+    }
+
+    function hideSelectionUI() {
+      for (const tile of state.cells) tile.classList.remove("selected");
+      state.cells = [];
+      state.sum = 0;
+      state.count = 0;
+      marquee.classList.remove("visible", "ten", "over");
+      readout.classList.remove("visible", "ten", "over");
+    }
+
+    function cancelDrag() {
+      if (!state.dragging) return;
+      state.dragging = false;
+      if (state.pointerId !== null) {
+        try { grid.releasePointerCapture(state.pointerId); } catch (_) {}
+      }
+      state.pointerId = null;
+      hideSelectionUI();
+    }
+
+    /* ---------------- drag events ---------------- */
+    grid.addEventListener("pointerdown", (event) => {
+      if (!state.playing || state.dragging) return;
+      if (event.pointerType === "mouse" && event.button !== 0) return;
+      const tile = event.target.closest(".tile");
+      if (!tile || !grid.contains(tile)) return;
+      if (!tile.dataset.value) return;
+
+      event.preventDefault();
+      state.dragging = true;
+      state.anchor = Number(tile.dataset.index);
+      state.pointerId = event.pointerId;
+      try { grid.setPointerCapture(event.pointerId); } catch (_) {}
+      updateSelection(state.anchor);
+    });
+
+    grid.addEventListener("pointermove", (event) => {
+      if (!state.dragging || event.pointerId !== state.pointerId) return;
+      event.preventDefault();
+      updateSelection(cellFromPoint(event.clientX, event.clientY));
+    });
+
+    function finishDrag(event, cancelled) {
+      if (!state.dragging || (event && event.pointerId !== state.pointerId)) return;
+      if (event && !cancelled) {
+        updateSelection(cellFromPoint(event.clientX, event.clientY));
+      }
+
+      const cells = state.cells.slice();
+      const sum = state.sum;
+      const count = state.count;
+      const targets = cells.filter((tile) => Number(tile.dataset.value) > 0);
+
+      const rect = marquee.getBoundingClientRect();
+      const gridRect = grid.getBoundingClientRect();
+      const centerX = rect.left - gridRect.left + rect.width / 2;
+      const centerY = rect.top - gridRect.top + rect.height / 2;
+
+      state.dragging = false;
+      if (state.pointerId !== null) {
+        try { grid.releasePointerCapture(state.pointerId); } catch (_) {}
+      }
+      state.pointerId = null;
+      hideSelectionUI();
+
+      if (cancelled) return;
+
+      if (sum === 10 && count >= 2 && targets.length) {
+        addScore(count);
+        showFloatScore(centerX, centerY, count);
+        popTiles(targets);
+        playPop(count);
+      } else {
+        grid.classList.remove("nudge");
+        void grid.offsetWidth;
+        grid.classList.add("nudge");
+        window.setTimeout(() => grid.classList.remove("nudge"), 300);
+        showToast(sum === 10 ? "레몬을 2개 이상 골라주세요" : "합이 10이 아니에요 · 다시 골라보세요");
+        playMiss();
+      }
+    }
+
+    grid.addEventListener("pointerup", (event) => finishDrag(event, false));
+    grid.addEventListener("pointercancel", (event) => finishDrag(event, true));
+
+    /* ---------------- score & effects ---------------- */
+    function addScore(count) {
+      state.score += count;
+      scoreEl.textContent = String(state.score);
+      scoreCard.classList.remove("bump");
+      void scoreCard.offsetWidth;
+      scoreCard.classList.add("bump");
+      window.setTimeout(() => scoreCard.classList.remove("bump"), 380);
+    }
+
+    let toastTimer = 0;
+    function showToast(message) {
+      toast.textContent = message;
+      toast.classList.add("show");
+      clearTimeout(toastTimer);
+      toastTimer = window.setTimeout(() => toast.classList.remove("show"), 1150);
+    }
+
+    function showFloatScore(x, y, count) {
+      const el = document.createElement("span");
+      el.className = "float-score";
+      el.textContent = "+" + count;
+      el.style.left = x + "px";
+      el.style.top = y + "px";
+      grid.appendChild(el);
+      window.setTimeout(() => el.remove(), 850);
+    }
+
+    function spawnParticles(tile) {
+      const gridRect = grid.getBoundingClientRect();
+      const tileRect = tile.getBoundingClientRect();
+      const cx = tileRect.left - gridRect.left + tileRect.width / 2;
+      const cy = tileRect.top - gridRect.top + tileRect.height / 2;
+      const colors = ["#ffeaa4", "#89dcf3", "#ffffff", "#9ce5c9", "#ffd77b"];
+
+      for (let i = 0; i < 7; i++) {
+        const particle = document.createElement("span");
+        const angle = (Math.PI * 2 * i) / 7 + Math.random() * 0.55;
+        const distance = 18 + Math.random() * 30;
+        particle.className = "particle";
+        particle.style.left = cx + "px";
+        particle.style.top = cy + "px";
+        particle.style.width = (4 + Math.random() * 4) + "px";
+        particle.style.height = particle.style.width;
+        particle.style.background = colors[i % colors.length];
+        particle.style.setProperty("--dx", (Math.cos(angle) * distance).toFixed(1) + "px");
+        particle.style.setProperty("--dy", (Math.sin(angle) * distance - 8).toFixed(1) + "px");
+        particle.style.setProperty("--rot", Math.round(Math.random() * 240 - 120) + "deg");
+        grid.appendChild(particle);
+        window.setTimeout(() => particle.remove(), 700);
+      }
+    }
+
+    function popTiles(tiles) {
+      tiles.forEach((tile) => {
+        const value = Number(tile.dataset.value);
+        if (!value) return;
+        spawnParticles(tile);
+        tile.dataset.value = "";
+        tile.querySelector(".num").textContent = "";
+        tile.setAttribute("aria-label", "빈 레몬 칸");
+        tile.classList.remove("selected");
+        tile.classList.add("popping");
+        tile.disabled = true;
+      });
+    }
+
+    /* ---------------- timer ---------------- */
+    function formatTime(seconds) {
+      const safe = Math.max(0, seconds);
+      const mins = Math.floor(safe / 60);
+      const secs = safe % 60;
+      return String(mins).padStart(2, "0") + ":" + String(secs).padStart(2, "0");
+    }
+
+    function renderTimer(remaining) {
+      const safe = Math.max(0, remaining);
+      timeBar.style.width = (safe / GAME_MS * 100).toFixed(2) + "%";
+      const second = Math.ceil(safe / 1000);
+      if (second !== state.lastSecond) {
+        state.lastSecond = second;
+        timeEl.textContent = formatTime(second);
+        if (second > 0 && second <= 10) playTick();
+      }
+      timerCard.classList.toggle("low", second <= 20 && second > 0);
+    }
+
+    function timerLoop(now) {
+      if (!state.playing) return;
+      const remaining = Math.max(0, state.endAt - now);
+      renderTimer(remaining);
+      if (remaining <= 0) {
+        endGame();
+        return;
+      }
+      state.raf = requestAnimationFrame(timerLoop);
+    }
+
+    function startGame() {
+      if (state.playing) return;
+      ensureAudio();
+      state.playing = true;
+      state.score = 0;
+      state.lastSecond = GAME_SECONDS;
+      scoreEl.textContent = "0";
+      scoreCard.classList.remove("bump");
+      timerCard.classList.remove("low");
+      resetBoard(true);
+      timeEl.textContent = formatTime(GAME_SECONDS);
+      timeBar.style.width = "100%";
+
+      screen.classList.add("hide");
+      screen.setAttribute("aria-hidden", "true");
+
+      state.endAt = performance.now() + GAME_MS;
+      cancelAnimationFrame(state.raf);
+      state.raf = requestAnimationFrame(timerLoop);
+      playStart();
+    }
+
+    function endGame() {
+      if (!state.playing) return;
+      state.playing = false;
+      cancelAnimationFrame(state.raf);
+      cancelDrag();
+      renderTimer(0);
+      timeEl.textContent = "00:00";
+
+      const newBest = state.score > state.best;
+      if (newBest) {
+        state.best = state.score;
+        writeStorage("lemon-ten-best", state.best);
+      }
+
+      const score = state.score;
+      const message = score > 0
+        ? "레몬 " + score + "개를 터뜨렸어요"
+        : "첫 레몬을 노려볼까요?";
+
+      screenCard.className = "start-card result-card";
+      screenCard.innerHTML =
+        '<div class="result-badge">' +
+          '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="m12 2.8 2.8 5.7 6.2.9-4.5 4.4 1.1 6.2-5.6-2.9-5.6 2.9 1.1-6.2L3 9.4l6.2-.9L12 2.8Z"/></svg>' +
+        '</div>' +
+        '<p class="eyebrow">TIME IS UP</p>' +
+        '<h2>수고했어요!</h2>' +
+        '<div class="result-score"><span>SCORE</span><strong>' + score + '</strong></div>' +
+        '<p class="result-sub">' + message +
+          (newBest ? ' <span class="new-best">NEW BEST!</span>' : '') +
+        '</p>' +
+        '<button class="primary-btn" type="button" data-action="retry">다시 도전 <small>120 SEC</small></button>' +
+        '<p class="fine">최고 점수 <strong id="resultBest">' + state.best + '</strong> · 선택한 레몬 수만큼 점수</p>';
+
+      screenCard.style.animation = "none";
+      void screenCard.offsetWidth;
+      screenCard.style.animation = "";
+
+      screen.classList.remove("hide");
+      screen.removeAttribute("aria-hidden");
+      playEnd();
+    }
+
+    /* ---------------- sound ---------------- */
+    let audioCtx = null;
+
+    function ensureAudio() {
+      if (state.soundMuted) return null;
+      try {
+        const AudioCtor = window.AudioContext || window.webkitAudioContext;
+        if (!AudioCtor) return null;
+        if (!audioCtx) audioCtx = new AudioCtor();
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        return audioCtx;
+      } catch (_) {
+        return null;
+      }
+    }
+
+    function tone(options) {
+      if (state.soundMuted) return;
+      const ctx = ensureAudio();
+      if (!ctx) return;
+      const freq = options.freq || 440;
+      const duration = options.duration || 0.12;
+      const type = options.type || "sine";
+      const volume = options.volume || 0.035;
+      const delay = options.delay || 0;
+      try {
+        const start = ctx.currentTime + delay;
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        osc.type = type;
+        osc.frequency.setValueAtTime(Math.max(20, freq), start);
+        if (options.slideTo) {
+          osc.frequency.exponentialRampToValueAtTime(Math.max(20, options.slideTo), start + duration);
+        }
+        gain.gain.setValueAtTime(0.0001, start);
+        gain.gain.exponentialRampToValueAtTime(volume, start + 0.012);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + duration);
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+        osc.start(start);
+        osc.stop(start + duration + 0.03);
+      } catch (_) {}
+    }
+
+    function playStart() {
+      tone({ freq: 392, duration: 0.14, type: "sine", volume: 0.03 });
+      tone({ freq: 523, duration: 0.16, type: "sine", volume: 0.03, delay: 0.09 });
+      tone({ freq: 659, duration: 0.2, type: "sine", volume: 0.028, delay: 0.18 });
+    }
+
+    function playPop(count) {
+      const notes = Math.min(5, Math.max(2, count));
+      for (let i = 0; i < notes; i++) {
+        tone({
+          freq: 520 + i * 75,
+          slideTo: 740 + i * 80,
+          duration: 0.13,
+          type: "triangle",
+          volume: 0.042,
+          delay: i * 0.032
+        });
+      }
+      tone({ freq: 1050, duration: 0.19, type: "sine", volume: 0.022, delay: 0.07 });
+    }
+
+    function playMiss() {
+      tone({ freq: 230, slideTo: 175, duration: 0.16, type: "sine", volume: 0.032 });
+    }
+
+    function playTick() {
+      tone({ freq: 880, duration: 0.045, type: "sine", volume: 0.018 });
+    }
+
+    function playEnd() {
+      tone({ freq: 523, duration: 0.18, type: "sine", volume: 0.03 });
+      tone({ freq: 440, duration: 0.18, type: "sine", volume: 0.03, delay: 0.14 });
+      tone({ freq: 349, duration: 0.3, type: "sine", volume: 0.028, delay: 0.28 });
+    }
+
+    function syncSoundButton() {
+      soundBtn.classList.toggle("muted", state.soundMuted);
+      soundBtn.setAttribute("aria-pressed", String(state.soundMuted));
+      soundBtn.setAttribute("aria-label", state.soundMuted ? "소리 켜기" : "소리 끄기");
+    }
+
+    soundBtn.addEventListener("click", () => {
+      state.soundMuted = !state.soundMuted;
+      writeStorage("lemon-ten-muted", state.soundMuted ? "1" : "0");
+      syncSoundButton();
+      if (!state.soundMuted) {
+        ensureAudio();
+        tone({ freq: 660, duration: 0.09, type: "sine", volume: 0.028 });
+      }
+    });
+
+    screen.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-action]");
+      if (!button) return;
+      const action = button.dataset.action;
+      if (action === "start" || action === "retry") startGame();
+    });
+
+    /* ---------------- boot ---------------- */
+    startBtn.dataset.action = "start";
+    createBoard();
+    updateBestLabels();
+    syncSoundButton();
+  })();
+  </script>
+</body>
+</html>

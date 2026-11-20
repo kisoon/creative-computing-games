@@ -1,0 +1,1328 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>달콤 옷장 · Dolly's Dress-Up Room</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🍓</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Gaegu:wght@400;700&family=Gowun+Dodum&display=swap" rel="stylesheet">
+<style>
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    font-family:"Gowun Dodum","Apple SD Gothic Neo","Malgun Gothic",sans-serif;
+    color:#5b4453;
+    background:
+      radial-gradient(circle at 8% 8%, #fff2f7 0, transparent 42%),
+      radial-gradient(circle at 92% 92%, #ece6ff 0, transparent 45%),
+      linear-gradient(135deg,#ffe1ed,#fff1e6 55%,#e9e3ff);
+    min-height:100dvh; padding:14px; overflow:hidden;
+  }
+  .app{height:calc(100dvh - 28px); display:grid; grid-template-columns:minmax(350px,420px) 1fr; gap:14px;}
+
+  /* ---------- closet panel ---------- */
+  .closet{
+    background:rgba(255,255,255,.78); border:1.5px solid #fff; border-radius:30px;
+    padding:18px 16px; display:flex; flex-direction:column; gap:12px;
+    box-shadow:0 20px 45px -24px rgba(190,110,145,.5); backdrop-filter:blur(14px);
+    overflow-y:auto;
+  }
+  .closet::-webkit-scrollbar{width:8px}
+  .closet::-webkit-scrollbar-thumb{background:#ffd3e2; border-radius:8px}
+  .closet::-webkit-scrollbar-track{background:transparent}
+  .closet-head{display:flex; align-items:center; justify-content:space-between; gap:10px; padding:0 4px}
+  .closet-head h1{
+    font-family:"Gaegu","Apple SD Gothic Neo",sans-serif; font-size:33px; line-height:1; margin:0;
+    color:#e2678c; font-weight:700; letter-spacing:-.5px;
+  }
+  .closet-head h1 .berry{font-size:26px}
+  .closet-head p{margin:5px 0 0; font-size:11px; letter-spacing:1.6px; color:#c79aad; text-transform:uppercase}
+  .badge{
+    width:42px; height:42px; border-radius:50%; display:grid; place-items:center;
+    background:linear-gradient(135deg,#ffe0ec,#ffc4d8); color:#e2678c; font-size:19px;
+    box-shadow:inset 0 2px 0 #fff, 0 5px 12px rgba(230,140,170,.25);
+    flex:0 0 auto;
+  }
+
+  .tabs{display:flex; gap:6px; overflow-x:auto; padding:2px 2px 7px; scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{
+    flex:0 0 auto; border:0; background:#fff; color:#a07a8c; border-radius:14px;
+    padding:7px 10px; font-family:inherit; font-size:12px; cursor:pointer;
+    box-shadow:0 2px 6px rgba(200,150,170,.12); transition:.2s;
+    display:flex; align-items:center; gap:4px;
+  }
+  .tab b{font-size:14px; font-weight:400}
+  .tab:hover{color:#e2678c}
+  .tab.active{
+    background:linear-gradient(135deg,#ffb3c9,#ff8fb0); color:#fff;
+    box-shadow:0 5px 14px rgba(255,143,176,.4); transform:translateY(-1px);
+  }
+
+  .items{display:grid; grid-template-columns:repeat(4,1fr); gap:7px}
+  .item{
+    border:2px solid transparent; background:#fff; border-radius:16px;
+    padding:8px 2px 6px; cursor:pointer; font-family:inherit; color:#7d5c6c;
+    display:flex; flex-direction:column; align-items:center; gap:2px;
+    transition:transform .16s, box-shadow .16s, border-color .16s, background .16s;
+    box-shadow:0 3px 8px rgba(190,140,165,.1); min-width:0;
+  }
+  .item:hover{transform:translateY(-3px); box-shadow:0 8px 16px rgba(190,140,165,.2)}
+  .item:focus-visible,.tab:focus-visible,.sw:focus-visible,.actions button:focus-visible{
+    outline:2.5px solid #ff8fb0; outline-offset:2px;
+  }
+  .item.active{
+    border-color:#ff9fbb; background:linear-gradient(180deg,#fff4f8,#ffe6ef);
+    box-shadow:0 6px 14px rgba(255,143,176,.28);
+  }
+  .item .icon{font-size:21px; line-height:1.1}
+  .item .name{font-size:10.5px; white-space:nowrap; letter-spacing:-.3px; max-width:100%; overflow:hidden; text-overflow:ellipsis}
+
+  .palette-block{background:#fff9fc; border:1.5px solid #ffe3ee; border-radius:18px; padding:10px 12px}
+  .p-label{font-size:11.5px; color:#ad7d92; display:flex; justify-content:space-between; margin-bottom:7px}
+  .p-label em{font-style:normal; color:#e58aa8; font-weight:700}
+  .swatches{display:flex; gap:7px; flex-wrap:wrap}
+  .sw{
+    width:24px; height:24px; border-radius:50%; border:2.5px solid #fff;
+    box-shadow:0 2px 5px rgba(150,100,120,.25); cursor:pointer; transition:.15s; padding:0;
+  }
+  .sw:hover{transform:scale(1.12)}
+  .sw.active{box-shadow:0 0 0 2.5px #ff9fbb, 0 2px 6px rgba(150,100,120,.25); transform:scale(1.08)}
+
+  .actions{display:grid; grid-template-columns:1fr 1fr 1.2fr; gap:7px; margin-top:2px}
+  .actions button{
+    font-family:inherit; border:0; border-radius:16px; padding:11px 6px; font-size:12.5px;
+    cursor:pointer; background:#fff; color:#a06b82;
+    box-shadow:0 4px 10px rgba(190,140,165,.15); transition:.18s;
+  }
+  .actions button:hover{transform:translateY(-2px)}
+  .actions button:active{transform:translateY(0) scale(.97)}
+  #saveBtn{background:linear-gradient(135deg,#ffb3c9,#ff8fb0); color:#fff; box-shadow:0 8px 18px rgba(255,143,176,.4)}
+
+  /* ---------- stage ---------- */
+  .stage{
+    position:relative; border-radius:30px; overflow:hidden; background:#ffe9f3;
+    box-shadow:0 20px 45px -20px rgba(190,110,145,.45), inset 0 0 0 2px #fff;
+    min-width:0;
+  }
+  .stage-head{
+    position:absolute; inset:16px 20px auto 20px; display:flex; align-items:flex-start;
+    justify-content:space-between; gap:12px; z-index:3; pointer-events:none;
+  }
+  .brand{
+    font-family:"Gaegu","Apple SD Gothic Neo",sans-serif; font-size:25px; font-weight:700; color:#e2678c;
+    text-shadow:0 2px 0 #fff; background:rgba(255,255,255,.35);
+    padding:0 12px 2px; border-radius:14px; white-space:nowrap;
+  }
+  .hint{
+    background:rgba(255,255,255,.78); border:1px solid #fff; padding:7px 14px;
+    border-radius:999px; font-size:12.5px; color:#a26b84; backdrop-filter:blur(6px);
+    box-shadow:0 4px 12px rgba(210,140,170,.15); white-space:nowrap;
+  }
+  .scene-wrap{position:absolute; inset:0}
+  #scene{width:100%; height:100%; display:block}
+  #doll{transform-box:fill-box; transform-origin:50% 100%; animation:breathe 4.5s ease-in-out infinite}
+  @keyframes breathe{0%,100%{transform:translateY(0)}50%{transform:translateY(-3px)}}
+
+  .toast{
+    position:absolute; left:50%; bottom:26px; transform:translate(-50%,20px);
+    background:rgba(255,255,255,.94); border:1.5px solid #ffd3e2; color:#b05c7a;
+    padding:9px 18px; border-radius:999px; font-size:13px; opacity:0; pointer-events:none;
+    transition:.3s; z-index:5; box-shadow:0 10px 24px rgba(200,120,150,.25); white-space:nowrap;
+  }
+  .toast.show{opacity:1; transform:translate(-50%,0)}
+
+  .sparkles{position:absolute; inset:0; pointer-events:none; overflow:hidden; z-index:2}
+  .sparkles span{position:absolute; font-size:14px; opacity:0; animation:floaty linear infinite}
+  @keyframes floaty{
+    0%{opacity:0; transform:translateY(24px) scale(.6) rotate(0)}
+    20%{opacity:.9}
+    100%{opacity:0; transform:translateY(-140px) scale(1.15) rotate(20deg)}
+  }
+  .pop-heart{
+    position:absolute; z-index:4; pointer-events:none; opacity:0;
+    animation:popUp 1s ease-out forwards;
+  }
+  @keyframes popUp{
+    0%{opacity:0; transform:translateY(0) scale(.4)}
+    25%{opacity:1}
+    100%{opacity:0; transform:translateY(-90px) scale(1.2) rotate(12deg)}
+  }
+
+  @media (max-width:900px){
+    body{overflow-y:auto; overflow-x:hidden; padding:10px}
+    .app{height:auto; grid-template-columns:1fr; gap:10px}
+    .stage{order:-1; width:100%; height:auto; aspect-ratio:900/620; min-height:0}
+    .closet{order:1; border-radius:26px; max-height:none; overflow:visible}
+    .closet-head h1{font-size:29px}
+    .items{grid-template-columns:repeat(auto-fill,minmax(74px,1fr))}
+  }
+  @media (max-width:560px){
+    .hint{display:none}
+    .brand{font-size:21px}
+    .items{grid-template-columns:repeat(auto-fill,minmax(70px,1fr))}
+  }
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="closet">
+    <div class="closet-head">
+      <div>
+        <h1>달콤 옷장 <span class="berry">🍓</span></h1>
+        <p>Dolly's Dress-Up Room</p>
+      </div>
+      <span class="badge">♡</span>
+    </div>
+
+    <nav class="tabs" id="tabs"></nav>
+
+    <section class="items" id="items" aria-label="아이템 목록"></section>
+
+    <section class="palette-block" id="colorBlock">
+      <div class="p-label"><span><em id="colorLabel">헤어</em> 색상</span><span>톡톡 눌러보세요</span></div>
+      <div class="swatches" id="swatches"></div>
+    </section>
+
+    <section class="palette-block">
+      <div class="p-label"><span>피부톤</span><span>♡</span></div>
+      <div class="swatches" id="skinSwatches"></div>
+    </section>
+
+    <div class="actions">
+      <button id="randomBtn" title="랜덤 코디">🎲 랜덤</button>
+      <button id="resetBtn" title="처음으로">↺ 초기화</button>
+      <button id="saveBtn" title="사진으로 저장">📸 사진 저장</button>
+    </div>
+  </aside>
+
+  <main class="stage" id="stage">
+    <div class="stage-head">
+      <div class="brand">🍰 Dolly's Room</div>
+      <div class="hint">옷장에서 마음에 드는 스타일을 골라보세요 ♡</div>
+    </div>
+    <div class="scene-wrap">
+      <svg id="scene" viewBox="0 0 900 620" preserveAspectRatio="xMidYMid slice" role="img" aria-label="옷을 입힌 아바타와 러블리한 방">
+        <defs>
+          <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fff3f8"/><stop offset="1" stop-color="#ffdcea"/>
+          </linearGradient>
+          <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#fdeadd"/><stop offset="1" stop-color="#f4d4bf"/>
+          </linearGradient>
+          <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0" stop-color="#cfe4ff"/><stop offset="1" stop-color="#f7d9ef"/>
+          </linearGradient>
+          <pattern id="dotPat" width="48" height="48" patternUnits="userSpaceOnUse">
+            <path d="M24,17 C21.5,13.5 17,14.5 18.3,18.6 C19.3,21.8 24,24.5 24,24.5 C24,24.5 28.7,21.8 29.7,18.6 C31,14.5 26.5,13.5 24,17 Z" fill="#ffffff" opacity=".5"/>
+          </pattern>
+          <filter id="soft" x="-40%" y="-40%" width="180%" height="180%">
+            <feDropShadow dx="0" dy="6" stdDeviation="8" flood-color="#c98aa4" flood-opacity=".22"/>
+          </filter>
+          <filter id="glow" x="-120%" y="-120%" width="340%" height="340%">
+            <feGaussianBlur stdDeviation="4" result="b"/>
+            <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+          </filter>
+          <radialGradient id="lampG" cx=".5" cy=".5" r=".5">
+            <stop offset="0" stop-color="#fff5c9" stop-opacity=".95"/>
+            <stop offset="1" stop-color="#fff5c9" stop-opacity="0"/>
+          </radialGradient>
+        </defs>
+
+        <!-- wall + floor -->
+        <rect width="900" height="620" fill="url(#wallG)"/>
+        <rect width="900" height="470" fill="url(#dotPat)"/>
+        <rect y="470" width="900" height="150" fill="url(#floorG)"/>
+        <g opacity=".5" stroke="#e7bda5" stroke-width="2">
+          <line x1="0" y1="512" x2="900" y2="512"/>
+          <line x1="0" y1="556" x2="900" y2="556"/>
+          <line x1="0" y1="598" x2="900" y2="598"/>
+          <line x1="180" y1="470" x2="180" y2="512"/>
+          <line x1="470" y1="470" x2="470" y2="512"/>
+          <line x1="720" y1="470" x2="720" y2="512"/>
+          <line x1="90" y1="512" x2="90" y2="556"/>
+          <line x1="360" y1="512" x2="360" y2="556"/>
+          <line x1="640" y1="512" x2="640" y2="556"/>
+          <line x1="250" y1="556" x2="250" y2="598"/>
+          <line x1="560" y1="556" x2="560" y2="598"/>
+        </g>
+        <g>
+          <rect x="0" y="452" width="900" height="18" fill="#fff7fb"/>
+          <rect x="0" y="452" width="900" height="4" fill="#f3cede"/>
+          <rect x="0" y="467" width="900" height="7" fill="#f8dbe6"/>
+        </g>
+
+        <!-- window -->
+        <g transform="translate(30 0)">
+          <rect x="66" y="80" width="224" height="252" rx="20" fill="#fff9fc" filter="url(#soft)"/>
+          <rect x="82" y="96" width="192" height="220" rx="12" fill="url(#skyG)"/>
+          <circle cx="150" cy="152" r="24" fill="#fff7d1"/>
+          <circle cx="150" cy="152" r="36" fill="#fff7d1" opacity=".28"/>
+          <g fill="#fff" opacity=".85">
+            <ellipse cx="222" cy="136" rx="30" ry="11"/>
+            <ellipse cx="238" cy="128" rx="16" ry="9"/>
+            <ellipse cx="120" cy="246" rx="26" ry="9"/>
+          </g>
+          <g fill="#fff0b8">
+            <circle cx="240" cy="180" r="2.4"/><circle cx="110" cy="128" r="2"/>
+            <circle cx="206" cy="238" r="2.4"/><circle cx="258" cy="258" r="2"/>
+            <circle cx="98" cy="204" r="2"/>
+          </g>
+          <line x1="178" y1="96" x2="178" y2="316" stroke="#fff9fc" stroke-width="9"/>
+          <line x1="82" y1="206" x2="274" y2="206" stroke="#fff9fc" stroke-width="9"/>
+          <rect x="82" y="96" width="192" height="220" rx="12" fill="none" stroke="#f6cede" stroke-width="4"/>
+          <rect x="52" y="326" width="252" height="18" rx="9" fill="#fff4f9" stroke="#f2cbdc" stroke-width="3"/>
+          <rect x="42" y="72" width="272" height="9" rx="4.5" fill="#f0c2d5"/>
+          <circle cx="46" cy="76.5" r="8" fill="#f7cfe0"/>
+          <circle cx="310" cy="76.5" r="8" fill="#f7cfe0"/>
+          <path d="M58,82 L104,82 L104,326 L56,326 C74,244 70,158 58,82 Z" fill="#ffcfe0" opacity=".92"/>
+          <path d="M298,82 L252,82 L252,326 L300,326 C282,244 286,158 298,82 Z" fill="#ffcfe0" opacity=".92"/>
+          <path d="M72,140 C76,180 74,220 66,262" stroke="#ffb7cf" stroke-width="3" fill="none" opacity=".8"/>
+          <path d="M284,140 C280,180 282,220 290,262" stroke="#ffb7cf" stroke-width="3" fill="none" opacity=".8"/>
+          <path d="M58,214 Q80,228 102,214 L102,238 Q80,252 58,238 Z" fill="#ff9fbb" opacity=".55"/>
+          <path d="M298,214 Q276,228 254,214 L254,238 Q276,252 298,238 Z" fill="#ff9fbb" opacity=".55"/>
+        </g>
+
+        <!-- fairy lights -->
+        <path d="M-10,40 Q120,104 250,48 T510,52 T760,40 T910,66" stroke="#f2c9da" stroke-width="3" fill="none"/>
+        <g>
+          <g filter="url(#glow)"><circle cx="62" cy="68" r="5" fill="#ffdf99"/></g>
+          <g filter="url(#glow)"><circle cx="132" cy="86" r="5" fill="#ffd3e4"/></g>
+          <g filter="url(#glow)"><circle cx="202" cy="70" r="5" fill="#ffdf99"/></g>
+          <g filter="url(#glow)"><circle cx="272" cy="52" r="5" fill="#ffd3e4"/></g>
+          <g filter="url(#glow)"><circle cx="342" cy="55" r="5" fill="#ffdf99"/></g>
+          <g filter="url(#glow)"><circle cx="412" cy="46" r="5" fill="#ffd3e4"/></g>
+          <g filter="url(#glow)"><circle cx="482" cy="50" r="5" fill="#ffdf99"/></g>
+          <g filter="url(#glow)"><circle cx="552" cy="42" r="5" fill="#ffd3e4"/></g>
+          <g filter="url(#glow)"><circle cx="622" cy="44" r="5" fill="#ffdf99"/></g>
+          <g filter="url(#glow)"><circle cx="692" cy="40" r="5" fill="#ffd3e4"/></g>
+          <g filter="url(#glow)"><circle cx="762" cy="48" r="5" fill="#ffdf99"/></g>
+          <g filter="url(#glow)"><circle cx="832" cy="48" r="5" fill="#ffd3e4"/></g>
+        </g>
+
+        <!-- picture frames -->
+        <g transform="rotate(-4 300 96)" filter="url(#soft)">
+          <rect x="252" y="46" width="96" height="92" rx="12" fill="#fff9fc" stroke="#f3c9db" stroke-width="7"/>
+          <rect x="264" y="58" width="72" height="68" rx="7" fill="#ffe7f0"/>
+          <path d="M300,96 C296,88 282,92 288,102 C292,108 300,114 300,114 C300,114 308,108 312,102 C318,92 304,88 300,96 Z" fill="#ffa9c3"/>
+          <circle cx="282" cy="78" r="4" fill="#cdbdf0"/>
+          <circle cx="318" cy="102" r="3" fill="#ffd98a"/>
+        </g>
+        <g transform="rotate(3 512 100)" filter="url(#soft)">
+          <rect x="470" y="56" width="84" height="76" rx="11" fill="#fff9fc" stroke="#f3c9db" stroke-width="7"/>
+          <rect x="481" y="67" width="62" height="54" rx="6" fill="#e9f6f0"/>
+          <circle cx="500" cy="86" r="5" fill="#ffd0e0"/>
+          <circle cx="512" cy="82" r="4" fill="#ffd98a"/>
+          <circle cx="524" cy="88" r="5" fill="#cdbdf0"/>
+          <path d="M500,112 Q512,100 524,112" stroke="#8fc4a8" stroke-width="4" fill="none" stroke-linecap="round"/>
+        </g>
+
+        <!-- wall shelf -->
+        <g transform="translate(-70 0)">
+          <rect x="678" y="176" width="178" height="14" rx="7" fill="#fff6fa" stroke="#f2cede" stroke-width="3"/>
+          <rect x="700" y="190" width="12" height="18" fill="#f7dbe6"/>
+          <rect x="822" y="190" width="12" height="18" fill="#f7dbe6"/>
+          <g>
+            <rect x="698" y="140" width="14" height="36" rx="3" fill="#ffb6c9"/>
+            <rect x="714" y="130" width="12" height="46" rx="3" fill="#cdbdf0"/>
+            <rect x="728" y="146" width="16" height="30" rx="3" fill="#a9d6c9"/>
+            <rect x="746" y="136" width="10" height="40" rx="3" fill="#ffd98a"/>
+          </g>
+          <g>
+            <circle cx="806" cy="152" r="8" fill="#ffd0e0"/>
+            <circle cx="816" cy="144" r="6" fill="#ffd98a"/>
+            <path d="M800,176 L816,176 L814,190 L802,190 Z" fill="#a9d6c9"/>
+            <path d="M808,162 C800,152 804,144 810,142 C812,150 812,158 810,164 Z" fill="#8fc4a8"/>
+          </g>
+          <g>
+            <path d="M768,176 L784,176 L782,190 L770,190 Z" fill="#f4c6b4"/>
+            <path d="M776,168 C770,158 774,148 780,146 C782,154 782,162 778,168 Z" fill="#9fcfae"/>
+            <path d="M776,168 C782,158 790,158 792,164 C788,170 782,172 776,168 Z" fill="#b8dfc1"/>
+          </g>
+          <rect x="790" y="120" width="54" height="44" rx="6" fill="#fff9fc" stroke="#f3c9db" stroke-width="4"/>
+          <path d="M806,152 C803,146 795,148 799,155 C801,159 806,162 806,162 C806,162 811,159 813,155 C817,148 809,146 806,152 Z" fill="#ffa9c3"/>
+        </g>
+
+        <!-- plant -->
+        <g transform="translate(-70 0)">
+          <path d="M806,520 C786,470 790,430 810,412 C818,444 814,486 814,520 Z" fill="#9fcfae"/>
+          <path d="M814,522 C800,478 804,442 824,426 C830,462 824,494 824,522 Z" fill="#b8dfc1"/>
+          <path d="M806,528 C794,494 796,464 808,450 C816,478 812,506 814,528 Z" fill="#8dc39e"/>
+          <path d="M784,536 L840,536 L832,588 L792,588 Z" fill="#eec4b3" stroke="#e0ae9a" stroke-width="3"/>
+          <rect x="780" y="528" width="64" height="14" rx="7" fill="#f6d6c8"/>
+          <path d="M796,566 Q812,558 828,566" stroke="#f6d6c8" stroke-width="3" fill="none"/>
+        </g>
+
+        <!-- rug -->
+        <g filter="url(#soft)">
+          <ellipse cx="440" cy="566" rx="250" ry="52" fill="#ffd9e7"/>
+          <ellipse cx="440" cy="566" rx="212" ry="41" fill="none" stroke="#fff" stroke-width="3" stroke-dasharray="10 10" opacity=".85"/>
+          <ellipse cx="440" cy="566" rx="150" ry="27" fill="#ffe7f0"/>
+        </g>
+
+        <!-- shadow + doll -->
+        <ellipse cx="400" cy="558" rx="86" ry="13" fill="#d59ab0" opacity=".28"/>
+        <g id="doll"></g>
+
+        <!-- foreground sparkle confetti -->
+        <g opacity=".8" fill="#ffffff">
+          <circle cx="330" cy="170" r="2.5"/>
+          <circle cx="490" cy="200" r="2"/>
+          <circle cx="300" cy="360" r="2"/>
+          <circle cx="520" cy="330" r="2.5"/>
+        </g>
+      </svg>
+    </div>
+    <div class="sparkles" id="sparkles" aria-hidden="true"></div>
+    <div class="toast" id="toast"></div>
+  </main>
+</div>
+
+<script>
+/* ======================= helpers ======================= */
+function hexToRgb(h){
+  h = h.replace('#','');
+  if(h.length === 3) h = h.split('').map(x => x + x).join('');
+  return [parseInt(h.slice(0,2),16), parseInt(h.slice(2,4),16), parseInt(h.slice(4,6),16)];
+}
+function shade(hex, p){
+  const [r,g,b] = hexToRgb(hex);
+  const target = p < 0 ? 0 : 255;
+  const f = Math.abs(p) / 100;
+  const mix = v => Math.round(v + (target - v) * f);
+  return '#' + [mix(r),mix(g),mix(b)].map(v => v.toString(16).padStart(2,'0')).join('');
+}
+function mixHex(a, b, t){
+  const A = hexToRgb(a), B = hexToRgb(b);
+  return '#' + A.map((v,i) => Math.round(v + (B[i] - v) * t).toString(16).padStart(2,'0')).join('');
+}
+function bow(x, y, s, fill){
+  const dk = shade(fill, -18);
+  return `<g transform="translate(${x} ${y}) scale(${s})">
+    <path d="M0,0 C-16,-14 -32,-8 -28,4 C-24,15 -8,12 0,2 Z" fill="${fill}" stroke="${dk}" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M0,0 C16,-14 32,-8 28,4 C24,15 8,12 0,2 Z" fill="${fill}" stroke="${dk}" stroke-width="1.6" stroke-linejoin="round"/>
+    <path d="M-4,6 L-12,25 L-2,19 Z" fill="${fill}" stroke="${dk}" stroke-width="1.2" stroke-linejoin="round"/>
+    <path d="M4,6 L12,25 L2,19 Z" fill="${fill}" stroke="${dk}" stroke-width="1.2" stroke-linejoin="round"/>
+    <circle cx="0" cy="1" r="6.5" fill="${dk}"/>
+  </g>`;
+}
+function flower(x, y, r, fill){
+  const dk = shade(fill, -12);
+  return `<g transform="translate(${x} ${y})">
+    <circle cx="0" cy="${-r}" r="${r*0.8}" fill="${fill}"/>
+    <circle cx="${r*0.76}" cy="${-r*0.24}" r="${r*0.8}" fill="${fill}"/>
+    <circle cx="${r*0.47}" cy="${r*0.64}" r="${r*0.8}" fill="${fill}"/>
+    <circle cx="${-r*0.47}" cy="${r*0.64}" r="${r*0.8}" fill="${fill}"/>
+    <circle cx="${-r*0.76}" cy="${-r*0.24}" r="${r*0.8}" fill="${fill}"/>
+    <circle cx="0" cy="0" r="${r*0.55}" fill="${dk}"/>
+  </g>`;
+}
+
+/* ======================= body ======================= */
+function bodySVG(skin){
+  const dk = mixHex(skin, '#d69a83', .26);
+  return `
+    <rect x="371" y="436" width="27" height="104" rx="13" fill="${skin}"/>
+    <rect x="402" y="436" width="27" height="104" rx="13" fill="${skin}"/>
+    <path d="M354,352 C338,376 330,404 333,434" fill="none" stroke="${skin}" stroke-width="18" stroke-linecap="round"/>
+    <path d="M446,352 C462,376 470,404 467,434" fill="none" stroke="${skin}" stroke-width="18" stroke-linecap="round"/>
+    <circle cx="333" cy="438" r="9.5" fill="${skin}"/>
+    <circle cx="467" cy="438" r="9.5" fill="${skin}"/>
+    <path d="M386,304 L386,330 Q400,342 414,330 L414,304 Z" fill="${dk}"/>
+    <path d="M352,346 C362,337 380,334 400,334 C420,334 438,337 448,346 L445,428 C444,446 424,452 400,452 C376,452 356,446 355,428 Z" fill="${skin}"/>
+    <ellipse cx="400" cy="252" rx="66" ry="70" fill="${skin}"/>
+    <ellipse cx="400" cy="232" rx="52" ry="34" fill="#fff" opacity=".07"/>
+  `;
+}
+
+/* ======================= hair ======================= */
+const HAIR = [
+  {
+    id:'h1', name:'포근 단발', icon:'🎀',
+    draw(c){ const d = shade(c,-14), l = shade(c,30); return {
+      back:`<path d="M324,262 C320,192 352,144 400,144 C448,144 480,192 476,262 L478,306 C478,330 462,344 442,334 C450,314 452,292 448,274 L352,274 C348,292 350,314 358,334 C338,344 322,330 324,306 Z" fill="${c}"/>
+        <path d="M352,190 C368,166 432,166 448,190" stroke="${d}" stroke-width="6" fill="none" opacity=".35" stroke-linecap="round"/>`,
+      front:`<path d="M334,254 C330,198 360,162 400,162 C440,162 470,198 466,254 C456,220 440,200 414,190 C408,212 386,220 362,210 C350,218 340,232 334,254 Z" fill="${c}"/>
+        <path d="M334,240 C328,266 330,292 338,312 C348,304 352,288 350,268 Z" fill="${c}"/>
+        <path d="M466,240 C472,266 470,292 462,312 C452,304 448,288 450,268 Z" fill="${c}"/>
+        <path d="M360,196 C378,180 412,178 432,190" stroke="${l}" stroke-width="7" fill="none" opacity=".45" stroke-linecap="round"/>
+        `
+    };}
+  },
+  {
+    id:'h2', name:'트윈테일', icon:'👧',
+    draw(c){ const d = shade(c,-16), l = shade(c,30); return {
+      back:`<path d="M330,250 C326,184 356,146 400,146 C444,146 474,184 470,250 L472,300 C472,322 458,334 442,326 C448,308 450,288 448,272 L352,272 C350,288 352,308 358,326 C342,334 328,322 330,300 Z" fill="${c}"/>
+        <path d="M340,232 C306,242 292,286 298,332 C302,360 320,374 334,358 C318,320 318,274 352,250 Z" fill="${c}"/>
+        <path d="M460,232 C494,242 508,286 502,332 C498,360 480,374 466,358 C482,320 482,274 448,250 Z" fill="${c}"/>
+        <path d="M310,270 C304,296 306,322 316,344" stroke="${d}" stroke-width="5" fill="none" opacity=".3" stroke-linecap="round"/>
+        <path d="M490,270 C496,296 494,322 484,344" stroke="${d}" stroke-width="5" fill="none" opacity=".3" stroke-linecap="round"/>`,
+      front:`<path d="M334,250 C330,194 358,160 400,160 C442,160 470,194 466,250 C460,224 448,206 430,196 C408,220 376,226 350,214 C342,224 337,236 334,250 Z" fill="${c}"/>
+        <path d="M358,204 C380,214 408,210 426,192" stroke="${l}" stroke-width="6" fill="none" opacity=".4" stroke-linecap="round"/>
+        <path d="M430,198 C408,220 378,226 352,214" stroke="${d}" stroke-width="1.7" fill="none" opacity=".3" stroke-linecap="round"/>
+        <path d="M336,244 C330,268 332,292 340,312 C350,304 354,288 352,268 Z" fill="${c}"/>
+        <path d="M464,244 C470,268 468,292 460,312 C450,304 446,288 448,268 Z" fill="${c}"/>
+        <path d="M362,182 C382,170 412,168 432,180" stroke="${l}" stroke-width="6" fill="none" opacity=".5" stroke-linecap="round"/>
+        ${bow(338,238,.55,'#fff6fa')}
+        ${bow(462,238,.55,'#fff6fa')}`
+    };}
+  },
+  {
+    id:'h3', name:'긴 생머리', icon:'💁‍♀️',
+    draw(c){ const d = shade(c,-14), l = shade(c,28); return {
+      back:`<path d="M326,250 C320,180 354,142 400,142 C446,142 480,180 474,250 L486,418 C486,442 468,452 454,436 L446,282 L354,282 L346,436 C332,452 314,442 314,418 Z" fill="${c}"/>
+        <path d="M330,300 C328,348 332,396 342,430" stroke="${d}" stroke-width="5" fill="none" opacity=".25" stroke-linecap="round"/>
+        <path d="M470,300 C472,348 468,396 458,430" stroke="${d}" stroke-width="5" fill="none" opacity=".25" stroke-linecap="round"/>`,
+      front:`<path d="M334,250 C330,196 358,162 400,162 C442,162 470,196 466,250 C462,222 452,204 434,192 C414,214 382,222 356,210 C346,220 338,232 334,250 Z" fill="${c}"/>
+        <path d="M362,200 C384,210 410,206 430,188" stroke="${l}" stroke-width="6" fill="none" opacity=".4" stroke-linecap="round"/>
+        <path d="M434,194 C414,216 384,224 358,212" stroke="${d}" stroke-width="1.7" fill="none" opacity=".3" stroke-linecap="round"/>
+        <path d="M334,238 C329,278 331,326 338,362 C345,365 351,355 350,336 L350,252 Z" fill="${c}"/>
+        <path d="M466,238 C471,278 469,326 462,362 C455,365 449,355 450,336 L450,252 Z" fill="${c}"/>
+        <path d="M364,182 C384,170 418,170 436,182" stroke="${l}" stroke-width="6" fill="none" opacity=".45" stroke-linecap="round"/>`
+    };}
+  },
+  {
+    id:'h4', name:'포니테일', icon:'🐎',
+    draw(c){ const d = shade(c,-16), l = shade(c,30); return {
+      back:`<path d="M330,254 C326,188 356,148 400,148 C444,148 474,188 470,254 L470,300 C470,320 458,332 444,324 C450,306 450,288 448,272 L352,272 C350,288 350,306 356,324 C342,332 330,320 330,300 Z" fill="${c}"/>
+        <path d="M430,178 C474,154 510,178 512,218 C514,254 494,286 468,300 C486,262 480,220 442,196 Z" fill="${c}"/>
+        <path d="M470,196 C488,214 494,240 490,266" stroke="${d}" stroke-width="5" fill="none" opacity=".3" stroke-linecap="round"/>`,
+      front:`<path d="M334,252 C330,198 360,164 400,164 C440,164 470,198 466,252 C456,216 434,196 404,192 C390,214 364,224 340,222 Z" fill="${c}"/>
+        <path d="M334,240 C328,270 330,300 338,322 C348,314 352,294 350,270 Z" fill="${c}"/>
+        <path d="M466,242 C472,268 470,294 462,312 C452,304 448,288 450,268 Z" fill="${c}"/>
+        <path d="M356,192 C372,180 390,176 406,178" stroke="${l}" stroke-width="6" fill="none" opacity=".45" stroke-linecap="round"/>
+        <circle cx="440" cy="184" r="9" fill="#fff5fa" stroke="#f7cfe0" stroke-width="3"/>`
+    };}
+  },
+  {
+    id:'h5', name:'물결 단발', icon:'🌊',
+    draw(c){ const d = shade(c,-14), l = shade(c,30); return {
+      back:`<path d="M324,260 C320,190 352,144 400,144 C448,144 480,190 476,260 L480,300 Q494,316 476,330 Q484,348 462,344 Q458,362 438,342 C446,318 450,292 448,274 L352,274 C350,292 354,318 362,342 Q342,362 338,344 Q316,348 324,330 Q306,316 320,300 Z" fill="${c}"/>
+        <path d="M352,192 C370,170 430,170 448,192" stroke="${d}" stroke-width="6" fill="none" opacity=".3" stroke-linecap="round"/>`,
+      front:`<path d="M334,252 C330,198 360,164 400,164 C440,164 470,198 466,252 C462,222 448,202 426,192 C418,212 400,220 384,214 C368,224 352,232 334,252 Z" fill="${c}"/>
+        <path d="M334,240 C328,268 330,294 338,316 C348,308 352,290 350,268 Z" fill="${c}"/>
+        <path d="M466,240 C472,268 470,294 462,316 C452,308 448,290 450,268 Z" fill="${c}"/>
+        <path d="M362,198 C380,184 410,180 432,190" stroke="${l}" stroke-width="7" fill="none" opacity=".45" stroke-linecap="round"/>`
+    };}
+  },
+  {
+    id:'h6', name:'땋은 머리', icon:'🌾',
+    draw(c){ const d = shade(c,-16), l = shade(c,28); return {
+      back:`<path d="M328,256 C324,188 354,146 400,146 C446,146 476,188 472,256 L474,300 C474,320 460,332 446,326 C452,308 452,290 450,272 L350,272 C348,290 348,308 354,326 C340,332 326,320 328,300 Z" fill="${c}"/>`,
+      front:`<path d="M334,254 C330,198 360,162 400,162 C440,162 470,198 466,254 C456,220 440,200 414,190 C408,212 386,220 362,210 C350,218 340,232 334,254 Z" fill="${c}"/>
+        <path d="M334,240 C328,262 330,282 336,300 C346,294 350,280 348,264 Z" fill="${c}"/>
+        <path d="M466,240 C472,262 470,282 464,300 C454,294 450,280 452,264 Z" fill="${c}"/>
+        <path d="M360,196 C378,180 412,178 432,190" stroke="${l}" stroke-width="6" fill="none" opacity=".45" stroke-linecap="round"/>
+        <g fill="${c}" stroke="${d}" stroke-width="1.2">
+          <circle cx="334" cy="306" r="14"/><circle cx="330" cy="328" r="13"/><circle cx="334" cy="350" r="12"/><circle cx="330" cy="370" r="11"/>
+          <circle cx="466" cy="306" r="14"/><circle cx="470" cy="328" r="13"/><circle cx="466" cy="350" r="12"/><circle cx="470" cy="370" r="11"/>
+        </g>
+        <g stroke="${l}" stroke-width="2" opacity=".55" stroke-linecap="round">
+          <path d="M326,304 L340,312"/><path d="M322,326 L336,334"/><path d="M326,348 L338,354"/>
+          <path d="M474,304 L460,312"/><path d="M478,326 L464,334"/><path d="M474,348 L462,354"/>
+        </g>
+        ${bow(332,384,.5,'#ffb3c9')}
+        ${bow(468,384,.5,'#ffb3c9')}`
+    };}
+  }
+];
+
+/* ======================= tops ======================= */
+const TOPS = [
+  {
+    id:'t1', name:'포근 스웨터', icon:'🧶',
+    draw(c){ const d = shade(c,-16), l = shade(c,32); return `
+      <circle cx="344" cy="362" r="21" fill="${c}"/>
+      <circle cx="456" cy="362" r="21" fill="${c}"/>
+      <path d="M352,346 C362,338 380,334 400,334 C420,334 438,338 448,346 L446,422 C440,434 360,434 354,422 Z" fill="${c}"/>
+      <path d="M384,334 Q400,348 416,334" stroke="${d}" stroke-width="4" fill="none"/>
+      <path d="M354,416 C380,426 420,426 446,416" stroke="${d}" stroke-width="8" fill="none"/>
+      <path d="M374,346 L370,412 M400,342 L400,420 M426,346 L430,412" stroke="${l}" stroke-width="2.5" opacity=".5" fill="none"/>
+      <path d="M338,352 Q344,360 338,370" stroke="${l}" stroke-width="2" fill="none" opacity=".5"/>
+      <path d="M462,352 Q456,360 462,370" stroke="${l}" stroke-width="2" fill="none" opacity=".5"/>
+      ${twinkle(390,380,'#fff')}
+    `;}
+  },
+  {
+    id:'t2', name:'크롭 니트', icon:'👚',
+    draw(c){ const d = shade(c,-16), l = shade(c,35); return `
+      <circle cx="346" cy="358" r="16" fill="${c}"/>
+      <circle cx="454" cy="358" r="16" fill="${c}"/>
+      <path d="M352,344 C362,336 380,332 400,332 C420,332 438,336 448,344 L446,398 C440,410 360,410 354,398 Z" fill="${c}"/>
+      <g stroke="${l}" stroke-width="5" opacity=".75">
+        <line x1="357" y1="350" x2="443" y2="350"/>
+        <line x1="356" y1="364" x2="444" y2="364"/>
+        <line x1="356" y1="378" x2="444" y2="378"/>
+        <line x1="357" y1="392" x2="443" y2="392"/>
+      </g>
+      <path d="M354,396 C380,405 420,405 446,396" stroke="${d}" stroke-width="6" fill="none"/>
+      <path d="M384,332 Q400,344 416,332" stroke="${d}" stroke-width="3" fill="none"/>
+    `;}
+  },
+  {
+    id:'t3', name:'체크 셔츠', icon:'👔',
+    draw(c){ const d = shade(c,-18), l = shade(c,38); return `
+      <path d="M350,348 C338,352 330,366 330,382 L350,386 C352,372 358,360 364,354 Z" fill="${c}"/>
+      <path d="M450,348 C462,352 470,366 470,382 L450,386 C448,372 442,360 436,354 Z" fill="${c}"/>
+      <path d="M352,346 C362,338 380,334 400,334 C420,334 438,338 448,346 L446,428 C440,438 360,438 354,428 Z" fill="${c}"/>
+      <g stroke="${l}" stroke-width="1.6" opacity=".55">
+        <line x1="358" y1="340" x2="358" y2="434"/><line x1="374" y1="338" x2="374" y2="436"/>
+        <line x1="390" y1="336" x2="390" y2="437"/><line x1="406" y1="336" x2="406" y2="437"/>
+        <line x1="422" y1="338" x2="422" y2="436"/><line x1="438" y1="340" x2="438" y2="434"/>
+        <line x1="356" y1="352" x2="444" y2="352"/><line x1="355" y1="372" x2="445" y2="372"/>
+        <line x1="355" y1="392" x2="445" y2="392"/><line x1="356" y1="412" x2="444" y2="412"/>
+      </g>
+      <path d="M386,334 L400,352 L376,358 Z" fill="#fffaf5" stroke="${d}" stroke-width="1.4"/>
+      <path d="M414,334 L400,352 L424,358 Z" fill="#fffaf5" stroke="${d}" stroke-width="1.4"/>
+      <path d="M400,352 L400,432" stroke="${d}" stroke-width="2" opacity=".45"/>
+      <circle cx="400" cy="366" r="2.6" fill="${d}"/>
+      <circle cx="400" cy="388" r="2.6" fill="${d}"/>
+      <circle cx="400" cy="410" r="2.6" fill="${d}"/>
+    `;}
+  },
+  {
+    id:'t4', name:'후드티', icon:'🐻',
+    draw(c){ const d = shade(c,-18), l = shade(c,32); return {
+      back:`
+        <path d="M344,360 C334,316 360,286 400,286 C440,286 466,316 456,360 C442,340 424,332 400,332 C376,332 358,340 344,360 Z" fill="${d}"/>
+        <path d="M360,340 C368,310 432,310 440,340" stroke="${shade(c,-28)}" stroke-width="4" fill="none" opacity=".45"/>`,
+      front:`
+      <path d="M354,352 C338,376 330,404 333,430" stroke="${c}" stroke-width="22" fill="none" stroke-linecap="round"/>
+      <path d="M446,352 C462,376 470,404 467,430" stroke="${c}" stroke-width="22" fill="none" stroke-linecap="round"/>
+      <path d="M352,346 C362,338 380,334 400,334 C420,334 438,338 448,346 L446,424 C440,436 360,436 354,424 Z" fill="${c}"/>
+      <path d="M368,339 C379,331 421,331 432,339" stroke="${d}" stroke-width="6" fill="none" stroke-linecap="round"/>
+      <path d="M373,400 C384,393 416,393 427,400 L425,417 Q400,423 375,417 Z" fill="${d}" opacity=".5"/>
+      <path d="M390,338 L387,366 M410,338 L413,366" stroke="#fffaf5" stroke-width="3.5" stroke-linecap="round"/>
+      <circle cx="387" cy="369" r="3.6" fill="#fffaf5"/>
+      <circle cx="413" cy="369" r="3.6" fill="#fffaf5"/>
+      <path d="M356,421 C380,428 420,428 444,421" stroke="${d}" stroke-width="5" fill="none" opacity=".55"/>
+      ${twinkle(370,382,'#fff')}
+    `};}
+  },
+  {
+    id:'t5', name:'오프숄더', icon:'🤍',
+    draw(c){ const d = shade(c,-16), l = shade(c,34); return `
+      <circle cx="342" cy="372" r="19" fill="${c}"/>
+      <circle cx="458" cy="372" r="19" fill="${c}"/>
+      <circle cx="342" cy="372" r="13" fill="${l}" opacity=".35"/>
+      <circle cx="458" cy="372" r="13" fill="${l}" opacity=".35"/>
+      <path d="M356,370 C368,354 432,354 444,370 L446,424 C440,436 360,436 354,424 Z" fill="${c}"/>
+      <path d="M356,370 Q400,388 444,370" stroke="${l}" stroke-width="5" fill="none"/>
+      <g fill="${l}">
+        <circle cx="370" cy="374" r="3"/><circle cx="386" cy="380" r="3"/><circle cx="402" cy="383" r="3"/>
+        <circle cx="418" cy="380" r="3"/><circle cx="432" cy="374" r="3"/>
+      </g>
+      <path d="M366,408 C382,416 418,416 434,408" stroke="${d}" stroke-width="2" fill="none" opacity=".5"/>
+    `;}
+  },
+  {
+    id:'t6', name:'리본 블라우스', icon:'🎀',
+    draw(c){ const d = shade(c,-15), l = shade(c,30); return `
+      <path d="M350,348 C338,354 330,370 330,388 L350,392 C352,376 358,364 364,356 Z" fill="${c}"/>
+      <path d="M450,348 C462,354 470,370 470,388 L450,392 C448,376 442,364 436,356 Z" fill="${c}"/>
+      <path d="M352,346 C362,338 380,334 400,334 C420,334 438,338 448,346 L446,424 C440,436 360,436 354,424 Z" fill="${c}"/>
+      <path d="M384,334 Q400,356 416,334 L400,338 Z" fill="${d}" opacity=".45"/>
+      <path d="M400,352 L400,432" stroke="${d}" stroke-width="1.8" opacity=".35"/>
+      <g stroke="${l}" stroke-width="2.4" opacity=".55">
+        <path d="M400,354 L400,430"/>
+      </g>
+      ${bow(400,368,.62,d)}
+      <path d="M356,420 C380,428 420,428 444,420" stroke="${d}" stroke-width="5" fill="none" opacity=".5"/>
+    `;}
+  }
+];
+
+/* ======================= bottoms ======================= */
+const BOTTOMS = [
+  {
+    id:'b1', name:'플리츠 스커트', icon:'🌸',
+    draw(c){ const d = shade(c,-18), l = shade(c,30); return `
+      <path d="M354,410 L446,410 L468,488 Q400,502 332,488 Z" fill="${c}"/>
+      <path d="M386,422 L376,494 L392,496 L400,422 Z" fill="${l}" opacity=".4"/>
+      <path d="M414,422 L424,494 L408,496 L400,422 Z" fill="${l}" opacity=".28"/>
+      <g stroke="${d}" stroke-width="2.2" opacity=".55">
+        <line x1="370" y1="422" x2="348" y2="490"/>
+        <line x1="385" y1="422" x2="376" y2="496"/>
+        <line x1="400" y1="422" x2="400" y2="498"/>
+        <line x1="415" y1="422" x2="424" y2="496"/>
+        <line x1="430" y1="422" x2="452" y2="490"/>
+      </g>
+      <path d="M332,488 Q400,502 468,488" stroke="${l}" stroke-width="3" fill="none" opacity=".7"/>
+      <rect x="352" y="406" width="96" height="17" rx="5" fill="${d}"/>
+      <path d="M356,412 L444,412" stroke="${l}" stroke-width="2" opacity=".6"/>
+    `;}
+  },
+  {
+    id:'b2', name:'데님 반바지', icon:'🩳',
+    draw(c){ const d = shade(c,-20), l = shade(c,35); return `
+      <path d="M352,414 L448,414 L451,458 Q448,468 432,468 L404,466 L400,450 L396,466 L368,468 Q351,468 349,458 Z" fill="${c}"/>
+      <rect x="350" y="408" width="100" height="17" rx="5" fill="${d}"/>
+      <path d="M358,428 Q367,440 364,458 M442,428 Q433,440 436,458" stroke="${l}" stroke-width="1.7" fill="none" stroke-dasharray="3 3" opacity=".85"/>
+      <path d="M373,428 Q383,440 382,452 M427,428 Q417,440 418,452" stroke="${l}" stroke-width="1.5" fill="none" stroke-dasharray="3 3" opacity=".65"/>
+      <path d="M400,425 L400,450" stroke="${l}" stroke-width="1.6" stroke-dasharray="3 3" opacity=".85"/>
+      <path d="M391,425 Q396,437 398,450" stroke="${d}" stroke-width="1.4" fill="none" opacity=".55"/>
+      <circle cx="400" cy="418" r="3" fill="${l}"/>
+      <path d="M352,460 Q368,466 398,464 M448,460 Q432,466 402,464" stroke="${l}" stroke-width="1.8" fill="none" stroke-dasharray="4 3" opacity=".8"/>
+    `;}
+  },
+  {
+    id:'b3', name:'롱 스커트', icon:'🧵',
+    draw(c){ const d = shade(c,-16), l = shade(c,30); return `
+      <path d="M352,410 L448,410 L466,508 Q400,520 334,508 Z" fill="${c}"/>
+      <path d="M400,424 L400,514" stroke="${d}" stroke-width="2" opacity=".35"/>
+      <path d="M374,424 C368,460 364,492 364,512" stroke="${d}" stroke-width="2" fill="none" opacity=".3"/>
+      <path d="M426,424 C432,460 436,492 436,512" stroke="${d}" stroke-width="2" fill="none" opacity=".3"/>
+      <path d="M334,508 Q400,520 466,508" stroke="${l}" stroke-width="3.5" fill="none" opacity=".8"/>
+      <path d="M414,428 L420,500" stroke="${l}" stroke-width="3" opacity=".55"/>
+      <rect x="350" y="406" width="100" height="17" rx="5" fill="${d}"/>
+      <path d="M354,412 L446,412" stroke="${l}" stroke-width="2" opacity=".6"/>
+    `;}
+  },
+  {
+    id:'b4', name:'와이드 팬츠', icon:'👖',
+    draw(c){ const d = shade(c,-18), l = shade(c,32); return `
+      <path d="M352,410 L448,410 L451,518 Q424,525 402,517 L400,470 L398,517 Q376,525 349,518 Z" fill="${c}"/>
+      <rect x="350" y="406" width="100" height="17" rx="5" fill="${d}"/>
+      <path d="M400,426 L400,468" stroke="${d}" stroke-width="2" opacity=".45"/>
+      <path d="M369,428 C361,456 354,486 351,512" stroke="${l}" stroke-width="2.4" fill="none" opacity=".35"/>
+      <path d="M431,428 C439,456 446,486 449,512" stroke="${l}" stroke-width="2.4" fill="none" opacity=".35"/>
+      <path d="M385,430 C380,462 378,492 378,514" stroke="${l}" stroke-width="2" fill="none" opacity=".28"/>
+      <path d="M415,430 C420,462 422,492 422,514" stroke="${l}" stroke-width="2" fill="none" opacity=".28"/>
+      <path d="M351,514 Q376,522 400,517 M449,514 Q424,522 400,517" stroke="${d}" stroke-width="3.5" fill="none"/>
+      <path d="M358,428 L364,410 M442,428 L436,410" stroke="${l}" stroke-width="2" opacity=".5"/>
+      <circle cx="400" cy="418" r="2.6" fill="${l}"/>
+    `;}
+  },
+  {
+    id:'b5', name:'티어드 스커트', icon:'🍰',
+    draw(c){ const d = shade(c,-14), l = shade(c,32); return `
+      <path d="M352,410 L448,410 L456,446 Q400,455 344,446 Z" fill="${c}"/>
+      <path d="M344,446 Q400,455 456,446 L466,478 Q400,490 334,478 Z" fill="${l}"/>
+      <path d="M334,478 Q400,490 466,478 L474,508 Q400,520 326,508 Z" fill="${c}"/>
+      <g stroke="#fff" stroke-width="1.6" opacity=".55" fill="none">
+        <path d="M346,448 Q400,457 454,448"/>
+        <path d="M336,480 Q400,491 464,480"/>
+      </g>
+      <rect x="350" y="406" width="100" height="17" rx="5" fill="${d}"/>
+      <path d="M354,412 L446,412" stroke="${l}" stroke-width="2" opacity=".55"/>
+    `;}
+  }
+];
+
+/* ======================= dresses ======================= */
+const DRESSES = [
+  { id:'none', name:'원피스 없음', icon:'🚫', draw:null },
+  {
+    id:'d1', name:'프릴 원피스', icon:'👗',
+    draw(c){ const d = shade(c,-16), l = shade(c,30); return `
+      <circle cx="344" cy="360" r="19" fill="${c}"/>
+      <circle cx="456" cy="360" r="19" fill="${c}"/>
+      <path d="M350,344 C362,336 438,336 450,344 L448,420 L352,420 Z" fill="${c}"/>
+      <path d="M352,410 L448,410 L472,492 Q400,510 328,492 Z" fill="${c}"/>
+      <path d="M384,340 Q400,354 416,340" stroke="${d}" stroke-width="3" fill="none"/>
+      <path d="M328,492 Q338,506 350,494 Q363,508 375,496 Q387,510 400,498 Q413,510 425,496 Q437,508 449,494 Q461,506 472,492 Q400,516 328,492 Z" fill="${l}"/>
+      <path d="M372,420 L356,486 M400,420 L400,490 M428,420 L444,486" stroke="${d}" stroke-width="1.8" opacity=".35"/>
+      <path d="M352,420 L448,420" stroke="${d}" stroke-width="4" opacity=".6"/>
+      ${bow(400,418,.5,d)}
+    `;}
+  },
+  {
+    id:'d2', name:'벨트 원피스', icon:'👘',
+    draw(c){ const d = shade(c,-20), l = shade(c,28); return `
+      <path d="M350,344 C362,336 438,336 450,344 L448,418 L352,418 Z" fill="${c}"/>
+      <path d="M352,414 L448,414 L466,490 Q400,506 334,490 Z" fill="${c}"/>
+      <rect x="350" y="408" width="100" height="18" rx="4" fill="${d}"/>
+      <path d="M384,340 Q400,352 416,340" stroke="${l}" stroke-width="3" fill="none"/>
+      <path d="M384,346 L400,412 M416,346 L400,412" stroke="${d}" stroke-width="1.6" opacity=".4"/>
+      <circle cx="400" cy="415" r="6" fill="${l}"/>
+      <path d="M334,490 Q400,506 466,490" stroke="${l}" stroke-width="3" fill="none" opacity=".7"/>
+      <path d="M372,430 C366,458 362,478 360,492" stroke="${d}" stroke-width="1.6" fill="none" opacity=".3"/>
+      <path d="M428,430 C434,458 438,478 440,492" stroke="${d}" stroke-width="1.6" fill="none" opacity=".3"/>
+      <path d="M364,352 L362,400 M436,352 L438,400" stroke="${d}" stroke-width="1.4" opacity=".35"/>
+    `;}
+  },
+  {
+    id:'d3', name:'튜튜 드레스', icon:'🩰',
+    draw(c){ const d = shade(c,-16), l = shade(c,32); return `
+      <circle cx="344" cy="360" r="18" fill="${c}"/>
+      <circle cx="456" cy="360" r="18" fill="${c}"/>
+      <circle cx="344" cy="360" r="18" fill="none" stroke="${d}" stroke-width="1.6" opacity=".35"/>
+      <circle cx="456" cy="360" r="18" fill="none" stroke="${d}" stroke-width="1.6" opacity=".35"/>
+      <path d="M350,344 C362,336 438,336 450,344 L448,414 L352,414 Z" fill="${shade(c,-5)}"/>
+      <path d="M360,350 L360,412 L369,412 L368,344 Z" fill="${d}" opacity=".16"/>
+      <path d="M350,410 L450,410 L452,438 Q400,448 348,438 Z" fill="${shade(c,-10)}"/>
+      <path d="M350,432 C316,442 296,460 298,476 C340,496 460,496 502,476 C504,460 484,442 450,432 Q400,446 350,432 Z" fill="${l}" opacity=".95"/>
+      <path d="M336,456 C304,466 288,484 292,498 C340,516 460,516 508,498 C512,484 496,466 464,456 Q400,472 336,456 Z" fill="${shade(c,-12)}" opacity=".92"/>
+      <path d="M292,498 C340,516 460,516 508,498" stroke="#fff" stroke-width="2.5" opacity=".55" fill="none"/>
+      <path d="M298,476 C340,496 460,496 502,476" stroke="#fff" stroke-width="2" opacity=".45" fill="none"/>
+      <path d="M384,340 Q400,352 416,340" stroke="${d}" stroke-width="3" fill="none"/>
+      <path d="M352,414 L448,414" stroke="${d}" stroke-width="3" opacity=".5"/>
+      ${star(372,368,7,'#fff')}
+      ${star(420,380,5,'#fff')}
+      ${star(400,360,4,'#fff')}
+      <path d="M338,470 Q400,488 462,470" stroke="#fff" stroke-width="2" fill="none" opacity=".6"/>
+      ${bow(400,412,.5,d)}
+    `;}
+  },
+  {
+    id:'d4', name:'셔츠 원피스', icon:'🧥',
+    draw(c){ const d = shade(c,-18), l = shade(c,32); return `
+      <path d="M350,348 C338,352 330,366 330,382 L350,386 C352,372 358,360 364,354 Z" fill="${c}"/>
+      <path d="M450,348 C462,352 470,366 470,382 L450,386 C448,372 442,360 436,354 Z" fill="${c}"/>
+      <path d="M352,346 C362,338 380,334 400,334 C420,334 438,338 448,346 L446,420 L354,420 Z" fill="${c}"/>
+      <path d="M352,414 L448,414 L462,504 Q400,516 338,504 Z" fill="${c}"/>
+      <path d="M386,334 L400,352 L376,358 Z" fill="#fffaf5" stroke="${d}" stroke-width="1.2"/>
+      <path d="M414,334 L400,352 L424,358 Z" fill="#fffaf5" stroke="${d}" stroke-width="1.2"/>
+      <path d="M400,352 L400,506" stroke="${d}" stroke-width="2" opacity=".35"/>
+      <circle cx="400" cy="368" r="2.6" fill="${d}"/>
+      <circle cx="400" cy="388" r="2.6" fill="${d}"/>
+      <circle cx="400" cy="408" r="2.6" fill="${d}"/>
+      <rect x="354" y="398" width="92" height="12" rx="5" fill="${d}" opacity=".7"/>
+      <path d="M372,440 Q374,458 370,472 Q386,476 388,458 L386,440 Z" fill="${l}" opacity=".5"/>
+      <path d="M414,440 Q416,458 412,472 Q428,476 430,458 L428,440 Z" fill="${l}" opacity=".5"/>
+      <path d="M338,504 Q400,516 462,504" stroke="${l}" stroke-width="3" fill="none" opacity=".6"/>
+      <path d="M372,430 L364,500 M428,430 L436,500" stroke="${d}" stroke-width="1.6" opacity=".25"/>
+    `;}
+  }
+];
+
+/* ======================= shoes ======================= */
+const SHOES = [
+  {
+    id:'s1', name:'메리제인', icon:'🥿',
+    draw(c){ const d = shade(c,-22), l = shade(c,32); return `
+      <path d="M366,510 Q374,504 382,510 Q390,504 398,510 L398,524 L366,524 Z" fill="#fffaf8"/>
+      <path d="M402,510 Q410,504 418,510 Q426,504 434,510 L434,524 L402,524 Z" fill="#fffaf8"/>
+      <path d="M364,516 Q364,506 382,506 Q400,506 400,522 L400,540 Q400,550 382,550 Q364,550 364,538 Z" fill="${c}"/>
+      <path d="M436,516 Q436,506 418,506 Q400,506 400,522 L400,540 Q400,550 418,550 Q436,550 436,538 Z" fill="${c}"/>
+      <path d="M366,518 Q382,510 398,518 M434,518 Q418,510 402,518" stroke="${l}" stroke-width="4" fill="none"/>
+      <path d="M364,542 Q382,552 400,542 M400,542 Q418,552 436,542" stroke="${d}" stroke-width="4" fill="none"/>
+      <circle cx="382" cy="516" r="2.4" fill="${l}"/>
+      <circle cx="418" cy="516" r="2.4" fill="${l}"/>
+    `;}
+  },
+  {
+    id:'s2', name:'스니커즈', icon:'👟',
+    draw(c){ const d = shade(c,-20), l = shade(c,40); return `
+      <path d="M362,514 Q362,504 380,504 Q400,504 400,522 L400,538 Q400,548 380,548 Q362,548 362,536 Z" fill="${c}"/>
+      <path d="M438,514 Q438,504 420,504 Q400,504 400,522 L400,538 Q400,548 420,548 Q438,548 438,536 Z" fill="${c}"/>
+      <g stroke="${l}" stroke-width="2.6" fill="none" opacity=".9">
+        <path d="M370,520 L392,520"/><path d="M368,528 L394,528"/><path d="M374,536 L396,536"/>
+        <path d="M430,520 L408,520"/><path d="M432,528 L406,528"/><path d="M426,536 L404,536"/>
+      </g>
+      <path d="M362,542 Q382,552 400,542 M400,542 Q418,552 438,542" stroke="#fffaf5" stroke-width="7" fill="none"/>
+      <path d="M362,546 Q382,556 400,546 M400,546 Q418,556 438,546" stroke="${d}" stroke-width="2.5" fill="none"/>
+    `;}
+  },
+  {
+    id:'s3', name:'롱부츠', icon:'🥾',
+    draw(c){ const d = shade(c,-22), l = shade(c,30); return `
+      <path d="M367,470 L402,470 L402,538 Q402,550 383,550 Q364,550 364,538 Z" fill="${c}"/>
+      <path d="M433,470 L398,470 L398,538 Q398,550 417,550 Q436,550 436,538 Z" fill="${c}"/>
+      <path d="M364,470 L402,470 L402,480 L364,480 Z" fill="${l}" opacity=".8"/>
+      <path d="M436,470 L398,470 L398,480 L436,480 Z" fill="${l}" opacity=".8"/>
+      <path d="M366,528 Q383,536 400,528 M400,528 Q417,536 434,528" stroke="${d}" stroke-width="3.5" fill="none"/>
+      <path d="M364,542 Q383,552 402,542 M398,542 Q417,552 436,542" stroke="${d}" stroke-width="4" fill="none"/>
+      <path d="M374,486 L374,520 M426,486 L426,520" stroke="${l}" stroke-width="2" opacity=".5"/>
+    `;}
+  },
+  {
+    id:'s4', name:'발레 플랫', icon:'🩰',
+    draw(c){ const d = shade(c,-18), l = shade(c,35); return `
+      <path d="M364,520 Q364,508 382,508 Q400,508 400,524 L400,538 Q400,548 382,548 Q364,548 364,536 Z" fill="${c}"/>
+      <path d="M436,520 Q436,508 418,508 Q400,508 400,524 L400,538 Q400,548 418,548 Q436,548 436,536 Z" fill="${c}"/>
+      <path d="M366,514 Q382,506 398,514 M434,514 Q418,506 402,514" stroke="${l}" stroke-width="3" fill="none"/>
+      <path d="M370,516 Q366,494 378,486 M394,516 Q398,492 388,484" stroke="${l}" stroke-width="2.4" fill="none"/>
+      <path d="M430,516 Q434,494 422,486 M406,516 Q402,492 412,484" stroke="${l}" stroke-width="2.4" fill="none"/>
+      <path d="M364,544 Q382,552 400,544 M400,544 Q418,552 436,544" stroke="${d}" stroke-width="3" fill="none"/>
+    `;}
+  },
+  {
+    id:'s5', name:'맨발', icon:'🦶',
+    draw(c){ const skin = state.skin, dk = shade(skin,-12); return `
+      <path d="M366,522 L402,522 L402,542 Q402,552 382,552 Q366,552 366,542 Z" fill="${skin}"/>
+      <path d="M434,522 L398,522 L398,542 Q398,552 418,552 Q434,552 434,542 Z" fill="${skin}"/>
+      <g stroke="${dk}" stroke-width="1.6" opacity=".6" fill="none">
+        <path d="M374,540 L376,534 M384,542 L386,535 M394,542 L394,536"/>
+        <path d="M426,540 L424,534 M416,542 L414,535 M406,542 L406,536"/>
+      </g>
+    `;}
+  }
+];
+
+/* ======================= accessories ======================= */
+const ACCS = [
+  { id:'none', name:'없음', icon:'✖️', draw:null },
+  {
+    id:'a1', name:'리본핀', icon:'🎀',
+    draw(c){ return `${bow(452,196,.95,c)}
+      <path d="M452,196 L470,178" stroke="${shade(c,-15)}" stroke-width="3" stroke-linecap="round"/>`;}
+  },
+  {
+    id:'a2', name:'동글 안경', icon:'👓',
+    draw(c){ const d = shade(c,-20); return `
+      <g fill="none" stroke="${c}" stroke-width="4">
+        <rect x="355" y="244" width="40" height="34" rx="16"/>
+        <rect x="405" y="244" width="40" height="34" rx="16"/>
+        <path d="M395,260 Q400,255 405,260"/>
+        <path d="M355,256 L334,250 M445,256 L466,250"/>
+      </g>
+      <rect x="355" y="244" width="40" height="34" rx="16" fill="#fff" opacity=".18"/>
+      <rect x="405" y="244" width="40" height="34" rx="16" fill="#fff" opacity=".18"/>
+      <path d="M363,252 L373,252" stroke="#fff" stroke-width="3" opacity=".7" stroke-linecap="round"/>
+      <path d="M413,252 L423,252" stroke="#fff" stroke-width="3" opacity=".7" stroke-linecap="round"/>
+    `;}
+  },
+  {
+    id:'a3', name:'밀짚모자', icon:'👒',
+    draw(c){ const d = shade(c,-22), l = shade(c,25); return `
+      <ellipse cx="400" cy="198" rx="100" ry="27" fill="${c}"/>
+      <ellipse cx="400" cy="194" rx="100" ry="23" fill="${l}"/>
+      <path d="M352,192 C350,150 368,126 400,126 C432,126 450,150 448,192 Z" fill="${c}"/>
+      <path d="M354,174 Q400,190 446,174 L446,186 Q400,202 354,186 Z" fill="${d}" opacity=".85"/>
+      ${flower(444,178,7,'#ffd0e0')}
+      <ellipse cx="400" cy="196" rx="100" ry="22" fill="none" stroke="${d}" stroke-width="2" opacity=".35"/>
+    `;}
+  },
+  {
+    id:'a4', name:'목걸이', icon:'📿',
+    draw(c){ const d = shade(c,-18); return `
+      <path d="M379,332 Q400,352 421,332" stroke="${c}" stroke-width="2.6" fill="none"/>
+      <g fill="${c}">
+        <circle cx="385" cy="338" r="2.6"/><circle cx="393" cy="344" r="2.6"/>
+        <circle cx="407" cy="344" r="2.6"/><circle cx="415" cy="338" r="2.6"/>
+      </g>
+      <path d="M400,350 C397,345 390,347 393,352 C395,355 400,359 400,359 C400,359 405,355 407,352 C410,347 403,345 400,350 Z" fill="${d}"/>
+    `;}
+  },
+  {
+    id:'a5', name:'고양이 귀', icon:'🐱',
+    draw(c){ const d = shade(c,-18), l = shade(c,38); return `
+      <path d="M356,186 L344,136 L390,162 Z" fill="${c}" stroke="${d}" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M444,186 L456,136 L410,162 Z" fill="${c}" stroke="${d}" stroke-width="2" stroke-linejoin="round"/>
+      <path d="M360,174 L352,148 L380,164 Z" fill="${l}"/>
+      <path d="M440,174 L448,148 L420,164 Z" fill="${l}"/>
+      <path d="M356,184 Q400,158 444,184" stroke="${c}" stroke-width="6" fill="none" stroke-linecap="round"/>
+    `;}
+  },
+  {
+    id:'a6', name:'꽃 화관', icon:'🌺',
+    draw(c){ const l = shade(c,25); return `
+      <path d="M334,222 Q400,158 466,222" stroke="#8fc4a8" stroke-width="4" fill="none"/>
+      ${flower(346,206,11,c)}
+      ${flower(374,182,10,l)}
+      ${flower(402,172,11,c)}
+      ${flower(430,182,10,l)}
+      ${flower(456,208,11,c)}
+      <circle cx="390" cy="178" r="4" fill="#fff8c9"/>
+      <circle cx="416" cy="178" r="4" fill="#fff8c9"/>
+    `;}
+  }
+];
+
+function star(x,y,r,fill){
+  return `<path d="M${x},${y-r} L${x+r*.3},${y-r*.3} L${x+r},${y} L${x+r*.3},${y+r*.3} L${x},${y+r} L${x-r*.3},${y+r*.3} L${x-r},${y} L${x-r*.3},${y-r*.3} Z" fill="${fill}"/>`;
+}
+function twinkle(x,y,fill){
+  return `<g fill="${fill}" opacity=".85"><path d="M${x},${y-5} Q${x},${y} ${x+5},${y} Q${x},${y} ${x},${y+5} Q${x},${y} ${x-5},${y} Q${x},${y} ${x},${y-5} Z"/></g>`;
+}
+
+/* ======================= faces ======================= */
+const blushMark = `<ellipse cx="356" cy="286" rx="13" ry="8" fill="#ff9fb5" opacity=".5"/><ellipse cx="444" cy="286" rx="13" ry="8" fill="#ff9fb5" opacity=".5"/>`;
+const browMark = `<path d="M364,236 Q378,230 391,236" stroke="#6b4a56" stroke-width="2.6" fill="none" stroke-linecap="round"/><path d="M409,236 Q422,230 436,236" stroke="#6b4a56" stroke-width="2.6" fill="none" stroke-linecap="round"/>`;
+const eyePair = `
+  <ellipse cx="377" cy="262" rx="11" ry="14" fill="#4b3244"/>
+  <ellipse cx="423" cy="262" rx="11" ry="14" fill="#4b3244"/>
+  <circle cx="373" cy="256" r="4" fill="#fff"/>
+  <circle cx="419" cy="256" r="4" fill="#fff"/>
+  <circle cx="381" cy="268" r="2.1" fill="#fff" opacity=".8"/>
+  <circle cx="427" cy="268" r="2.1" fill="#fff" opacity=".8"/>`;
+const smileMark = `<path d="M394,294 Q400,300 406,294" stroke="#c05d77" stroke-width="2.8" fill="none" stroke-linecap="round"/>`;
+function heartEye(x,y,s,fill){
+  return `<g transform="translate(${x} ${y}) scale(${s})"><path d="M0,10 C-2,6 -14,0 -14,-6 C-14,-13 -5,-15 0,-8 C5,-15 14,-13 14,-6 C14,0 2,6 0,10 Z" fill="${fill}"/><circle cx="-5" cy="-6" r="2.6" fill="#fff" opacity=".8"/></g>`;
+}
+
+const FACES = [
+  {
+    id:'f1', name:'미소', icon:'😊',
+    draw(){ return `${browMark}${eyePair}${blushMark}${smileMark}`; }
+  },
+  {
+    id:'f2', name:'윙크', icon:'😉',
+    draw(){ return `${browMark}
+      <ellipse cx="377" cy="262" rx="11" ry="14" fill="#4b3244"/>
+      <circle cx="373" cy="256" r="4" fill="#fff"/>
+      <path d="M412,262 Q423,252 434,262" stroke="#4b3244" stroke-width="3.6" fill="none" stroke-linecap="round"/>
+      ${blushMark}
+      <path d="M392,292 Q400,302 408,292" stroke="#c05d77" stroke-width="2.8" fill="none" stroke-linecap="round"/>`; }
+  },
+  {
+    id:'f3', name:'하트눈', icon:'😍',
+    draw(){ return `${browMark}
+      ${heartEye(377,256,.95,'#f3709b')}
+      ${heartEye(423,256,.95,'#f3709b')}
+      <ellipse cx="356" cy="286" rx="13" ry="8" fill="#ff9fb5" opacity=".65"/>
+      <ellipse cx="444" cy="286" rx="13" ry="8" fill="#ff9fb5" opacity=".65"/>
+      <path d="M392,290 Q400,302 408,290 Z" fill="#e8798f"/>`; }
+  },
+  {
+    id:'f4', name:'졸려요', icon:'😴',
+    draw(){ return `${browMark}
+      <path d="M366,260 Q377,268 388,260" stroke="#4b3244" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M412,260 Q423,268 434,260" stroke="#4b3244" stroke-width="3" fill="none" stroke-linecap="round"/>
+      ${blushMark}
+      <path d="M394,294 Q400,298 406,294" stroke="#c05d77" stroke-width="2.6" fill="none" stroke-linecap="round"/>
+      <path d="M446,238 Q452,232 458,238 Q452,240 446,238 Z" fill="#c9a7d8" opacity=".7"/>
+      <path d="M456,224 Q461,219 466,224 Q461,226 456,224 Z" fill="#c9a7d8" opacity=".55"/>`; }
+  },
+  {
+    id:'f5', name:'놀람', icon:'😳',
+    draw(){ return `${browMark}
+      <ellipse cx="377" cy="262" rx="12" ry="15" fill="#4b3244"/>
+      <ellipse cx="423" cy="262" rx="12" ry="15" fill="#4b3244"/>
+      <circle cx="373" cy="256" r="4.5" fill="#fff"/>
+      <circle cx="419" cy="256" r="4.5" fill="#fff"/>
+      ${blushMark}
+      <ellipse cx="400" cy="298" rx="7" ry="9" fill="#d9788f"/>`; }
+  },
+  {
+    id:'f6', name:'새침', icon:'😌',
+    draw(){ return `${browMark}
+      <path d="M366,258 Q377,264 388,258" stroke="#4b3244" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+      <path d="M412,258 Q423,264 434,258" stroke="#4b3244" stroke-width="2.8" fill="none" stroke-linecap="round"/>
+      <ellipse cx="356" cy="286" rx="13" ry="8" fill="#ff9fb5" opacity=".6"/>
+      <ellipse cx="444" cy="286" rx="13" ry="8" fill="#ff9fb5" opacity=".6"/>
+      <path d="M393,296 Q400,292 407,296" stroke="#c05d77" stroke-width="2.6" fill="none" stroke-linecap="round"/>`; }
+  }
+];
+
+/* ======================= database & state ======================= */
+const DB = { hair:HAIR, top:TOPS, bottom:BOTTOMS, dress:DRESSES, shoes:SHOES, acc:ACCS, face:FACES };
+const CATS = [
+  { key:'hair',   label:'헤어',    icon:'💇‍♀️' },
+  { key:'top',    label:'상의',    icon:'👚' },
+  { key:'bottom', label:'하의',    icon:'👖' },
+  { key:'dress',  label:'원피스',  icon:'👗' },
+  { key:'shoes',  label:'신발',    icon:'👟' },
+  { key:'acc',    label:'액세서리',icon:'🎀' },
+  { key:'face',   label:'표정',    icon:'😊' }
+];
+const PALETTES = {
+  hair:  ['#3a2a2e','#7a4a3a','#b9754b','#e8b7c8','#b6a6e3','#8fbcd6'],
+  top:   ['#ffd6e2','#fff3c9','#d8f0e2','#d9e6ff','#f3d7ff','#ffd9c7','#faf6f2','#5f5064'],
+  bottom:['#cbb8ef','#ffc2d4','#bcd8f7','#f7e6b8','#cdd6c2','#f7d7c0','#8aa9d8','#5f5064'],
+  dress: ['#ffd1e0','#f6e7ff','#d9f2e6','#fff0c9','#ffd9c9','#cfe2ff','#f9c6d8','#fff8f8'],
+  shoes: ['#8a5a44','#faf6f2','#ffb3c6','#6b5a7a','#d9b38c','#3a2a2e'],
+  acc:   ['#ff9fbb','#ffd166','#a9d6c9','#b9a8e0','#fff8f8','#f18ba8']
+};
+const SKINS = ['#ffe2d1','#f8d9c4','#eec2a4','#d7a17e'];
+const COLOR_LABEL = { hair:'헤어', top:'상의', bottom:'하의', dress:'원피스', shoes:'신발', acc:'액세서리' };
+
+const DEFAULT_STATE = {
+  hair:'h1', top:'t1', bottom:'b1', dress:null, shoes:'s1', acc:'a1', face:'f1',
+  skin:'#f8d9c4',
+  colors:{ hair:'#7a4a3a', top:'#ffd6e2', bottom:'#cbb8ef', dress:'#ffd1e0', shoes:'#8a5a44', acc:'#ff9fbb' }
+};
+const STORAGE_KEY = 'dolly-closet-v1';
+let state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+let currentTab = 'hair';
+
+function find(cat, id){ return (DB[cat] || []).find(i => i.id === id); }
+
+function saveState(){ try { localStorage.setItem(STORAGE_KEY, JSON.stringify(state)); } catch(e){} }
+function loadState(){
+  try {
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return;
+    const s = JSON.parse(raw);
+    ['hair','top','bottom','dress','shoes','acc','face'].forEach(k => {
+      if(s[k] && find(k, s[k])) state[k] = s[k];
+      else if(k in s) state[k] = s[k];
+    });
+    if(s.skin) state.skin = s.skin;
+    if(s.colors) Object.assign(state.colors, s.colors);
+  } catch(e){}
+}
+
+/* ======================= render doll ======================= */
+const dollEl = document.getElementById('doll');
+
+function renderDoll(){
+  const hair = find('hair', state.hair);
+  const top = state.top ? find('top', state.top) : null;
+  const bottom = state.bottom ? find('bottom', state.bottom) : null;
+  const dress = state.dress ? find('dress', state.dress) : null;
+  const shoes = state.shoes ? find('shoes', state.shoes) : null;
+  const acc = state.acc ? find('acc', state.acc) : null;
+  const face = find('face', state.face);
+
+  const topDraw = top ? top.draw(state.colors.top) : null;
+
+  let html = '';
+  // 후드처럼 머리 뒤로 넘어가는 부분은 몸/헤어보다 먼저 그립니다.
+  if(topDraw && typeof topDraw === 'object' && topDraw.back) html += topDraw.back;
+  if(hair){ const h = hair.draw(state.colors.hair); html += h.back || ''; }
+  html += bodySVG(state.skin);
+  // 신발은 하의/원피스 밑에 깔아서 긴 옷자락이 자연스럽게 덮도록 합니다.
+  if(shoes) html += `<g transform="translate(0 4)">${shoes.draw(state.colors.shoes)}</g>`;
+  if(dress && typeof dress.draw === 'function') html += dress.draw(state.colors.dress);
+  else {
+    if(bottom) html += bottom.draw(state.colors.bottom);
+    if(topDraw) html += typeof topDraw === 'string' ? topDraw : (topDraw.front || '');
+  }
+  if(face) html += face.draw();
+  if(hair){ const h = hair.draw(state.colors.hair); html += h.front || ''; }
+  if(acc && typeof acc.draw === 'function') html += acc.draw(state.colors.acc);
+  dollEl.innerHTML = html;
+}
+
+/* ======================= render panel ======================= */
+const tabsEl = document.getElementById('tabs');
+const itemsEl = document.getElementById('items');
+const swatchesEl = document.getElementById('swatches');
+const skinSwatchesEl = document.getElementById('skinSwatches');
+const colorBlock = document.getElementById('colorBlock');
+const colorLabel = document.getElementById('colorLabel');
+
+function renderTabs(){
+  tabsEl.innerHTML = CATS.map(cat => `
+    <button class="tab ${cat.key === currentTab ? 'active' : ''}" data-tab="${cat.key}">
+      <b>${cat.icon}</b>${cat.label}
+    </button>`).join('');
+}
+
+function itemActive(cat, id){
+  if(cat === 'dress') return id === 'none' ? !state.dress : state.dress === id;
+  if(cat === 'acc') return id === 'none' ? !state.acc : state.acc === id;
+  return state[cat] === id;
+}
+
+function renderItems(){
+  itemsEl.innerHTML = (DB[currentTab] || []).map(item => `
+    <button class="item ${itemActive(currentTab, item.id) ? 'active' : ''}" data-id="${item.id}">
+      <span class="icon">${item.icon}</span>
+      <span class="name">${item.name}</span>
+    </button>`).join('');
+}
+
+function renderPalette(){
+  if(currentTab === 'face'){
+    colorBlock.style.display = 'none';
+  } else {
+    colorBlock.style.display = '';
+    const cat = currentTab;
+    colorLabel.textContent = COLOR_LABEL[cat] || '의상';
+    const pal = PALETTES[cat] || [];
+    swatchesEl.innerHTML = pal.map(color => `
+      <button class="sw ${state.colors[cat] === color ? 'active' : ''}" data-color="${color}"
+        style="background:${color}" aria-label="${color}"></button>`).join('');
+  }
+  skinSwatchesEl.innerHTML = SKINS.map(color => `
+    <button class="sw ${state.skin === color ? 'active' : ''}" data-skin="${color}"
+      style="background:${color}" aria-label="피부톤 ${color}"></button>`).join('');
+}
+
+function renderAll(){
+  renderTabs();
+  renderItems();
+  renderPalette();
+  renderDoll();
+}
+
+/* ======================= interactions ======================= */
+const stageEl = document.getElementById('stage');
+const toastEl = document.getElementById('toast');
+let toastTimer = null;
+function showToast(msg){
+  toastEl.textContent = msg;
+  toastEl.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => toastEl.classList.remove('show'), 1900);
+}
+
+function burst(count = 4){
+  const chars = ['💕','✨','♡','🌸','💗'];
+  for(let i=0;i<count;i++){
+    const s = document.createElement('span');
+    s.className = 'pop-heart';
+    s.textContent = chars[Math.floor(Math.random()*chars.length)];
+    s.style.left = (42 + Math.random()*24) + '%';
+    s.style.bottom = (18 + Math.random()*28) + '%';
+    s.style.fontSize = (11 + Math.random()*13) + 'px';
+    s.style.animationDelay = (i*45) + 'ms';
+    stageEl.appendChild(s);
+    setTimeout(() => s.remove(), 1300);
+  }
+}
+
+tabsEl.addEventListener('click', e => {
+  const btn = e.target.closest('[data-tab]');
+  if(!btn) return;
+  currentTab = btn.dataset.tab;
+  renderTabs();
+  renderItems();
+  renderPalette();
+});
+
+itemsEl.addEventListener('click', e => {
+  const btn = e.target.closest('[data-id]');
+  if(!btn) return;
+  const id = btn.dataset.id;
+
+  if(currentTab === 'dress'){
+    if(id === 'none'){
+      state.dress = null;
+      if(!state.top) state.top = 't1';
+      if(!state.bottom) state.bottom = 'b1';
+    }
+    else {
+      state.dress = id;
+      state.top = null;
+      state.bottom = null;
+      showToast('원피스를 입었어요! 상·하의는 잠시 쉬어갈게요 👗');
+    }
+  } else if(currentTab === 'top'){
+    state.top = id;
+    if(state.dress){ state.dress = null; showToast('낱개 코디로 바꿨어요 ✂️'); }
+    if(!state.bottom && !state.dress) state.bottom = 'b1';
+  } else if(currentTab === 'bottom'){
+    state.bottom = id;
+    if(state.dress){ state.dress = null; showToast('낱개 코디로 바꿨어요 ✂️'); }
+    if(!state.top && !state.dress) state.top = 't2';
+  } else if(currentTab === 'acc'){
+    state.acc = id === 'none' ? null : id;
+  } else if(currentTab === 'face'){
+    state.face = id;
+  } else {
+    state[currentTab] = id;
+  }
+
+  saveState();
+  renderItems();
+  renderDoll();
+  burst();
+});
+
+swatchesEl.addEventListener('click', e => {
+  const btn = e.target.closest('[data-color]');
+  if(!btn) return;
+  if(currentTab === 'face') return;
+  state.colors[currentTab] = btn.dataset.color;
+  saveState();
+  renderPalette();
+  renderDoll();
+  burst(2);
+});
+
+skinSwatchesEl.addEventListener('click', e => {
+  const btn = e.target.closest('[data-skin]');
+  if(!btn) return;
+  state.skin = btn.dataset.skin;
+  saveState();
+  renderPalette();
+  renderDoll();
+  burst(2);
+});
+
+document.getElementById('randomBtn').addEventListener('click', () => {
+  const pick = arr => arr[Math.floor(Math.random()*arr.length)];
+  state.hair = pick(DB.hair).id;
+  state.face = pick(DB.face).id;
+  state.shoes = pick(DB.shoes).id;
+  state.acc = Math.random() < .82 ? pick(DB.acc.filter(a => a.id !== 'none')).id : null;
+
+  if(Math.random() < .42){
+    state.dress = pick(DB.dress.filter(d => d.id !== 'none')).id;
+    state.top = null;
+    state.bottom = null;
+  } else {
+    state.dress = null;
+    state.top = pick(DB.top).id;
+    state.bottom = pick(DB.bottom).id;
+  }
+
+  for(const cat of Object.keys(PALETTES)) state.colors[cat] = pick(PALETTES[cat]);
+
+  saveState();
+  renderItems();
+  renderPalette();
+  renderDoll();
+  burst(7);
+  showToast('랜덤 코디 완성! 마음에 드나요? 🎲');
+});
+
+document.getElementById('resetBtn').addEventListener('click', () => {
+  state = JSON.parse(JSON.stringify(DEFAULT_STATE));
+  saveState();
+  renderItems();
+  renderPalette();
+  renderDoll();
+  showToast('처음 모습으로 돌아왔어요 ↺');
+});
+
+/* ======================= save as PNG ======================= */
+function downloadPNG(){
+  const svgEl = document.getElementById('scene');
+  const clone = svgEl.cloneNode(true);
+  clone.setAttribute('xmlns', 'http://www.w3.org/2000/svg');
+  clone.setAttribute('width', '1800');
+  clone.setAttribute('height', '1240');
+  clone.querySelectorAll('*').forEach(el => {
+    el.style.animation = 'none';
+    if(el.tagName === 'g') el.style.transform = el.getAttribute('transform') || '';
+  });
+  const str = new XMLSerializer().serializeToString(clone);
+  const blob = new Blob([str], { type:'image/svg+xml;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const img = new Image();
+  img.onload = () => {
+    const cv = document.createElement('canvas');
+    cv.width = 1800; cv.height = 1240;
+    const ctx = cv.getContext('2d');
+    ctx.fillStyle = '#ffe9f3'; ctx.fillRect(0,0,1800,1240);
+    ctx.drawImage(img, 0, 0, 1800, 1240);
+    URL.revokeObjectURL(url);
+    try {
+      const a = document.createElement('a');
+      a.download = 'dolly-room.png';
+      a.href = cv.toDataURL('image/png');
+      a.click();
+      showToast('사진을 저장했어요 📸');
+    } catch(err){ showToast('저장에 실패했어요 🥲'); }
+  };
+  img.onerror = () => { URL.revokeObjectURL(url); showToast('저장에 실패했어요 🥲'); };
+  img.src = url;
+}
+document.getElementById('saveBtn').addEventListener('click', downloadPNG);
+
+/* ======================= sparkles ======================= */
+(function makeSparkles(){
+  const wrap = document.getElementById('sparkles');
+  const chars = ['✦','♡','✧','·','❀'];
+  const colors = ['#ffffff','#ffc4d8','#fff0b8','#e5d8ff'];
+  for(let i=0;i<16;i++){
+    const s = document.createElement('span');
+    s.textContent = chars[i % chars.length];
+    s.style.left = (Math.random()*100) + '%';
+    s.style.top = (20 + Math.random()*70) + '%';
+    s.style.color = colors[i % colors.length];
+    s.style.fontSize = (9 + Math.random()*11) + 'px';
+    s.style.animationDuration = (9 + Math.random()*9) + 's';
+    s.style.animationDelay = (-Math.random()*15) + 's';
+    s.style.textShadow = '0 0 8px rgba(255,255,255,.9)';
+    wrap.appendChild(s);
+  }
+})();
+
+/* ======================= boot ======================= */
+loadState();
+if(!state.dress){
+  if(!state.top) state.top = 't1';
+  if(!state.bottom) state.bottom = 'b1';
+}
+renderAll();
+</script>
+</body>
+</html>

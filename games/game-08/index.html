@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#071521" />
+  <title>물불 크로싱 · 3D 길 건너기</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <main id="app">
+    <div id="stage-frame">
+      <canvas
+        id="game"
+        aria-label="3D 길 건너기 게임. W, A, S, D 또는 방향키로 물불 캐릭터를 한 칸씩 움직여 차를 피합니다."
+      ></canvas>
+
+      <div id="hud" aria-hidden="true">
+        <div class="hud-left">
+          <div class="score-pill">
+            <span class="score-label">거리</span>
+            <strong id="distance">0</strong>
+            <span class="score-unit">m</span>
+          </div>
+          <div class="best-pill">최고 <b id="best">0</b> m</div>
+        </div>
+        <div class="hud-hint">
+          <span><kbd>W</kbd><kbd>A</kbd><kbd>S</kbd><kbd>D</kbd> 이동</span>
+          <span><kbd>R</kbd> 다시</span>
+          <span><kbd>M</kbd> 소리 <b id="sound-state">ON</b></span>
+        </div>
+      </div>
+
+      <div id="toast" role="status" aria-live="polite">
+        <strong id="toast-title">차에 치였다!</strong>
+        <span id="toast-sub">처음부터 다시 도전</span>
+      </div>
+
+      <div id="hit-flash" aria-hidden="true"></div>
+
+      <div id="overlay">
+        <section class="panel">
+          <p class="eyebrow"><span class="eyebrow-dot"></span>WEEK 10 · 3D PLAYABLE</p>
+          <h1 class="title">
+            <span class="title-water">물불</span>
+            <span class="title-fire">크로싱</span>
+          </h1>
+          <p class="lede">
+            차가 질주하는 도로를 한 칸씩 건너<br />
+            가장 멀리까지 살아남으세요.
+          </p>
+
+          <div class="picker">
+            <span class="picker-label">캐릭터</span>
+            <div class="picker-buttons" role="group" aria-label="캐릭터 선택">
+              <button class="char-btn is-active" type="button" data-char="water">
+                <span class="swatch swatch-water"></span>물
+              </button>
+              <button class="char-btn" type="button" data-char="fire">
+                <span class="swatch swatch-fire"></span>불
+              </button>
+            </div>
+          </div>
+
+          <button id="start" class="start-btn" type="button">
+            <span>건너기 시작</span>
+            <span class="start-key">SPACE</span>
+          </button>
+
+          <p class="best-line" id="best-line">최고 기록 <b id="best-title">0</b> m</p>
+          <p class="tip">차에 치이면 <b>처음부터</b> 다시 시작합니다.</p>
+        </section>
+
+        <p class="credit">3D MVP · 원버튼 감성 아케이드</p>
+      </div>
+    </div>
+  </main>
+
+  <script src="src/math3d.js"></script>
+  <script src="src/renderer.js"></script>
+  <script src="src/audio.js"></script>
+  <script src="src/world.js"></script>
+  <script src="src/game.js"></script>
+  <script src="src/main.js"></script>
+</body>
+</html>

@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>슈게임 · 뜨개질</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🧶</text></svg>">
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div class="shell">
+
+  <header class="hud">
+    <div class="brand">
+      <span class="brand-mark">🧶</span>
+      <div>
+        <span class="brand-shoe">슈게임</span>
+        <h1>뜨개질</h1>
+      </div>
+    </div>
+
+    <div class="hud-stats">
+      <div class="chip">
+        <span class="chip-label">도안</span>
+        <b id="patternCounter">1 / 3</b>
+        <span class="dots" id="dots" aria-hidden="true"></span>
+      </div>
+      <div class="chip">
+        <span class="chip-label">시간</span>
+        <b id="timer">0:00</b>
+      </div>
+      <div class="chip">
+        <span class="chip-label">맞춤</span>
+        <b id="matched">0 / 25</b>
+      </div>
+    </div>
+  </header>
+
+  <main class="stage">
+
+    <aside class="panel preview-panel">
+      <div class="panel-label">완성 도안</div>
+      <div class="mini-frame">
+        <div class="mini" id="mini"></div>
+      </div>
+      <div class="pattern-name" id="patternName">첫 하트</div>
+      <div class="pattern-meta" id="patternMeta">5 × 5 · 2가지 실</div>
+      <p class="pattern-desc" id="patternDesc"></p>
+    </aside>
+
+    <section class="board-area">
+      <div class="board-frame" id="boardFrame">
+        <div class="board" id="board" aria-label="뜨개질 판"></div>
+
+        <div class="overlay" id="overlay" role="dialog" aria-modal="true" aria-labelledby="ovTitle" hidden>
+          <div class="overlay-card">
+            <div class="ov-kicker" id="ovKicker">도안 완성!</div>
+            <h2 id="ovTitle">첫 하트</h2>
+            <p id="ovText"></p>
+            <div class="end-stats" id="endStats" hidden></div>
+            <button class="btn primary" id="ovBtn" type="button" hidden>다시 뜨기</button>
+          </div>
+        </div>
+      </div>
+
+      <div class="board-caption">
+        <span class="caption-hint">방향키로 한 땀씩 · <kbd>Space</kbd>로 실 바꾸기</span>
+        <span class="caption-stats">이동 <b id="moves">0</b> · 실수 <b id="mistakes">0</b></span>
+      </div>
+    </section>
+
+    <aside class="panel yarn-panel">
+      <div class="panel-label">지금 실</div>
+      <div class="yarn-now">
+        <div class="yarn-ball" id="yarnBall"></div>
+        <div class="yarn-name" id="yarnName">분홍</div>
+        <div class="yarn-hint"><kbd>Space</kbd> 로 바꾸기</div>
+      </div>
+      <div class="swatches" id="swatches"></div>
+      <div class="control-list">
+        <div><span class="keys"><kbd>←</kbd><kbd>↑</kbd><kbd>↓</kbd><kbd>→</kbd></span><span>이동하며 뜨기</span></div>
+        <div><kbd>Space</kbd><span>실 색 바꾸기</span></div>
+        <div><kbd>R</kbd><span>처음부터 다시</span></div>
+      </div>
+    </aside>
+
+  </main>
+
+  <footer class="foot">
+    <span class="foot-note">10가지 도안 중 <b>3개가 랜덤</b>으로 선택돼요. 같은 색으로 모든 칸을 채우면 완성!</span>
+    <div class="foot-actions">
+      <button class="btn ghost" id="muteBtn" type="button" aria-label="소리 끄기">🔊 소리</button>
+      <button class="btn ghost" id="restartBtn" type="button">↺ 처음부터 <kbd>R</kbd></button>
+    </div>
+  </footer>
+
+</div>
+<script src="game.js"></script>
+</body>
+</html>
