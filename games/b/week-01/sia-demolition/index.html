@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>서울예대 철거 작전 · SIA DEMOLITION</title>
+<link rel="stylesheet" href="style.css">
+</head>
+<body>
+<div id="app">
+  <canvas id="scene"></canvas>
+
+  <div id="vignette"></div>
+  <div id="flash"></div>
+
+  <div id="crosshair">
+    <span class="ch-ring"></span>
+    <span class="ch-dot"></span>
+    <span class="ch-tick t"></span>
+    <span class="ch-tick b"></span>
+    <span class="ch-tick l"></span>
+    <span class="ch-tick r"></span>
+  </div>
+
+  <div id="popups"></div>
+
+  <div id="hud" class="hidden">
+    <div class="hud-top">
+      <div class="hud-brand">
+        <span class="brand-dot"></span>
+        <div class="brand-text">
+          <b>SIA DEMOLITION</b>
+          <small>서울예대 철거 작전</small>
+        </div>
+      </div>
+
+      <div class="hud-score">
+        <small>SCORE</small>
+        <strong id="score">0</strong>
+        <div id="combo" class="combo"></div>
+      </div>
+
+      <div class="hud-integrity">
+        <div class="int-label"><span>건물 잔존도</span><b id="intPct">100%</b></div>
+        <div class="int-track">
+          <div id="intFill" class="int-fill"></div>
+          <div class="int-threshold"><i></i><em>붕괴</em></div>
+        </div>
+        <div class="int-goal">목표 · 착지 전 60% 파괴</div>
+      </div>
+    </div>
+
+    <div id="danger" class="danger">
+      <div class="danger-box"><b>충돌 임박</b><span>SPACE 로 건물을 밀어올리세요</span></div>
+    </div>
+
+    <div class="hud-bottom">
+      <div class="weapon-chip">
+        <span class="weapon-glyph">⌖</span>
+        <div><b>M249</b><small>무한 탄창</small></div>
+      </div>
+
+      <div id="bounceUI" class="bounce-ui" title="반발 장치 (Space)">
+        <div class="bounce-label"><span class="keycap">SPACE</span><b>반발 장치</b></div>
+        <div id="pips" class="pips"></div>
+        <div class="recharge"><i id="rechargeFill"></i></div>
+      </div>
+
+      <div class="help-chip">마우스 조준 · 클릭 사격 · R 재시작</div>
+    </div>
+  </div>
+
+  <div id="startScreen" class="screen">
+    <div class="start-inner">
+      <p class="eyebrow"><span></span> SEOUL INSTITUTE OF THE ARTS · DEMOLITION DIVISION</p>
+      <h1 class="title">
+        <span class="title-top">서울예대</span>
+        <span class="title-bottom">철거 작전<span class="title-mark">!</span></span>
+      </h1>
+      <p class="tagline">
+        하늘에서 떨어지는 서울예술대학교.<br>
+        머신건으로 금을 내고, 부수고, 튕겨내라.
+      </p>
+
+      <div class="controls">
+        <div class="ctrl">
+          <span class="ctrl-key">MOUSE</span>
+          <div><b>조준</b><small>움직여서 겨냥</small></div>
+        </div>
+        <div class="ctrl">
+          <span class="ctrl-key">HOLD</span>
+          <div><b>기관총 사격</b><small>클릭 유지 = 연사</small></div>
+        </div>
+        <div class="ctrl ctrl-accent">
+          <span class="ctrl-key">SPACE</span>
+          <div><b>반발 장치</b><small>건물을 위로 튕김</small></div>
+        </div>
+      </div>
+
+      <div class="start-actions">
+        <button id="startBtn" class="cta">작전 개시 <span>→</span></button>
+        <div class="goal-note">
+          <b>MISSION</b>
+          <span>건물이 착지하기 전에 <em>60% 이상</em> 파괴</span>
+        </div>
+      </div>
+
+      <p class="start-foot">건물은 맞을수록 금이 가고, 임계점에 도달하면 무너집니다. 반발 장치는 충전식 3회.</p>
+    </div>
+    <div class="start-side">
+      <div class="side-line"></div>
+      <p>FALLING<br>STRUCTURE<br><b>NO. 2026</b></p>
+    </div>
+  </div>
+
+  <div id="resultScreen" class="screen hidden">
+    <div class="result-card">
+      <p class="eyebrow" id="resultEyebrow">DEMOLITION REPORT</p>
+      <h2 id="resultTitle">철거 성공</h2>
+      <p id="resultDesc" class="result-desc"></p>
+      <div class="result-stats">
+        <div><span>SCORE</span><b id="finalScore">0</b></div>
+        <div><span>파괴율</span><b id="finalPct">0%</b></div>
+        <div><span>시간</span><b id="finalTime">0.0s</b></div>
+      </div>
+      <button id="restartBtn" class="cta">다시 도전 <span class="keycap">R</span></button>
+    </div>
+  </div>
+</div>
+
+<script src="vendor/three.min.js"></script>
+<script src="game.js"></script>
+</body>
+</html>

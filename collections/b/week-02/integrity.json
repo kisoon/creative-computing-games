@@ -1,0 +1,234 @@
+{
+  "sourceArchiveSha256": "893191edab1521f578fc4c538c316ee48fcb6bb5c142f3ed2d6a31d7cac51bab",
+  "projects": [
+    {
+      "id": "b-vibe-03-ninjutsu",
+      "session": 11,
+      "directory": "games/b/week-02/ninjutsu",
+      "method": "원본 파일 복사",
+      "identical": 2,
+      "runtimeChanges": 1,
+      "mdImplemented": 0,
+      "files": [
+        {
+          "path": "games/b/week-02/ninjutsu/index.html",
+          "sha256": "d057ff2b4de730b1f0c207c3ea99a590a5f82a795d301d9c0f8ded6b5602e0a0",
+          "comparison": "identical",
+          "sourceSha256": "d057ff2b4de730b1f0c207c3ea99a590a5f82a795d301d9c0f8ded6b5602e0a0"
+        },
+        {
+          "path": "games/b/week-02/ninjutsu/sketch.js",
+          "sha256": "4db2673142e4ef8b79f29032fc6dfc54ba64b71c77a2c9008c5b8a619070c057",
+          "comparison": "runtime-name-collision-fix",
+          "sourceSha256": "ddf7af8e34a1bf4fd3c2028c0fa61a454dc412cc63b5f3f5224b5e2df5a965a6"
+        },
+        {
+          "path": "games/b/week-02/ninjutsu/style.css",
+          "sha256": "83ae6193e4b804865b0624e9c7c210faab8a6660c6ea7d871e43b11738107ed4",
+          "comparison": "identical",
+          "sourceSha256": "83ae6193e4b804865b0624e9c7c210faab8a6660c6ea7d871e43b11738107ed4"
+        }
+      ]
+    },
+    {
+      "id": "b-vibe-03-impro-script",
+      "session": 11,
+      "directory": "games/b/week-02/impro-script",
+      "method": "원본 파일 복사",
+      "identical": 5,
+      "runtimeChanges": 0,
+      "mdImplemented": 0,
+      "files": [
+        {
+          "path": "games/b/week-02/impro-script/index.html",
+          "sha256": "fa616c10c127beb7b25a060804c7ef79575ffaff9d23e6041ebbc72639697356",
+          "comparison": "identical",
+          "sourceSha256": "fa616c10c127beb7b25a060804c7ef79575ffaff9d23e6041ebbc72639697356"
+        },
+        {
+          "path": "games/b/week-02/impro-script/ml5.min.js",
+          "sha256": "5facbc15115a5f0277f0e99e634ffe606f5382c9efd72d5092d9701aaaf680c5",
+          "comparison": "identical",
+          "sourceSha256": "5facbc15115a5f0277f0e99e634ffe606f5382c9efd72d5092d9701aaaf680c5"
+        },
+        {
+          "path": "games/b/week-02/impro-script/p5.js",
+          "sha256": "442957750a49c43197a9884bf9b1745cad454d58259e51026bac0dabfc2c5cc4",
+          "comparison": "identical",
+          "sourceSha256": "442957750a49c43197a9884bf9b1745cad454d58259e51026bac0dabfc2c5cc4"
+        },
+        {
+          "path": "games/b/week-02/impro-script/sketch.js",
+          "sha256": "840f40041c67f63872b98b24962e924597e90adf2ff1f04ab1d897b8ae427d9d",
+          "comparison": "identical",
+          "sourceSha256": "840f40041c67f63872b98b24962e924597e90adf2ff1f04ab1d897b8ae427d9d"
+        },
+        {
+          "path": "games/b/week-02/impro-script/style.css",
+          "sha256": "407280d1172e3802b739a92d523b940863dee95f841970d39c768b09ab9e5824",
+          "comparison": "identical",
+          "sourceSha256": "407280d1172e3802b739a92d523b940863dee95f841970d39c768b09ab9e5824"
+        }
+      ]
+    },
+    {
+      "id": "b-vibe-03-referee",
+      "session": 11,
+      "directory": "games/b/week-02/referee",
+      "method": "제출된 Python 실행 묶음 안의 완성된 정적 웹 빌드 사용",
+      "identical": 2,
+      "runtimeChanges": 1,
+      "mdImplemented": 0,
+      "files": [
+        {
+          "path": "games/b/week-02/referee/assets/index-CArYjPWc.css",
+          "sha256": "a8be7b1b2a6c6b43bdea30702b194a7359963b23e053d3cfb7eba782022944eb",
+          "comparison": "identical",
+          "sourceSha256": "a8be7b1b2a6c6b43bdea30702b194a7359963b23e053d3cfb7eba782022944eb"
+        },
+        {
+          "path": "games/b/week-02/referee/assets/index-DF5NLF18.js",
+          "sha256": "af788fb4777008b20564addd44339ffd9d403e5bf1ca8c83cc7db3a73d7682ee",
+          "comparison": "await-model-initialization",
+          "sourceSha256": "52d31998a61a2d5a2b988240b2271841e22c9254edf80e4a43f37c7324941bb5"
+        },
+        {
+          "path": "games/b/week-02/referee/index.html",
+          "sha256": "b8d240609462e2f420b852e9ea3cc4d608dbe56108d2f64e191c1f8396917028",
+          "comparison": "identical",
+          "sourceSha256": "b8d240609462e2f420b852e9ea3cc4d608dbe56108d2f64e191c1f8396917028"
+        }
+      ]
+    },
+    {
+      "id": "b-vibe-03-elsa-filter",
+      "session": 11,
+      "directory": "games/b/week-02/elsa-filter",
+      "method": "기획 MD의 13가지 효과를 바탕으로 새 실행 코드 보완 (원본 실행 코드 미제출)",
+      "identical": 0,
+      "runtimeChanges": 0,
+      "mdImplemented": 3,
+      "files": [
+        {
+          "path": "games/b/week-02/elsa-filter/filter.js",
+          "sha256": "a37abe6777f70f3b0f5b1c53b6d11c7518294545d1120ff80c9121f0ad3e9182",
+          "comparison": "implemented-from-project-md"
+        },
+        {
+          "path": "games/b/week-02/elsa-filter/index.html",
+          "sha256": "02acdb6abeba5bbb3bae63425781d96858869af6603026851640160e351b1d81",
+          "comparison": "implemented-from-project-md"
+        },
+        {
+          "path": "games/b/week-02/elsa-filter/style.css",
+          "sha256": "347d78a2e48bb02af6cec152b543bf2ad692f0945ab50b5e741ea430c2f8b3b1",
+          "comparison": "implemented-from-project-md"
+        }
+      ]
+    },
+    {
+      "id": "b-vibe-03-mirror-move",
+      "session": 11,
+      "directory": "games/b/week-02/mirror-move",
+      "method": "원본 파일 복사",
+      "identical": 1,
+      "runtimeChanges": 0,
+      "mdImplemented": 0,
+      "files": [
+        {
+          "path": "games/b/week-02/mirror-move/index.html",
+          "sha256": "4662c740abdbe9eee625d2ccd54805d4ce0bdce6281a8a57ba756709c59ac379",
+          "comparison": "identical",
+          "sourceSha256": "4662c740abdbe9eee625d2ccd54805d4ce0bdce6281a8a57ba756709c59ac379"
+        }
+      ]
+    },
+    {
+      "id": "b-vibe-03-touchline",
+      "session": 11,
+      "directory": "games/b/week-02/touchline",
+      "method": "제출된 단일 HTML 실행본 사용",
+      "identical": 1,
+      "runtimeChanges": 0,
+      "mdImplemented": 0,
+      "files": [
+        {
+          "path": "games/b/week-02/touchline/index.html",
+          "sha256": "526db95e7ed0ed9fe8132c50d8a11776c5893aede4a4340fe0f29dd615a07952",
+          "comparison": "identical",
+          "sourceSha256": "526db95e7ed0ed9fe8132c50d8a11776c5893aede4a4340fe0f29dd615a07952"
+        }
+      ]
+    },
+    {
+      "id": "b-vibe-03-ink-mirror",
+      "session": 11,
+      "directory": "games/b/week-02/ink-mirror",
+      "method": "원본 파일 복사",
+      "identical": 5,
+      "runtimeChanges": 0,
+      "mdImplemented": 0,
+      "files": [
+        {
+          "path": "games/b/week-02/ink-mirror/index.html",
+          "sha256": "b83640563276c6f697d7e6f3e2124dd19c7df85794a301137a5972c9a55f2de2",
+          "comparison": "identical",
+          "sourceSha256": "b83640563276c6f697d7e6f3e2124dd19c7df85794a301137a5972c9a55f2de2"
+        },
+        {
+          "path": "games/b/week-02/ink-mirror/ml5.min.js",
+          "sha256": "5facbc15115a5f0277f0e99e634ffe606f5382c9efd72d5092d9701aaaf680c5",
+          "comparison": "identical",
+          "sourceSha256": "5facbc15115a5f0277f0e99e634ffe606f5382c9efd72d5092d9701aaaf680c5"
+        },
+        {
+          "path": "games/b/week-02/ink-mirror/p5.min.js",
+          "sha256": "af51e6211e061b5ae463fbc5c3c1c272e5ca67fa560ed3513fde17325d837506",
+          "comparison": "identical",
+          "sourceSha256": "af51e6211e061b5ae463fbc5c3c1c272e5ca67fa560ed3513fde17325d837506"
+        },
+        {
+          "path": "games/b/week-02/ink-mirror/sketch.js",
+          "sha256": "838337941b51be7357d118dd188f64022306f7b74c5b62c3f94afb5b54bca927",
+          "comparison": "identical",
+          "sourceSha256": "838337941b51be7357d118dd188f64022306f7b74c5b62c3f94afb5b54bca927"
+        },
+        {
+          "path": "games/b/week-02/ink-mirror/style.css",
+          "sha256": "dd8b997d26d04faa7fa0aad08c56403ac4cca5623b3754821269fe716036e8f1",
+          "comparison": "identical",
+          "sourceSha256": "dd8b997d26d04faa7fa0aad08c56403ac4cca5623b3754821269fe716036e8f1"
+        }
+      ]
+    },
+    {
+      "id": "b-vibe-03-weed-battle",
+      "session": 11,
+      "directory": "games/b/week-02/weed-battle",
+      "method": "MD의 첫 HTML·CSS·JavaScript 코드 블록을 그대로 실행 파일로 복원",
+      "identical": 3,
+      "runtimeChanges": 0,
+      "mdImplemented": 0,
+      "files": [
+        {
+          "path": "games/b/week-02/weed-battle/index.html",
+          "sha256": "fe849072598075595b565a73143b79dca0e403371818c1ebcf442c066d24c818",
+          "comparison": "identical",
+          "sourceSha256": "fe849072598075595b565a73143b79dca0e403371818c1ebcf442c066d24c818"
+        },
+        {
+          "path": "games/b/week-02/weed-battle/sketch.js",
+          "sha256": "c90497f924257d951f19c3e935467ecafdefd3c3740f0207b972c8ba2b61908c",
+          "comparison": "identical",
+          "sourceSha256": "c90497f924257d951f19c3e935467ecafdefd3c3740f0207b972c8ba2b61908c"
+        },
+        {
+          "path": "games/b/week-02/weed-battle/style.css",
+          "sha256": "703918ced036d6426c32264aeaa29fba7f9275a3d3862af4117c7e32ba1839a3",
+          "comparison": "identical",
+          "sourceSha256": "703918ced036d6426c32264aeaa29fba7f9275a3d3862af4117c7e32ba1839a3"
+        }
+      ]
+    }
+  ]
+}

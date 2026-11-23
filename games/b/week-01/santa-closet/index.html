@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>산타의 옷장 · Christmas Dress-up</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="app">
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark">🎄</div>
+        <div>
+          <h1>산타의 옷장</h1>
+          <p>실내·실외 배경을 고르고 크리스마스 룩을 완성해 보세요</p>
+        </div>
+      </div>
+      <div class="top-actions">
+        <button id="soundBtn" class="icon-btn" type="button" aria-label="배경음악 끄기" title="배경음악 끄기">🔊</button>
+        <button id="resetBtn" class="ghost-btn" type="button">↺ 처음으로</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="stage-card">
+        <div class="scene" id="scene" data-bg="outdoor">
+          <svg class="scene-bg scene-bg--outdoor" viewBox="0 0 800 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#071325" />
+                <stop offset=".5" stop-color="#12304d" />
+                <stop offset="1" stop-color="#2b5a78" />
+              </linearGradient>
+              <radialGradient id="moonGlow">
+                <stop offset="0" stop-color="#fff6cf" stop-opacity=".55" />
+                <stop offset="1" stop-color="#fff6cf" stop-opacity="0" />
+              </radialGradient>
+              <linearGradient id="snowG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#cfe6f7" />
+                <stop offset="1" stop-color="#f8fcff" />
+              </linearGradient>
+              <linearGradient id="hillG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#244766" />
+                <stop offset="1" stop-color="#18334e" />
+              </linearGradient>
+              <filter id="softGlow" x="-80%" y="-80%" width="260%" height="260%">
+                <feGaussianBlur stdDeviation="7" />
+              </filter>
+            </defs>
+
+            <rect width="800" height="900" fill="url(#skyG)" />
+
+            <circle cx="660" cy="130" r="100" fill="url(#moonGlow)" />
+            <circle cx="660" cy="130" r="42" fill="#fff8dd" />
+            <circle cx="675" cy="118" r="8" fill="#f2e8c2" opacity=".7" />
+            <circle cx="646" cy="144" r="5" fill="#f2e8c2" opacity=".6" />
+
+            <g fill="#eaf4ff" opacity=".8">
+              <circle cx="96" cy="90" r="2" /><circle cx="190" cy="140" r="1.6" />
+              <circle cx="282" cy="70" r="2.2" /><circle cx="370" cy="122" r="1.5" />
+              <circle cx="450" cy="62" r="2" /><circle cx="520" cy="160" r="1.5" />
+              <circle cx="580" cy="80" r="1.8" /><circle cx="735" cy="230" r="1.6" />
+              <circle cx="60" cy="210" r="1.5" /><circle cx="320" cy="205" r="1.3" />
+              <circle cx="760" cy="70" r="2" /><circle cx="420" cy="180" r="1.4" />
+            </g>
+
+            <path d="M0 540 Q140 470 290 545 Q420 610 560 520 Q690 440 800 530 L800 900 L0 900 Z" fill="url(#hillG)" opacity=".75" />
+            <g fill="#163049" opacity=".8">
+              <path d="M92 540 l26 -62 26 62 Z" /><path d="M76 576 l32 -76 32 76 Z" />
+              <path d="M694 538 l24 -58 24 58 Z" /><path d="M710 574 l30 -72 30 72 Z" />
+              <path d="M770 566 l20 -48 20 48 Z" />
+            </g>
+
+            <!-- main christmas tree -->
+            <g transform="translate(95 300)">
+              <rect x="92" y="306" width="36" height="58" rx="6" fill="#4c3125" />
+              <path d="M110 18 L68 130 L152 130 Z" fill="#2c7355" />
+              <path d="M110 86 L48 216 L172 216 Z" fill="#266a4d" />
+              <path d="M110 160 L26 318 L194 318 Z" fill="#1f5b43" />
+              <path d="M110 18 L92 62 L128 62 Z" fill="#3b8b67" opacity=".5" />
+              <path d="M110 86 L76 158 L144 158 Z" fill="#3b8b67" opacity=".35" />
+              <path d="M110 160 L60 254 L160 254 Z" fill="#3b8b67" opacity=".3" />
+              <path d="M68 130 Q110 146 152 130" stroke="#e9f7ef" stroke-width="7" fill="none" opacity=".7" stroke-linecap="round" />
+              <path d="M48 216 Q110 234 172 216" stroke="#e9f7ef" stroke-width="8" fill="none" opacity=".7" stroke-linecap="round" />
+              <path d="M26 318 Q110 336 194 318" stroke="#e9f7ef" stroke-width="9" fill="none" opacity=".75" stroke-linecap="round" />
+              <path d="M60 178 Q110 196 160 178" stroke="#e7b34a" stroke-width="2.5" fill="none" opacity=".8" />
+              <path d="M40 250 Q110 270 180 250" stroke="#e7b34a" stroke-width="2.5" fill="none" opacity=".8" />
+              <g>
+                <circle cx="84" cy="152" r="6" fill="#e44b42" /><circle cx="137" cy="186" r="5.5" fill="#f4c451" />
+                <circle cx="74" cy="220" r="6.5" fill="#f4c451" /><circle cx="147" cy="244" r="5.5" fill="#e44b42" />
+                <circle cx="56" cy="286" r="6" fill="#e8eef8" /><circle cx="164" cy="286" r="6" fill="#e44b42" />
+                <circle cx="108" cy="112" r="5" fill="#f4c451" /><circle cx="118" cy="292" r="5" fill="#f4c451" />
+              </g>
+              <g fill="#ecd27b">
+                <circle cx="110" cy="8" r="4" /><circle cx="132" cy="22" r="3" opacity=".8" />
+                <circle cx="90" cy="26" r="3" opacity=".7" /><circle cx="64" cy="270" r="3" opacity=".7" />
+                <circle cx="156" cy="205" r="2.6" opacity=".7" /><circle cx="44" cy="196" r="2.6" opacity=".6" />
+              </g>
+              <path d="M110 0 l7 16 17 2 -12 12 3 17 -15 -8 -15 8 3 -17 -12 -12 17 -2 Z" fill="#ffd56a" />
+            </g>
+
+            <!-- snow ground -->
+            <path d="M0 644 Q120 606 250 640 Q380 674 510 636 Q650 596 800 640 L800 900 L0 900 Z" fill="url(#snowG)" />
+            <path d="M0 700 Q160 660 330 706 Q520 756 800 688 L800 900 L0 900 Z" fill="#eaf5ff" opacity=".75" />
+            <ellipse cx="400" cy="742" rx="230" ry="58" fill="#ffffff" opacity=".45" />
+            <g fill="#ffffff" opacity=".8">
+              <circle cx="170" cy="714" r="3" /><circle cx="250" cy="760" r="2" /><circle cx="640" cy="726" r="3" />
+              <circle cx="706" cy="784" r="2.5" /><circle cx="90" cy="790" r="2.5" /><circle cx="458" cy="712" r="2" />
+            </g>
+
+            <!-- gifts -->
+            <g transform="translate(582 662)">
+              <rect x="0" y="28" width="82" height="62" rx="5" fill="#c93b3b" />
+              <rect x="0" y="28" width="82" height="16" fill="#a82d2d" />
+              <rect x="35" y="28" width="12" height="62" fill="#f3d27e" />
+              <rect x="8" y="18" width="66" height="16" rx="5" fill="#f3d27e" />
+              <path d="M41 20 C22 4 14 14 26 22 C32 26 41 26 41 20 Z" fill="#f3d27e" />
+              <path d="M41 20 C60 4 68 14 56 22 C50 26 41 26 41 20 Z" fill="#f3d27e" />
+              <rect x="88" y="46" width="62" height="46" rx="4" fill="#2f7558" />
+              <rect x="114" y="46" width="10" height="46" fill="#f5e8cd" />
+              <rect x="88" y="64" width="62" height="9" fill="#f5e8cd" />
+              <path d="M119 47 C108 34 101 42 111 48 M119 47 C130 34 137 42 127 48" stroke="#f5e8cd" stroke-width="4" fill="none" />
+            </g>
+
+            <!-- tiny foreground pines -->
+            <g fill="#1c4b3c" opacity=".9">
+              <path d="M58 690 l26 -74 26 74 Z" /><path d="M42 740 l32 -88 32 88 Z" />
+              <path d="M730 672 l24 -66 24 66 Z" /><path d="M714 726 l30 -80 30 80 Z" />
+            </g>
+            <g fill="#eef8ff" opacity=".65">
+              <path d="M42 740 l32 -22 32 22 Z" /><path d="M714 726 l30 -20 30 20 Z" />
+            </g>
+
+            <!-- string lights -->
+            <path d="M0 20 Q180 76 370 34 Q560 -6 800 44" stroke="#3d5268" stroke-width="2" fill="none" />
+            <g filter="url(#softGlow)" opacity=".9">
+              <circle cx="90" cy="47" r="5" fill="#ffd56a" /><circle cx="205" cy="65" r="5" fill="#ff8a7a" />
+              <circle cx="320" cy="48" r="5" fill="#9fe3b5" /><circle cx="455" cy="24" r="5" fill="#ffd56a" />
+              <circle cx="585" cy="18" r="5" fill="#9cc9ff" /><circle cx="710" cy="28" r="5" fill="#ffb3a3" />
+            </g>
+          </svg>
+
+          <svg class="scene-bg scene-bg--indoor" viewBox="0 0 800 900" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+            <defs>
+              <linearGradient id="wallG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#28453c" />
+                <stop offset="1" stop-color="#3b5f4e" />
+              </linearGradient>
+              <linearGradient id="floorG" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#5a3c2f" />
+                <stop offset="1" stop-color="#3d2821" />
+              </linearGradient>
+              <radialGradient id="fireGlow">
+                <stop offset="0" stop-color="#ffb95e" stop-opacity=".85" />
+                <stop offset=".45" stop-color="#f78a3e" stop-opacity=".32" />
+                <stop offset="1" stop-color="#f78a3e" stop-opacity="0" />
+              </radialGradient>
+              <linearGradient id="windowNight" x1="0" y1="0" x2="0" y2="1">
+                <stop offset="0" stop-color="#081a31" />
+                <stop offset="1" stop-color="#2c5577" />
+              </linearGradient>
+              <radialGradient id="warmVignette" cx=".5" cy=".52" r=".72">
+                <stop offset=".55" stop-color="#ffb45e" stop-opacity="0" />
+                <stop offset="1" stop-color="#2a130c" stop-opacity=".36" />
+              </radialGradient>
+              <pattern id="wallpaper" width="58" height="58" patternUnits="userSpaceOnUse">
+                <path d="M29 8 L34 22 L48 22 L37 31 L41 46 L29 37 L17 46 L21 31 L10 22 L24 22 Z" fill="#9fc4a8" opacity=".09" />
+              </pattern>
+              <pattern id="brick" width="52" height="26" patternUnits="userSpaceOnUse">
+                <rect width="52" height="26" fill="#77483a" />
+                <path d="M0 1H52M0 25H52M26 0V13M0 13V26M52 13V26" stroke="#5b332b" stroke-width="2" opacity=".7" />
+                <path d="M4 5H20" stroke="#93604d" stroke-width="2" opacity=".4" />
+              </pattern>
+            </defs>
+
+            <rect width="800" height="900" fill="url(#wallG)" />
+            <rect width="800" height="520" fill="url(#wallpaper)" />
+            <rect y="500" width="800" height="180" fill="#3f2e27" />
+            <rect y="490" width="800" height="17" fill="#74513c" />
+            <rect y="507" width="800" height="3" fill="#2b1d19" opacity=".5" />
+            <g stroke="#2c211c" stroke-width="2" opacity=".45">
+              <path d="M80 520V676M240 520V676M400 520V676M560 520V676M720 520V676" />
+              <path d="M0 596H800" />
+            </g>
+            <rect y="676" width="800" height="224" fill="url(#floorG)" />
+            <g stroke="#2f1f1a" stroke-width="2" opacity=".45">
+              <path d="M0 710H800M0 758H800M0 812H800M0 870H800" />
+              <path d="M140 676L110 900M300 676L280 900M470 676L480 900M630 676L660 900" />
+            </g>
+
+            <!-- rug -->
+            <ellipse cx="405" cy="756" rx="258" ry="86" fill="#7d3034" />
+            <ellipse cx="405" cy="756" rx="236" ry="72" fill="none" stroke="#e8c98b" stroke-width="3" stroke-dasharray="10 9" opacity=".7" />
+            <ellipse cx="405" cy="756" rx="196" ry="55" fill="#632529" />
+            <ellipse cx="405" cy="756" rx="160" ry="42" fill="none" stroke="#c5524d" stroke-width="2" opacity=".7" />
+            <g fill="#e4bd75" opacity=".55">
+              <circle cx="232" cy="750" r="3" /><circle cx="578" cy="750" r="3" />
+              <circle cx="320" cy="808" r="2.4" /><circle cx="500" cy="808" r="2.4" />
+            </g>
+
+            <!-- fireplace -->
+            <g transform="translate(82 286)">
+              <rect x="0" y="-20" width="254" height="374" fill="url(#brick)" rx="4" />
+              <rect x="-14" y="-36" width="282" height="24" rx="6" fill="#6b4636" />
+              <rect x="-8" y="-26" width="270" height="10" rx="4" fill="#8a5f45" />
+              <path d="M32 354 L32 176 Q32 104 127 104 Q222 104 222 176 L222 354 Z" fill="#2a1712" />
+              <path d="M49 354 L49 184 Q49 123 127 123 Q205 123 205 184 L205 354 Z" fill="#130c0a" />
+              <circle cx="127" cy="286" r="132" fill="url(#fireGlow)" />
+              <g class="fire">
+                <path class="flame flame--1" d="M94 344 C76 306 106 292 110 262 C133 288 126 308 142 318 C152 294 166 282 166 256 C192 292 178 318 174 344 Z" fill="#e8642c" />
+                <path class="flame flame--2" d="M108 344 C96 316 116 302 120 282 C138 302 134 318 146 326 C156 308 166 300 168 284 C182 310 174 326 168 344 Z" fill="#f7a23d" />
+                <path class="flame flame--3" d="M124 344 C116 324 130 312 134 298 C146 314 144 326 154 332 C160 320 166 314 168 304 C176 324 168 334 164 344 Z" fill="#ffd271" />
+              </g>
+              <g>
+                <rect x="64" y="338" width="126" height="16" rx="8" fill="#4a2a1e" />
+                <rect x="78" y="326" width="98" height="15" rx="8" fill="#5c3828" transform="rotate(-4 127 333)" />
+                <rect x="86" y="331" width="82" height="12" rx="6" fill="#6f4630" transform="rotate(5 127 337)" />
+              </g>
+              <rect x="16" y="348" width="222" height="18" rx="5" fill="#d2b18a" />
+              <rect x="6" y="362" width="242" height="10" rx="5" fill="#b08c66" />
+            </g>
+
+            <!-- mantel garland -->
+            <g transform="translate(68 250)">
+              <path d="M0 22 Q70 -4 140 20 Q210 44 282 14" stroke="#2c6b4b" stroke-width="24" fill="none" stroke-linecap="round" />
+              <path d="M6 20 Q74 0 142 22 Q210 44 276 16" stroke="#3e8a5d" stroke-width="10" fill="none" opacity=".8" stroke-linecap="round" />
+              <path d="M0 22 Q70 -4 140 20 Q210 44 282 14" stroke="#f2cd72" stroke-width="2.5" fill="none" stroke-dasharray="2 8" opacity=".9" />
+              <g fill="#f4c25e">
+                <circle cx="38" cy="12" r="4" /><circle cx="112" cy="15" r="4" /><circle cx="196" cy="28" r="4" /><circle cx="258" cy="18" r="4" />
+              </g>
+              <g fill="#e45449"><circle cx="72" cy="4" r="4.5" /><circle cx="156" cy="26" r="4.5" /><circle cx="230" cy="30" r="4" /></g>
+            </g>
+
+            <!-- window -->
+            <g transform="translate(552 128)">
+              <rect x="0" y="0" width="194" height="268" rx="8" fill="#d8c6a4" />
+              <rect x="9" y="9" width="176" height="250" rx="3" fill="#1a3550" />
+              <rect x="9" y="9" width="176" height="250" fill="url(#windowNight)" />
+              <circle cx="142" cy="58" r="24" fill="#fff8da" />
+              <circle cx="134" cy="50" r="5" fill="#f0e7c0" opacity=".7" />
+              <g fill="#eef7ff">
+                <circle cx="46" cy="54" r="2" /><circle cx="92" cy="30" r="1.6" /><circle cx="160" cy="112" r="1.5" />
+                <circle cx="42" cy="118" r="1.4" /><circle cx="118" cy="88" r="1.8" />
+              </g>
+              <path d="M19 259 Q40 209 62 259 Z" fill="#183f36" opacity=".85" />
+              <path d="M138 259 Q168 192 198 259 Z" fill="#183f36" opacity=".85" />
+              <path d="M40 259 Q90 242 142 259 L185 259 L185 240 Q90 230 9 240 L9 259 Z" fill="#dbeaf5" opacity=".65" />
+              <path d="M97 9V259M9 138H185" stroke="#d8c6a4" stroke-width="10" />
+              <rect x="-12" y="255" width="218" height="13" rx="4" fill="#c3ad89" />
+              <path d="M-48 0 Q-14 122 -32 282 L8 282 L8 0 Z" fill="#8f2f35" />
+              <path d="M242 0 Q208 122 226 282 L186 282 L186 0 Z" fill="#8f2f35" />
+              <path d="M-40 4 Q-10 116 -24 274" stroke="#b74c50" stroke-width="3" fill="none" opacity=".7" />
+              <path d="M234 4 Q204 116 218 274" stroke="#b74c50" stroke-width="3" fill="none" opacity=".7" />
+            </g>
+
+            <!-- sideboard / cabinet -->
+            <g transform="translate(572 520)">
+              <rect x="0" y="0" width="190" height="150" rx="5" fill="#56382a" />
+              <rect x="-8" y="-10" width="206" height="18" rx="5" fill="#6c4732" />
+              <rect x="12" y="18" width="78" height="52" rx="3" fill="#69432f" />
+              <rect x="100" y="18" width="78" height="52" rx="3" fill="#69432f" />
+              <rect x="12" y="80" width="166" height="54" rx="3" fill="#69432f" />
+              <g fill="#d7ad63">
+                <circle cx="51" cy="44" r="4" /><circle cx="139" cy="44" r="4" /><rect x="90" y="101" width="10" height="10" rx="2" />
+              </g>
+              <path d="M48 130 L48 166 M142 130 L142 166" stroke="#3f281f" stroke-width="9" stroke-linecap="round" />
+            </g>
+
+            <!-- hanging picture -->
+            <g transform="translate(390 92)">
+              <rect x="0" y="0" width="112" height="86" rx="3" fill="#8d6340" />
+              <rect x="8" y="8" width="96" height="70" fill="#d9c7a6" />
+              <path d="M52 18 l6 14 15 2 -11 11 3 15 -13 -7 -13 7 3 -15 -11 -11 15 -2 Z" fill="#3d7657" />
+              <path d="M20 66 Q32 52 44 66 Z" fill="#2f6249" />
+              <path d="M74 66 Q88 48 100 66 Z" fill="#2f6249" />
+              <path d="M0 0V-42" stroke="#a97d53" stroke-width="2" />
+            </g>
+
+            <!-- string lights across the wall -->
+            <path d="M0 62 Q200 126 420 74 Q620 28 800 82" stroke="#37513f" stroke-width="2" fill="none" />
+            <g>
+              <circle cx="96" cy="90" r="5" fill="#ffd16d" class="bulb" />
+              <circle cx="218" cy="107" r="5" fill="#ff9a7f" class="bulb" />
+              <circle cx="344" cy="92" r="5" fill="#a8e0b7" class="bulb" />
+              <circle cx="478" cy="71" r="5" fill="#ffd16d" class="bulb" />
+              <circle cx="610" cy="48" r="5" fill="#f8b5a5" class="bulb" />
+              <circle cx="734" cy="62" r="5" fill="#a6d5ff" class="bulb" />
+            </g>
+
+            <rect width="800" height="900" fill="url(#warmVignette)" />
+            <g fill="#ffe1a3" opacity=".34">
+              <circle cx="122" cy="652" r="2.4" /><circle cx="274" cy="700" r="1.8" />
+              <circle cx="498" cy="638" r="2" /><circle cx="646" cy="702" r="1.6" />
+            </g>
+          </svg>
+
+          <div class="snowfall" id="snowfall" aria-hidden="true"></div>
+          <div class="deco-layer" id="decoLayer" aria-hidden="true"></div>
+
+          <div class="bg-switch" role="tablist" aria-label="배경 선택">
+            <button class="bg-btn" data-bg="indoor" type="button" role="tab" aria-selected="false">🏠 실내</button>
+            <button class="bg-btn is-active" data-bg="outdoor" type="button" role="tab" aria-selected="true">🌨 실외</button>
+          </div>
+
+          <div class="char-switch" role="tablist" aria-label="캐릭터 선택">
+            <button class="char-btn is-active" data-char="female" type="button" role="tab" aria-selected="true">여자</button>
+            <button class="char-btn" data-char="male" type="button" role="tab" aria-selected="false">남자</button>
+          </div>
+
+          <div class="character-drop" id="characterDrop">
+            <div class="char-frame" id="charFrame">
+              <svg id="characterSvg" viewBox="0 0 320 640" role="img" aria-label="옷을 입히는 캐릭터"></svg>
+            </div>
+          </div>
+          <div class="drop-hint" id="dropHint">옷을 끌어다 놓아 보세요</div>
+
+          <div class="outfit-bar" id="outfitBar" aria-label="착용 중인 옷"></div>
+        </div>
+      </section>
+
+      <aside class="wardrobe">
+        <div class="wardrobe-head">
+          <div>
+            <h2><span aria-hidden="true">🎁</span> 옷장</h2>
+            <p>마음에 드는 옷을 골라 보세요</p>
+          </div>
+          <span class="item-count" id="itemCount"></span>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="옷 카테고리">
+          <button class="tab is-active" data-cat="top" type="button" role="tab" aria-selected="true">상의</button>
+          <button class="tab" data-cat="bottom" type="button" role="tab" aria-selected="false">하의</button>
+          <button class="tab" data-cat="shoes" type="button" role="tab" aria-selected="false">신발</button>
+          <button class="tab" data-cat="acc" type="button" role="tab" aria-selected="false">소품</button>
+          <button class="tab" data-cat="scene" type="button" role="tab" aria-selected="false">배경</button>
+        </div>
+
+        <div class="items-grid" id="itemsGrid"></div>
+
+        <div class="wardrobe-tip">
+          <span aria-hidden="true">💡</span>
+          <span>끌어다 놓거나 <b>탭</b>해서 입히고, 배경 탭에서 소품도 꾸며 보세요</span>
+        </div>
+      </aside>
+    </main>
+  </div>
+
+  <div class="fx-layer" id="fxLayer" aria-hidden="true"></div>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="js/character.js"></script>
+  <script src="js/tops.js"></script>
+  <script src="js/bottoms.js"></script>
+  <script src="js/accessories.js"></script>
+  <script src="js/shoes.js"></script>
+  <script src="js/decorations.js"></script>
+  <script src="js/items.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

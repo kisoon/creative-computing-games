@@ -1,0 +1,249 @@
+{
+  "sourceArchiveSha256": "e843bbaa9d460379134411029d8fb77a3efb4d67bb2d3e1447215f55ec9476ff",
+  "projects": [
+    {
+      "id": "b-vibe-02-prison-escape",
+      "session": 10,
+      "directory": "games/b/week-01/prison-escape",
+      "method": "원본 파일 복사",
+      "identical": 3,
+      "runtimeChanges": 0,
+      "mdImplemented": 0,
+      "files": [
+        {
+          "path": "games/b/week-01/prison-escape/game.js",
+          "sha256": "ae62346f449c650f106b7d73dea259874e4c70ad61fb1c95b4fc00d3bb305ba4",
+          "comparison": "identical",
+          "sourceSha256": "ae62346f449c650f106b7d73dea259874e4c70ad61fb1c95b4fc00d3bb305ba4"
+        },
+        {
+          "path": "games/b/week-01/prison-escape/index.html",
+          "sha256": "6db0a44e39daf318e4e4f74727dfff774c7554febb7d7df9498a352931bede58",
+          "comparison": "identical",
+          "sourceSha256": "6db0a44e39daf318e4e4f74727dfff774c7554febb7d7df9498a352931bede58"
+        },
+        {
+          "path": "games/b/week-01/prison-escape/styles.css",
+          "sha256": "fd89605dc335d57bd06de57e569a071da9c52e34727a32fd4da267560e53b547",
+          "comparison": "identical",
+          "sourceSha256": "fd89605dc335d57bd06de57e569a071da9c52e34727a32fd4da267560e53b547"
+        }
+      ]
+    },
+    {
+      "id": "b-vibe-02-guryongtu",
+      "session": 10,
+      "directory": "games/b/week-01/guryongtu",
+      "method": "원본 파일 복사",
+      "identical": 3,
+      "runtimeChanges": 0,
+      "mdImplemented": 0,
+      "files": [
+        {
+          "path": "games/b/week-01/guryongtu/game.js",
+          "sha256": "307a5ec7292f058bba4613e09847dc1319c074e38249aab8ab36e11d2b96a4e5",
+          "comparison": "identical",
+          "sourceSha256": "307a5ec7292f058bba4613e09847dc1319c074e38249aab8ab36e11d2b96a4e5"
+        },
+        {
+          "path": "games/b/week-01/guryongtu/index.html",
+          "sha256": "aa37fdf3293140d1282bdd591c91f64e6374f9ef17991257a45e4bf834dc0cda",
+          "comparison": "identical",
+          "sourceSha256": "aa37fdf3293140d1282bdd591c91f64e6374f9ef17991257a45e4bf834dc0cda"
+        },
+        {
+          "path": "games/b/week-01/guryongtu/styles.css",
+          "sha256": "abfe3c2440c69ca31f90de824aeb8594b9eeb33c4e95eb005a46a0ca82aff2b4",
+          "comparison": "identical",
+          "sourceSha256": "abfe3c2440c69ca31f90de824aeb8594b9eeb33c4e95eb005a46a0ca82aff2b4"
+        }
+      ]
+    },
+    {
+      "id": "b-vibe-02-jump-king",
+      "session": 10,
+      "directory": "games/b/week-01/jump-king",
+      "method": "원본 파일 복사",
+      "identical": 3,
+      "runtimeChanges": 0,
+      "mdImplemented": 0,
+      "files": [
+        {
+          "path": "games/b/week-01/jump-king/game.js",
+          "sha256": "b083d5fa1bec56792d6dd458b1f9caa154497e28d6245ea0606d4a074de56023",
+          "comparison": "identical",
+          "sourceSha256": "b083d5fa1bec56792d6dd458b1f9caa154497e28d6245ea0606d4a074de56023"
+        },
+        {
+          "path": "games/b/week-01/jump-king/index.html",
+          "sha256": "83625f32dcf68e2b3e771d53ca2e2a92c146d6d9cb5a5f2aebd2bf7cd52c64f9",
+          "comparison": "identical",
+          "sourceSha256": "83625f32dcf68e2b3e771d53ca2e2a92c146d6d9cb5a5f2aebd2bf7cd52c64f9"
+        },
+        {
+          "path": "games/b/week-01/jump-king/style.css",
+          "sha256": "ec5583ca6f8368cfc2b06d224f6d9c574d3891bc5cca7e285f8c7e1f378d7443",
+          "comparison": "identical",
+          "sourceSha256": "ec5583ca6f8368cfc2b06d224f6d9c574d3891bc5cca7e285f8c7e1f378d7443"
+        }
+      ]
+    },
+    {
+      "id": "b-vibe-02-sia-demolition",
+      "session": 10,
+      "directory": "games/b/week-01/sia-demolition",
+      "method": "원본 파일 복사",
+      "identical": 4,
+      "runtimeChanges": 0,
+      "mdImplemented": 0,
+      "files": [
+        {
+          "path": "games/b/week-01/sia-demolition/game.js",
+          "sha256": "56bb6ef7d4fc0bd7ae76b1908c9c47787aac41049a6e3f1fc23689ce239b0629",
+          "comparison": "identical",
+          "sourceSha256": "56bb6ef7d4fc0bd7ae76b1908c9c47787aac41049a6e3f1fc23689ce239b0629"
+        },
+        {
+          "path": "games/b/week-01/sia-demolition/index.html",
+          "sha256": "478415f06d80b054a1e49654fa3c5e8a57dc0f1a714e20b0b347e979a25ac744",
+          "comparison": "identical",
+          "sourceSha256": "478415f06d80b054a1e49654fa3c5e8a57dc0f1a714e20b0b347e979a25ac744"
+        },
+        {
+          "path": "games/b/week-01/sia-demolition/style.css",
+          "sha256": "4b9db0035250f584a425a96bb639f924b023b93be8baaacee883ad6e1b771520",
+          "comparison": "identical",
+          "sourceSha256": "4b9db0035250f584a425a96bb639f924b023b93be8baaacee883ad6e1b771520"
+        },
+        {
+          "path": "games/b/week-01/sia-demolition/vendor/three.min.js",
+          "sha256": "170c6789f43217c96b3170f4b42fafe135de7f7cd48497a4218f9757ee1d49fa",
+          "comparison": "identical",
+          "sourceSha256": "170c6789f43217c96b3170f4b42fafe135de7f7cd48497a4218f9757ee1d49fa"
+        }
+      ]
+    },
+    {
+      "id": "b-vibe-02-coffee-machine",
+      "session": 10,
+      "directory": "games/b/week-01/coffee-machine",
+      "method": "원본 파일 복사",
+      "identical": 1,
+      "runtimeChanges": 0,
+      "mdImplemented": 0,
+      "files": [
+        {
+          "path": "games/b/week-01/coffee-machine/index.html",
+          "sha256": "ddb268604bb921ac375e6922d03b4f7417641bfe8892fdd828a76a5ce9802745",
+          "comparison": "identical",
+          "sourceSha256": "ddb268604bb921ac375e6922d03b4f7417641bfe8892fdd828a76a5ce9802745"
+        }
+      ]
+    },
+    {
+      "id": "b-vibe-02-santa-closet",
+      "session": 10,
+      "directory": "games/b/week-01/santa-closet",
+      "method": "원본 파일 복사",
+      "identical": 10,
+      "runtimeChanges": 0,
+      "mdImplemented": 0,
+      "files": [
+        {
+          "path": "games/b/week-01/santa-closet/index.html",
+          "sha256": "1a481e8ff69112a9653b9eedfd39c83cf1fc7a68643d08af3406ca00853848fb",
+          "comparison": "identical",
+          "sourceSha256": "1a481e8ff69112a9653b9eedfd39c83cf1fc7a68643d08af3406ca00853848fb"
+        },
+        {
+          "path": "games/b/week-01/santa-closet/js/accessories.js",
+          "sha256": "99395c8f96c36a08826da1455930bcd04a11950c2e64f50a21bed22d77ede1af",
+          "comparison": "identical",
+          "sourceSha256": "99395c8f96c36a08826da1455930bcd04a11950c2e64f50a21bed22d77ede1af"
+        },
+        {
+          "path": "games/b/week-01/santa-closet/js/app.js",
+          "sha256": "371f668a9fb834edc806708fec6406525f0b85da391181b6e83284dbc01e5d69",
+          "comparison": "identical",
+          "sourceSha256": "371f668a9fb834edc806708fec6406525f0b85da391181b6e83284dbc01e5d69"
+        },
+        {
+          "path": "games/b/week-01/santa-closet/js/bottoms.js",
+          "sha256": "c4dd5c598e318126955a225f8cd9dda0533d32e9ecfdcae5a38307d8db215bcd",
+          "comparison": "identical",
+          "sourceSha256": "c4dd5c598e318126955a225f8cd9dda0533d32e9ecfdcae5a38307d8db215bcd"
+        },
+        {
+          "path": "games/b/week-01/santa-closet/js/character.js",
+          "sha256": "3b7e20519a0a1a22999295280fbaec27a06961f89289c637fbafe2a1b2c7484f",
+          "comparison": "identical",
+          "sourceSha256": "3b7e20519a0a1a22999295280fbaec27a06961f89289c637fbafe2a1b2c7484f"
+        },
+        {
+          "path": "games/b/week-01/santa-closet/js/decorations.js",
+          "sha256": "99a8973d82c8728520fcb4d161f58b126be6de0ca620492feedba18dbf7bc69d",
+          "comparison": "identical",
+          "sourceSha256": "99a8973d82c8728520fcb4d161f58b126be6de0ca620492feedba18dbf7bc69d"
+        },
+        {
+          "path": "games/b/week-01/santa-closet/js/items.js",
+          "sha256": "492e6a6ba89eb0c6070ce7fb814e697cef52225bc6730969453d9d967837590b",
+          "comparison": "identical",
+          "sourceSha256": "492e6a6ba89eb0c6070ce7fb814e697cef52225bc6730969453d9d967837590b"
+        },
+        {
+          "path": "games/b/week-01/santa-closet/js/shoes.js",
+          "sha256": "c9c181ba5a4a0db89e1bc3587e11fc5426e2925b6a44e0dd81d776e4188089af",
+          "comparison": "identical",
+          "sourceSha256": "c9c181ba5a4a0db89e1bc3587e11fc5426e2925b6a44e0dd81d776e4188089af"
+        },
+        {
+          "path": "games/b/week-01/santa-closet/js/tops.js",
+          "sha256": "13c1a6c1a263d98118841e2b5e5411fe48408c8f89f8f7245cd2a9fb97ff8a38",
+          "comparison": "identical",
+          "sourceSha256": "13c1a6c1a263d98118841e2b5e5411fe48408c8f89f8f7245cd2a9fb97ff8a38"
+        },
+        {
+          "path": "games/b/week-01/santa-closet/styles.css",
+          "sha256": "f0fe6768b2e71a9d4712d51fbbebc00a39c16f0a1c8ac0c8d6018e47b17dd6ed",
+          "comparison": "identical",
+          "sourceSha256": "f0fe6768b2e71a9d4712d51fbbebc00a39c16f0a1c8ac0c8d6018e47b17dd6ed"
+        }
+      ]
+    },
+    {
+      "id": "b-vibe-02-witch-house",
+      "session": 10,
+      "directory": "games/b/week-01/witch-house",
+      "method": "원본 파일 복사",
+      "identical": 1,
+      "runtimeChanges": 0,
+      "mdImplemented": 0,
+      "files": [
+        {
+          "path": "games/b/week-01/witch-house/index.html",
+          "sha256": "72db915ea53f3754da19295f8acdefe40cf2d067b4154fdc23f2266240134ab8",
+          "comparison": "identical",
+          "sourceSha256": "72db915ea53f3754da19295f8acdefe40cf2d067b4154fdc23f2266240134ab8"
+        }
+      ]
+    },
+    {
+      "id": "b-vibe-02-parry-rush",
+      "session": 10,
+      "directory": "games/b/week-01/parry-rush",
+      "method": "원본 파일 복사",
+      "identical": 1,
+      "runtimeChanges": 0,
+      "mdImplemented": 0,
+      "files": [
+        {
+          "path": "games/b/week-01/parry-rush/index.html",
+          "sha256": "ba4930a2c5db2c98cd242ecc4f3f58673779ce19b4429c4a9bbf5001a6d46c94",
+          "comparison": "identical",
+          "sourceSha256": "ba4930a2c5db2c98cd242ecc4f3f58673779ce19b4429c4a9bbf5001a6d46c94"
+        }
+      ]
+    }
+  ]
+}

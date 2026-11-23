@@ -12,7 +12,7 @@
 | 구분 | 첫 번째 바이브 코딩 | 두 번째 바이브 코딩 | 세 번째 바이브 코딩 |
 | --- | --- | --- | --- |
 | A반 | [p5.js Pong 실험 13묶음 · 24링크](collections/a/vibe-01/README.md) | [기존 1주차 · 10회차](collections/a/week-01/README.md) | [기존 2주차 · 11회차](collections/a/week-02/README.md) |
-| B반 | [p5.js Pong 실험 5묶음 · 12링크](collections/b/vibe-01/README.md) | [등록 예정](collections/b/week-01/README.md) | [등록 예정](collections/b/week-02/README.md) |
+| B반 | [p5.js Pong 실험 5묶음 · 12링크](collections/b/vibe-01/README.md) | [8개 실행 작품 · 1건 파일 보완 대기](collections/b/week-01/README.md) | [8개 작품 · MD 실행 보완 포함](collections/b/week-02/README.md) |
 
 슬라이드의 p5.js 링크는 첫 번째 바이브 코딩으로, 기존 1·2주차는 각각 두 번째·세 번째 바이브 코딩으로 표시합니다. 기존 로컬 작품의 파일 경로와 실행 주소는 유지합니다. 웹 아카이브에서 작은 스크린샷이나 실행 링크를 누르면 새 창에서 열립니다.
 
@@ -26,7 +26,7 @@
 
 작품에서 참고하거나 사용한 이미지·음원·캐릭터 등의 권리는 원저작자에게 있습니다. 출처나 사용과 관련해 살펴볼 부분이 있다면 편하게 알려 주세요. 확인 후 필요한 내용을 보완하겠습니다. [문의·의견 남기기](https://github.com/kisoon/creative-computing-games/issues/new)
 
-p5.js 작품 18묶음(36링크)과 기존 작품 24개(28개 실행 화면)를 하나의 대표 페이지에서 연결합니다. 별도 서버, 데이터베이스, API 키, 설치 과정이 없는 HTML/CSS/JavaScript 정적 웹사이트입니다.
+p5.js 작품 18묶음(36링크)과 로컬 작품 40개(44개 실행 화면)를 하나의 대표 페이지에서 연결합니다. 별도 서버, 데이터베이스, API 키, 설치 과정이 없는 HTML/CSS/JavaScript 정적 웹사이트입니다.
 
 ## 파일 구성
 

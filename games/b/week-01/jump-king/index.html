@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover" />
+  <title>JUMP KING — 간단 점프맵</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="app">
+    <canvas id="game"></canvas>
+
+    <!-- 상단 HUD -->
+    <header id="hud">
+      <div class="brand">
+        <div class="logo">JUMP<span>KING</span></div>
+        <div class="brand-sub">SIMPLE CLIMBER</div>
+      </div>
+
+      <div class="progress-wrap">
+        <div class="progress-track">
+          <div id="progressFill"></div>
+          <div id="cpMarks"></div>
+          <div id="progressBest"></div>
+        </div>
+        <div class="progress-label"><span>ASCENT</span><b id="progressText">0%</b></div>
+      </div>
+
+      <div class="right-cluster">
+        <div class="stats">
+          <div class="stat"><span>점프</span><b id="jumpCount">0</b></div>
+          <div class="stat"><span>시간</span><b id="timeText">0:00</b></div>
+          <div class="stat falls"><span>추락</span><b id="fallCount">0</b></div>
+        </div>
+        <button id="soundBtn" class="icon-btn" title="소리 (M)" aria-label="소리 켜기/끄기">🔊</button>
+      </div>
+    </header>
+
+    <div id="hint">길게 눌러 <b>높이</b> 점프 · 짧게 눌러 <b>가볍게</b> 점프</div>
+
+    <div id="hpbar" aria-label="체력">
+      <span class="hp-label">HP</span>
+      <div class="hearts" id="hearts"></div>
+    </div>
+
+    <div id="toast" role="status"></div>
+    <div id="damageFlash"></div>
+
+    <!-- 모바일 터치 조작 -->
+    <div class="touch" id="touch">
+      <div class="touch-group">
+        <button class="tbtn" id="tLeft" aria-label="왼쪽">←</button>
+        <button class="tbtn" id="tRight" aria-label="오른쪽">→</button>
+      </div>
+      <div class="touch-group">
+        <button class="tbtn jump" id="tJump" aria-label="점프">JUMP</button>
+      </div>
+    </div>
+
+    <!-- 시작 화면 -->
+    <div class="overlay" id="startOverlay">
+      <div class="card">
+        <div class="eyebrow">SIMPLE 2D CLIMBER</div>
+        <h1><span>JUMP</span><span>KING</span></h1>
+        <p class="desc">가장 아래에서 시작해<br />불규칙한 발판을 디디며 꼭대기까지.</p>
+
+        <div class="keys">
+          <div class="keyrow"><kbd>←</kbd><kbd>→</kbd><span>좌우 이동</span></div>
+          <div class="keyrow"><kbd>SPACE</kbd><span>누르고 있다 놓으면 점프</span></div>
+        </div>
+
+        <p class="tip">
+          스페이스를 <b>오래 누를수록 더 높이</b> 점프합니다.<br />
+          높은 곳에서 떨어지면 <b>HP</b>가 줄고,<br />
+          <b>세이브 포인트</b> 가구에서 회복할 수 있어요.
+        </p>
+
+        <button class="btn" id="startBtn">시작하기</button>
+      </div>
+    </div>
+
+    <!-- 클리어 화면 -->
+    <div class="overlay hidden" id="winOverlay">
+      <div class="card">
+        <div class="eyebrow">SUMMIT REACHED</div>
+        <h1 class="win-title">정상<br />정복!</h1>
+        <p class="desc">꼭대기 깃발에 도착했습니다.</p>
+
+        <div class="result">
+          <div><span>기록</span><b id="resultTime">0:00</b></div>
+          <div><span>점프</span><b id="resultJumps">0</b></div>
+          <div><span>추락</span><b id="resultFalls">0</b></div>
+        </div>
+
+        <button class="btn" id="retryBtn">다시 도전</button>
+        <p class="tip">R 키로도 다시 시작할 수 있어요.</p>
+      </div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>

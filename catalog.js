@@ -986,5 +986,327 @@ window.GAMES = [
       }
     ],
     "round": 3
+  },
+  {
+    "id": "b-vibe-02-prison-escape",
+    "classroom": "B",
+    "round": 2,
+    "title": "아이 탈출 1 · 감옥 탈출",
+    "by": "작품 01",
+    "category": "퍼즐",
+    "description": "장면 속 도구를 올바른 순서로 사용해 감옥을 탈출해요.",
+    "controls": "마우스 클릭",
+    "camera": false,
+    "path": "games/b/week-01/prison-escape/index.html",
+    "art": "assets/previews/b-vibe-02-prison-escape.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/b/week-01/prison-escape/index.html",
+        "preview": "assets/previews/b-vibe-02-prison-escape.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-02-guryongtu",
+    "classroom": "B",
+    "round": 2,
+    "title": "구룡투 · GURYONGTU",
+    "by": "작품 03",
+    "category": "퍼즐",
+    "description": "아홉 개 숫자 타일을 선택하고 공개해 먼저 5승을 겨루는 2인 대결.",
+    "controls": "마우스 · 타일 선택·확정",
+    "camera": false,
+    "path": "games/b/week-01/guryongtu/index.html",
+    "art": "assets/previews/b-vibe-02-guryongtu.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/b/week-01/guryongtu/index.html",
+        "preview": "assets/previews/b-vibe-02-guryongtu.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-02-jump-king",
+    "classroom": "B",
+    "round": 2,
+    "title": "JUMP KING",
+    "by": "작품 04",
+    "category": "아케이드",
+    "description": "점프를 모았다 놓으며 가구를 딛고 꼭대기 깃발을 향해요.",
+    "controls": "← → · Space 누르기/놓기 · R",
+    "camera": false,
+    "path": "games/b/week-01/jump-king/index.html",
+    "art": "assets/previews/b-vibe-02-jump-king.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/b/week-01/jump-king/index.html",
+        "preview": "assets/previews/b-vibe-02-jump-king.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-02-sia-demolition",
+    "classroom": "B",
+    "round": 2,
+    "title": "서울예대 철거 작전",
+    "by": "작품 05",
+    "category": "액션",
+    "description": "3D 공간에서 철거 작전을 펼치는 미니게임.",
+    "controls": "게임 내 이동·공격 안내",
+    "camera": false,
+    "path": "games/b/week-01/sia-demolition/index.html",
+    "art": "assets/previews/b-vibe-02-sia-demolition.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/b/week-01/sia-demolition/index.html",
+        "preview": "assets/previews/b-vibe-02-sia-demolition.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-02-coffee-machine",
+    "classroom": "B",
+    "round": 2,
+    "title": "커피 머신 · 변칙성 동물병원",
+    "by": "작품 06",
+    "category": "액션",
+    "description": "커피 머신이 있는 공간에서 펼치는 1인칭 3D 미니게임.",
+    "controls": "게임 내 이동·공격·커피 안내",
+    "camera": false,
+    "path": "games/b/week-01/coffee-machine/index.html",
+    "art": "assets/previews/b-vibe-02-coffee-machine.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/b/week-01/coffee-machine/index.html",
+        "preview": "assets/previews/b-vibe-02-coffee-machine.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-02-santa-closet",
+    "classroom": "B",
+    "round": 2,
+    "title": "산타의 옷장",
+    "by": "작품 07",
+    "category": "꾸미기",
+    "description": "겨울 옷과 소품으로 캐릭터와 크리스마스 배경을 꾸며요.",
+    "controls": "마우스 클릭·드래그",
+    "camera": false,
+    "path": "games/b/week-01/santa-closet/index.html",
+    "art": "assets/previews/b-vibe-02-santa-closet.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/b/week-01/santa-closet/index.html",
+        "preview": "assets/previews/b-vibe-02-santa-closet.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-02-witch-house",
+    "classroom": "B",
+    "round": 2,
+    "title": "마녀의 과자집",
+    "by": "작품 08",
+    "category": "퍼즐",
+    "description": "두 사람이 힘을 합쳐 과자집의 장치를 풀어 나가요.",
+    "controls": "게임 내 2인 키보드 안내",
+    "camera": false,
+    "path": "games/b/week-01/witch-house/index.html",
+    "art": "assets/previews/b-vibe-02-witch-house.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/b/week-01/witch-house/index.html",
+        "preview": "assets/previews/b-vibe-02-witch-house.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-02-parry-rush",
+    "classroom": "B",
+    "round": 2,
+    "title": "PARRY RUSH",
+    "by": "작품 09",
+    "category": "액션",
+    "description": "공격을 읽고 받아치는 패리 액션 게임.",
+    "controls": "WASD 이동 · Space 패리 · Esc 일시정지",
+    "camera": false,
+    "path": "games/b/week-01/parry-rush/index.html",
+    "art": "assets/previews/b-vibe-02-parry-rush.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/b/week-01/parry-rush/index.html",
+        "preview": "assets/previews/b-vibe-02-parry-rush.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-03-ninjutsu",
+    "classroom": "B",
+    "round": 3,
+    "title": "NINJUTSU LOCAL",
+    "by": "작품 01",
+    "category": "인터랙션",
+    "description": "손동작과 수인을 학습하고 조합해 인술 이펙트를 펼쳐요.",
+    "controls": "카메라 · 수인 학습 / 데모 모드",
+    "camera": true,
+    "path": "games/b/week-02/ninjutsu/index.html",
+    "art": "assets/previews/b-vibe-03-ninjutsu.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/b/week-02/ninjutsu/index.html",
+        "preview": "assets/previews/b-vibe-03-ninjutsu.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-03-impro-script",
+    "classroom": "B",
+    "round": 3,
+    "title": "IMPRO SCRIPT 6",
+    "by": "작품 02",
+    "category": "인터랙션",
+    "description": "두 배우의 움직임을 기록하고 즉흥 희곡으로 이어 보는 실험.",
+    "controls": "카메라 · 기록 시작/종료 · 희곡 생성",
+    "camera": true,
+    "path": "games/b/week-02/impro-script/index.html",
+    "art": "assets/previews/b-vibe-03-impro-script.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/b/week-02/impro-script/index.html",
+        "preview": "assets/previews/b-vibe-03-impro-script.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-03-referee",
+    "classroom": "B",
+    "round": 3,
+    "title": "주먹이 운다 · 배불뚝이 심판",
+    "by": "작품 03",
+    "category": "인터랙션",
+    "description": "두 사람의 가상 글로브 접촉에 심판의 배와 표정이 반응해요.",
+    "controls": "카메라 · 두 사람의 손목 움직임",
+    "camera": true,
+    "path": "games/b/week-02/referee/index.html",
+    "art": "assets/previews/b-vibe-03-referee.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/b/week-02/referee/index.html",
+        "preview": "assets/previews/b-vibe-03-referee.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-03-elsa-filter",
+    "classroom": "B",
+    "round": 3,
+    "title": "엘사 필터",
+    "by": "작품 04",
+    "category": "인터랙션",
+    "description": "손·얼굴·몸의 움직임을 눈과 얼음 효과로 바꾸는 필터.",
+    "controls": "카메라 · 신체 동작 / 효과 미리보기",
+    "camera": true,
+    "path": "games/b/week-02/elsa-filter/index.html",
+    "art": "assets/previews/b-vibe-03-elsa-filter.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/b/week-02/elsa-filter/index.html",
+        "preview": "assets/previews/b-vibe-03-elsa-filter.jpg"
+      }
+    ],
+    "supplemented": "MD 기반 실행 보완"
+  },
+  {
+    "id": "b-vibe-03-mirror-move",
+    "classroom": "B",
+    "round": 3,
+    "title": "Mirror & Move",
+    "by": "작품 05",
+    "category": "인터랙션",
+    "description": "얼굴을 인식하고 팔레트로 가상 립 컬러를 바꿔요.",
+    "controls": "카메라 시작 · 색상 팔레트",
+    "camera": true,
+    "path": "games/b/week-02/mirror-move/index.html",
+    "art": "assets/previews/b-vibe-03-mirror-move.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/b/week-02/mirror-move/index.html",
+        "preview": "assets/previews/b-vibe-03-mirror-move.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-03-touchline",
+    "classroom": "B",
+    "round": 3,
+    "title": "터치라인 · 라이브캠 리프팅",
+    "by": "작품 06",
+    "category": "아케이드",
+    "description": "머리·무릎·발로 화면 속 축구공을 쳐 올려요.",
+    "controls": "카메라 · 손가락 맞대기 / 공 내리기",
+    "camera": true,
+    "path": "games/b/week-02/touchline/index.html",
+    "art": "assets/previews/b-vibe-03-touchline.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/b/week-02/touchline/index.html",
+        "preview": "assets/previews/b-vibe-03-touchline.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-03-ink-mirror",
+    "classroom": "B",
+    "round": 3,
+    "title": "움직임이 남는 거울",
+    "by": "작품 07",
+    "category": "인터랙션",
+    "description": "손끝 속도에 따라 다른 잉크 선을 남겨요.",
+    "controls": "카메라 · 검지 이동 / 테스트 선 그리기",
+    "camera": true,
+    "path": "games/b/week-02/ink-mirror/index.html",
+    "art": "assets/previews/b-vibe-03-ink-mirror.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/b/week-02/ink-mirror/index.html",
+        "preview": "assets/previews/b-vibe-03-ink-mirror.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-03-weed-battle",
+    "classroom": "B",
+    "round": 3,
+    "title": "HandPose · 잡초와 토벌",
+    "by": "작품 08",
+    "category": "아케이드",
+    "description": "손을 폈다 쥐어 잡초를 뽑고 검지를 튕겨 몬스터를 공격해요.",
+    "controls": "카메라 · 손 펴기/주먹/검지 튕기기",
+    "camera": true,
+    "path": "games/b/week-02/weed-battle/index.html",
+    "art": "assets/previews/b-vibe-03-weed-battle.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/b/week-02/weed-battle/index.html",
+        "preview": "assets/previews/b-vibe-03-weed-battle.jpg"
+      }
+    ],
+    "supplemented": "MD 코드 복원"
   }
 ];

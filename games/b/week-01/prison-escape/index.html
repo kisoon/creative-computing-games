@@ -1,0 +1,368 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>아이 탈출 1 — 감옥 탈출 미니게임</title>
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<main class="game">
+  <div class="stage-wrap">
+    <svg id="stage" viewBox="0 0 900 520" role="img" aria-label="감옥 안, 교도관이 지키고 있는 감방">
+      <defs>
+        <linearGradient id="bgGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#161c2e"/>
+          <stop offset="100%" stop-color="#080b13"/>
+        </linearGradient>
+        <linearGradient id="floorGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#242d43"/>
+          <stop offset="100%" stop-color="#0d111c"/>
+        </linearGradient>
+        <linearGradient id="beamGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#dbe8ff" stop-opacity=".22"/>
+          <stop offset="100%" stop-color="#dbe8ff" stop-opacity="0"/>
+        </linearGradient>
+        <linearGradient id="keyGrad" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#ffe9a3"/>
+          <stop offset="100%" stop-color="#d9a52b"/>
+        </linearGradient>
+        <pattern id="stones" width="100" height="56" patternUnits="userSpaceOnUse">
+          <rect width="100" height="56" fill="#2b334a"/>
+          <path d="M0 1 H100 M0 29 H100 M1 29 V56 M52 1 V29 M74 29 V56" stroke="#1a2033" stroke-width="2.5"/>
+          <path d="M4 5 H48 M56 33 H96" stroke="#38425e" stroke-width="1.5" opacity=".55"/>
+        </pattern>
+        <radialGradient id="vig" cx="50%" cy="42%" r="72%">
+          <stop offset="55%" stop-color="#000" stop-opacity="0"/>
+          <stop offset="100%" stop-color="#000" stop-opacity=".6"/>
+        </radialGradient>
+        <clipPath id="uniformClip">
+          <rect x="-38" y="262" width="76" height="100" rx="18"/>
+        </clipPath>
+      </defs>
+
+      <rect width="900" height="520" fill="url(#bgGrad)"/>
+      <rect x="0" y="50" width="900" height="380" fill="url(#stones)" opacity=".9"/>
+      <rect x="0" y="50" width="900" height="380" fill="#0b0f19" opacity=".35"/>
+
+      <g id="highWindow">
+        <rect x="206" y="96" width="96" height="74" rx="4" fill="#0a1220" stroke="#3c4763" stroke-width="6"/>
+        <circle cx="246" cy="120" r="13" fill="#e6efff" opacity=".9"/>
+        <circle cx="252" cy="115" r="11" fill="#0a1220" opacity=".55"/>
+        <g stroke="#4a5573" stroke-width="4">
+          <line x1="230" y1="99" x2="230" y2="167"/>
+          <line x1="256" y1="99" x2="256" y2="167"/>
+          <line x1="282" y1="99" x2="282" y2="167"/>
+        </g>
+        <polygon points="206,170 302,170 430,430 120,430" fill="url(#beamGrad)"/>
+      </g>
+
+      <rect x="0" y="430" width="900" height="90" fill="url(#floorGrad)"/>
+      <line x1="0" y1="430" x2="900" y2="430" stroke="#39445f" stroke-width="3" opacity=".8"/>
+      <g stroke="#0b0f18" stroke-width="2" opacity=".7">
+        <line x1="0" y1="470" x2="900" y2="470"/>
+        <line x1="160" y1="430" x2="120" y2="520"/>
+        <line x1="360" y1="430" x2="340" y2="520"/>
+        <line x1="580" y1="430" x2="580" y2="520"/>
+        <line x1="780" y1="430" x2="820" y2="520"/>
+      </g>
+
+      <g id="neighborWindow">
+        <rect x="24" y="168" width="124" height="164" rx="6" fill="#0a0e18" stroke="#39445f" stroke-width="7"/>
+        <rect x="32" y="176" width="108" height="148" fill="#0b1524"/>
+        <g id="neighbor">
+          <circle cx="86" cy="238" r="24" fill="#060a12"/>
+          <path d="M46 324 v-34 a40 40 0 0 1 80 0 v34 z" fill="#060a12"/>
+          <circle cx="78" cy="236" r="2.6" fill="#7f93b6"/>
+          <circle cx="95" cy="236" r="2.6" fill="#7f93b6"/>
+          <g id="neighborArm" opacity="0">
+            <rect x="110" y="248" width="15" height="48" rx="7" fill="#060a12"/>
+            <circle cx="118" cy="294" r="7" fill="#0a0f18"/>
+          </g>
+        </g>
+        <g stroke="#59627c" stroke-width="5">
+          <line x1="56" y1="172" x2="56" y2="328"/>
+          <line x1="92" y1="172" x2="92" y2="328"/>
+          <line x1="128" y1="172" x2="128" y2="328"/>
+        </g>
+        <rect x="24" y="168" width="124" height="164" rx="6" fill="none" stroke="#232b40" stroke-width="2"/>
+      </g>
+
+      <g id="wallSpot" transform="translate(560 344)" role="button" tabindex="0" aria-label="벽의 벽돌">
+        <g id="wallInner" class="anim">
+          <rect x="-42" y="-28" width="84" height="56" rx="3" fill="#2f3852" stroke="#20283b" stroke-width="2"/>
+          <g fill="none" stroke="#1f273c" stroke-width="2" opacity=".9">
+            <path d="M-31 -21 l8 7 l-2 11 l9 9 l-3 8"/>
+            <path d="M22 -18 l-7 13 l5 9"/>
+            <path d="M-8 -26 l3 11"/>
+          </g>
+          <g id="scratches" stroke="#8d9ab5" stroke-width="1.6" opacity="0">
+            <line x1="-30" y1="-14" x2="22" y2="10"/>
+            <line x1="-24" y1="12" x2="30" y2="-10"/>
+            <line x1="-8" y1="-18" x2="-2" y2="18"/>
+          </g>
+          <g id="wallHole" opacity="0">
+            <rect x="-38" y="-24" width="76" height="48" fill="#080b12"/>
+            <path d="M-38 -24 h76 v48 h-76z" fill="none" stroke="#141a28" stroke-width="3"/>
+          </g>
+        </g>
+      </g>
+
+      <g id="stool" transform="translate(492 402)">
+        <ellipse cx="0" cy="18" rx="42" ry="9" fill="#05070c" opacity=".45"/>
+        <rect x="-34" y="-4" width="68" height="10" rx="3" fill="#6b4a2f"/>
+        <rect x="-30" y="6" width="7" height="18" fill="#553a25"/>
+        <rect x="23" y="6" width="7" height="18" fill="#553a25"/>
+      </g>
+
+      <g id="prisoner" transform="translate(300 0)">
+        <g id="prisonerInner" class="anim">
+          <ellipse cx="0" cy="430" rx="44" ry="9" fill="#03050a" opacity=".5"/>
+          <rect x="-26" y="352" width="20" height="70" rx="8" fill="#3a4257"/>
+          <rect x="6" y="352" width="20" height="70" rx="8" fill="#3a4257"/>
+          <rect x="-30" y="414" width="28" height="16" rx="6" fill="#232a3a"/>
+          <rect x="2" y="414" width="28" height="16" rx="6" fill="#232a3a"/>
+          <rect x="-38" y="262" width="76" height="100" rx="18" fill="#dfe3ec"/>
+          <g clip-path="url(#uniformClip)" opacity=".85">
+            <g fill="#8e97ad">
+              <rect x="-40" y="276" width="80" height="9"/>
+              <rect x="-40" y="298" width="80" height="9"/>
+              <rect x="-40" y="320" width="80" height="9"/>
+              <rect x="-40" y="342" width="80" height="9"/>
+            </g>
+          </g>
+          <rect x="-38" y="262" width="76" height="100" rx="18" fill="none" stroke="#b9c0d1" stroke-width="2"/>
+          <rect x="-52" y="274" width="14" height="66" rx="7" fill="#dfe3ec" stroke="#b9c0d1" stroke-width="1.5"/>
+          <rect x="38" y="274" width="14" height="66" rx="7" fill="#dfe3ec" stroke="#b9c0d1" stroke-width="1.5"/>
+          <circle cx="-45" cy="344" r="8" fill="#eec39b"/>
+          <circle cx="45" cy="344" r="8" fill="#eec39b"/>
+          <rect x="-9" y="244" width="18" height="22" fill="#e3b48c"/>
+          <circle cx="0" cy="222" r="33" fill="#eec39b"/>
+          <path d="M-34 216 a34 34 0 0 1 68 0 q-18 -14 -34 -8 q-20 -4 -34 8z" fill="#2b2f3d"/>
+          <g fill="#2a2f3d">
+            <circle cx="-12" cy="226" r="3"/>
+            <circle cx="12" cy="226" r="3"/>
+          </g>
+          <path d="M-11 244 q11 -7 22 0" stroke="#a9764f" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+          <circle cx="-24" cy="238" r="5" fill="#e39a7a" opacity=".5"/>
+          <circle cx="24" cy="238" r="5" fill="#e39a7a" opacity=".5"/>
+        </g>
+      </g>
+
+      <g id="bookObj" class="clickable" transform="translate(392 402)" role="button" tabindex="0" aria-label="책">
+        <g id="bookInner" class="anim">
+          <ellipse cx="0" cy="22" rx="44" ry="8" fill="#05070c" opacity=".5"/>
+          <rect x="-42" y="-16" width="84" height="30" rx="4" fill="#e9e2d2"/>
+          <rect x="-45" y="-20" width="88" height="30" rx="5" fill="#8f3b2f"/>
+          <rect x="-45" y="-20" width="10" height="30" rx="5" fill="#6f2b22"/>
+          <rect x="-26" y="-12" width="40" height="3" rx="1.5" fill="#f0c46a" opacity=".9"/>
+          <rect x="-26" y="-5" width="26" height="3" rx="1.5" fill="#f0c46a" opacity=".5"/>
+          <rect x="-45" y="-22" width="88" height="34" rx="5" fill="none" stroke="#4d1d17" stroke-width="2"/>
+        </g>
+      </g>
+
+      <g id="appleObj" class="clickable" transform="translate(492 370)" role="button" tabindex="0" aria-label="사과">
+        <g id="appleInner" class="anim">
+          <circle cx="0" cy="0" r="17" fill="#cf3f38"/>
+          <path d="M-10 4 a11 11 0 0 0 20 0" fill="#b3322d" opacity=".6"/>
+          <ellipse cx="-6" cy="-6" rx="4" ry="6" fill="#ff8a7e" opacity=".7"/>
+          <path d="M0 -16 q1 -8 8 -10" stroke="#5b3a20" stroke-width="3" fill="none" stroke-linecap="round"/>
+          <path d="M4 -20 q9 -8 15 2 q-9 7 -15 -2z" fill="#4e8b45"/>
+        </g>
+      </g>
+
+      <g id="toothbrushObj" class="clickable" transform="translate(360 450) rotate(-12)" role="button" tabindex="0" aria-label="칫솔">
+        <rect x="-40" y="-20" width="80" height="40" fill="transparent"/>
+        <g id="toothbrushInner" class="anim">
+          <ellipse cx="0" cy="9" rx="28" ry="4" fill="#05070c" opacity=".4"/>
+          <rect x="-27" y="-3" width="45" height="6" rx="3" fill="#4fa3b8"/>
+          <rect x="13" y="-4" width="17" height="8" rx="3" fill="#e7edf5"/>
+          <g fill="#a9b5c6">
+            <rect x="15" y="-9" width="3" height="5" rx="1"/>
+            <rect x="20" y="-9" width="3" height="5" rx="1"/>
+            <rect x="25" y="-9" width="3" height="5" rx="1"/>
+          </g>
+        </g>
+      </g>
+
+      <g id="crossObj" class="clickable" transform="translate(382 300)" role="button" tabindex="0" aria-label="나무 십자가">
+        <rect x="-34" y="-44" width="68" height="88" fill="transparent"/>
+        <g id="crossInner" class="anim">
+          <ellipse cx="0" cy="40" rx="16" ry="4" fill="#05070c" opacity=".35"/>
+          <rect x="-5" y="-34" width="10" height="72" rx="2" fill="#7a5433"/>
+          <rect x="-24" y="-18" width="48" height="10" rx="2" fill="#8a6039"/>
+          <rect x="-5" y="-34" width="4" height="72" fill="#a0784c" opacity=".55"/>
+          <rect x="-24" y="-18" width="48" height="4" fill="#a0784c" opacity=".45"/>
+        </g>
+      </g>
+
+      <g id="spoonObj" class="clickable" transform="translate(230 448)" role="button" tabindex="-1" aria-label="숟가락">
+        <rect x="-44" y="-24" width="88" height="48" fill="transparent"/>
+        <g id="spoonInner" class="anim">
+          <ellipse cx="0" cy="8" rx="22" ry="4" fill="#05070c" opacity=".4"/>
+          <rect x="-26" y="-3" width="42" height="6" rx="3" fill="#b8c0cf"/>
+          <ellipse cx="22" cy="0" rx="11" ry="8" fill="#cfd6e3"/>
+          <ellipse cx="22" cy="0" rx="7" ry="5" fill="#98a2b4"/>
+        </g>
+      </g>
+
+      <g id="brickObj" class="clickable" transform="translate(570 450) rotate(-4)" role="button" tabindex="-1" aria-label="벽돌">
+        <rect x="-40" y="-24" width="80" height="48" fill="transparent"/>
+        <g id="brickInner" class="anim">
+          <ellipse cx="0" cy="15" rx="26" ry="5" fill="#05070c" opacity=".4"/>
+          <rect x="-22" y="-13" width="44" height="25" rx="2" fill="#9c5334"/>
+          <rect x="-22" y="-13" width="44" height="8" rx="2" fill="#b26542"/>
+          <path d="M-22 5 h44 M0 -5 v12" stroke="#c98a63" stroke-width="2" opacity=".55"/>
+        </g>
+      </g>
+
+      <g id="lamp">
+        <line x1="800" y1="0" x2="800" y2="52" stroke="#20283a" stroke-width="4"/>
+        <path d="M776 52 h48 l10 22 h-68z" fill="#3a4660"/>
+        <ellipse cx="800" cy="74" rx="34" ry="8" fill="#ffd98a" opacity=".18"/>
+        <polygon points="780,74 820,74 870,430 730,430" fill="#ffd98a" opacity=".05"/>
+        <circle cx="800" cy="74" r="5" fill="#ffe6a3"/>
+      </g>
+
+      <g id="guard" aria-label="교도관">
+        <ellipse cx="800" cy="430" rx="46" ry="10" fill="#03050a" opacity=".55"/>
+        <g id="guardFall">
+          <g id="guardBody">
+            <rect x="776" y="352" width="20" height="72" rx="7" fill="#1e2637"/>
+            <rect x="804" y="352" width="20" height="72" rx="7" fill="#1e2637"/>
+            <rect x="770" y="416" width="30" height="16" rx="6" fill="#121722"/>
+            <rect x="800" y="416" width="30" height="16" rx="6" fill="#121722"/>
+            <path d="M768 272 q32 -12 64 0 l-6 86 q-26 8 -52 0z" fill="#33415f"/>
+            <path d="M768 272 q32 -12 64 0 l-2 18 q-30 8 -60 0z" fill="#3e4e70"/>
+            <rect x="766" y="330" width="68" height="12" rx="4" fill="#1a2233"/>
+            <rect x="792" y="330" width="14" height="12" rx="2" fill="#c9a23d"/>
+            <g id="guardKey" transform="translate(812 336)">
+              <circle cx="0" cy="0" r="4.5" fill="none" stroke="url(#keyGrad)" stroke-width="2.5"/>
+              <rect x="3" y="-1.5" width="12" height="3" fill="url(#keyGrad)"/>
+              <rect x="11" y="1" width="3" height="5" fill="url(#keyGrad)"/>
+            </g>
+            <path d="M770 282 q-18 26 -10 58" stroke="#33415f" stroke-width="15" fill="none" stroke-linecap="round"/>
+            <path d="M830 282 q22 20 8 52" stroke="#33415f" stroke-width="15" fill="none" stroke-linecap="round"/>
+            <g transform="translate(763 344) rotate(-16)">
+              <rect x="-4" y="-2" width="7" height="46" rx="3" fill="#8a6b3d"/>
+              <rect x="-4" y="-2" width="7" height="10" rx="3" fill="#d8b06a"/>
+            </g>
+            <circle cx="762" cy="345" r="7" fill="#e3b48c"/>
+            <circle cx="837" cy="338" r="7" fill="#e3b48c"/>
+            <g id="guardHead" class="anim">
+              <rect x="792" y="252" width="18" height="20" fill="#d9a97e"/>
+              <circle cx="800" cy="238" r="28" fill="#e8b98f"/>
+              <circle cx="773" cy="242" r="6" fill="#e8b98f"/>
+              <circle cx="824" cy="240" r="5" fill="#d9a97e"/>
+              <g id="guardEyes">
+                <circle cx="787" cy="232" r="3.4" fill="#262b38"/>
+                <circle cx="808" cy="232" r="3.4" fill="#262b38"/>
+                <path d="M780 226 q7 -5 14 0" stroke="#6b4a33" stroke-width="3" fill="none" stroke-linecap="round"/>
+                <path d="M804 226 q7 -5 14 0" stroke="#6b4a33" stroke-width="3" fill="none" stroke-linecap="round"/>
+              </g>
+              <g id="guardXEyes" opacity="0">
+                <path d="M782 228 l10 10 M792 228 l-10 10" stroke="#7d2b2b" stroke-width="3" stroke-linecap="round"/>
+                <path d="M803 228 l10 10 M813 228 l-10 10" stroke="#7d2b2b" stroke-width="3" stroke-linecap="round"/>
+              </g>
+              <path d="M790 252 q10 4 18 0" stroke="#9c6a4a" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+              <path d="M770 222 q0 -22 30 -22 q30 0 30 22z" fill="#1f2a44"/>
+              <path d="M766 222 h66 q8 0 8 7 h-76 q-6 0 2 -7z" fill="#283655"/>
+              <rect x="790" y="198" width="18" height="8" rx="3" fill="#c9a23d"/>
+            </g>
+          </g>
+        </g>
+      </g>
+
+      <g id="gate">
+        <rect x="626" y="56" width="96" height="376" fill="none" stroke="#5b6784" stroke-width="8" rx="8"/>
+        <g fill="#6a7590">
+          <rect x="646" y="64" width="7" height="360" rx="3.5"/>
+          <rect x="676" y="64" width="7" height="360" rx="3.5"/>
+          <rect x="706" y="64" width="7" height="360" rx="3.5"/>
+        </g>
+        <g stroke="#8d99b5" stroke-width="1.5" opacity=".35">
+          <line x1="647" y1="70" x2="647" y2="420"/>
+          <line x1="677" y1="70" x2="677" y2="420"/>
+          <line x1="707" y1="70" x2="707" y2="420"/>
+        </g>
+        <circle cx="655" cy="340" r="9" fill="#1a2130" stroke="#8b6a2e" stroke-width="3"/>
+        <circle cx="655" cy="340" r="2.5" fill="#c9a23d"/>
+      </g>
+
+      <g id="dropKey" transform="translate(726 410)" role="button" tabindex="-1" aria-label="열쇠">
+        <g id="dropKeyInner" class="anim">
+          <ellipse cx="0" cy="14" rx="18" ry="4" fill="#05070c" opacity=".5"/>
+          <circle cx="-10" cy="0" r="7" fill="none" stroke="url(#keyGrad)" stroke-width="4"/>
+          <rect x="-4" y="-2" width="30" height="4" fill="url(#keyGrad)"/>
+          <rect x="18" y="2" width="4" height="9" fill="url(#keyGrad)"/>
+          <rect x="10" y="2" width="4" height="6" fill="url(#keyGrad)"/>
+        </g>
+      </g>
+
+      <g id="guardAlert" opacity="0">
+        <circle cx="856" cy="156" r="20" fill="#101725" stroke="#3a4a6b" stroke-width="2"/>
+        <text x="856" y="166" text-anchor="middle" font-size="26" font-weight="700" fill="#ffd766">?</text>
+      </g>
+
+      <g id="fx"></g>
+
+      <g opacity=".5" fill="#cdd8f2">
+        <circle class="mote" cx="180" cy="300" r="1.6" style="animation-delay:0s"/>
+        <circle class="mote" cx="250" cy="350" r="1.2" style="animation-delay:1.2s"/>
+        <circle class="mote" cx="430" cy="300" r="1.8" style="animation-delay:2.1s"/>
+        <circle class="mote" cx="520" cy="250" r="1.3" style="animation-delay:.6s"/>
+        <circle class="mote" cx="340" cy="200" r="1.5" style="animation-delay:2.8s"/>
+        <circle class="mote" cx="700" cy="300" r="1.2" style="animation-delay:1.7s"/>
+      </g>
+
+      <rect width="900" height="520" fill="url(#vig)" pointer-events="none"/>
+    </svg>
+
+    <div class="scene-tag">감옥 · 3호실</div>
+    <button class="mute" id="muteBtn" aria-label="소리 끄기">🔊</button>
+    <div class="flash" id="flash"></div>
+
+    <div class="overlay" id="startOverlay">
+      <div class="start-card">
+        <div class="eyebrow">클릭 어드벤처 · 미니게임</div>
+        <h1>아이 탈출 <span>1</span></h1>
+        <p>감옥에 갇힌 주인공이 되어<br>도구를 알맞게 사용해 탈출하세요.</p>
+        <ul class="rules">
+          <li>도구나 사물을 클릭해 상호작용</li>
+          <li>잘못 클릭하면 교도관에게 들킵니다</li>
+          <li>들키면 처음부터 다시 시작합니다</li>
+        </ul>
+        <button class="btn gold" id="startBtn">감옥으로 들어가기</button>
+      </div>
+    </div>
+
+    <div class="overlay hidden" id="winOverlay">
+      <div class="win-card">
+        <div class="eyebrow">THE ESCAPE</div>
+        <h2>탈출 성공!</h2>
+        <p>달빛 아래, 감옥의 문이 천천히 열렸다.</p>
+        <div class="stats">
+          <div><span>클릭</span><b id="statClicks">0</b></div>
+          <div><span>시간</span><b id="statTime">0:00</b></div>
+        </div>
+        <button class="btn gold" id="restartBtn">다시 하기</button>
+      </div>
+    </div>
+    <div class="overlay hidden" id="failOverlay">
+      <div class="fail-card">
+        <div class="eyebrow">BUSTED</div>
+        <h2>들켰다!</h2>
+        <p>교도관이 이쪽으로 다가온다.<br>잘못 클릭한 모양이다. 처음부터 다시 도전하자.</p>
+        <button class="btn gold" id="retryBtn">다시 시작</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="hud">
+    <div class="inventory" id="inventory" aria-label="소지품"></div>
+    <span class="hud-note">⚠ 잘못 클릭하면 즉시 들킵니다</span>
+  </div>
+</main>
+<script src="game.js"></script>
+</body>
+</html>

@@ -1,0 +1,122 @@
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: #10151e;
+  color: #f1f5f9;
+  font-family: Arial, sans-serif;
+}
+
+main {
+  width: min(980px, 96%);
+  margin: 25px auto 60px;
+  text-align: center;
+}
+
+h1 {
+  color: #6dffc2;
+  letter-spacing: 4px;
+  margin-bottom: 6px;
+}
+
+h2 {
+  color: #6dffc2;
+  font-size: 20px;
+  margin-top: 0;
+}
+
+.subtitle, .hint {
+  color: #abb9c9;
+}
+
+#canvas-container {
+  margin: 20px auto;
+}
+
+canvas {
+  max-width: 100%;
+  height: auto !important;
+  border: 2px solid #6dffc2;
+  border-radius: 12px;
+}
+
+#status {
+  color: #c0e8d6;
+  min-height: 25px;
+}
+
+.panel {
+  background: #1d2633;
+  border: 1px solid #344153;
+  border-radius: 14px;
+  padding: 20px;
+  margin: 18px 0;
+  text-align: left;
+}
+
+.controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  margin: 15px 0;
+}
+
+button, select {
+  border: 0;
+  border-radius: 8px;
+  padding: 11px 14px;
+  font-size: 14px;
+}
+
+button {
+  background: #6dffc2;
+  color: #102019;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button:hover {
+  background: #b2ffdf;
+}
+
+select {
+  background: #344153;
+  color: white;
+  max-width: 100%;
+}
+
+.field {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 7px;
+  margin: 6px 14px 10px 0;
+}
+
+.field label {
+  color: #c6d3e2;
+  font-size: 13px;
+}
+
+.output {
+  background: #101820;
+  padding: 18px;
+  border-radius: 9px;
+  white-space: pre-wrap;
+  line-height: 1.85;
+  overflow-y: auto;
+  max-height: 360px;
+  font-size: 14px;
+}
+
+#script-output {
+  max-height: 750px;
+  font-size: 15px;
+}
+
+.hint {
+  font-size: 13px;
+  line-height: 1.7;
+}

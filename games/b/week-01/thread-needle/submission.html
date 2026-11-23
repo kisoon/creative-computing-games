@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" />
+<title>실 꿰기 — Thread the Needle</title>
+<link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div id="stage">
+    <canvas id="game"></canvas>
+  </div>
+
+  <div id="hud">
+    <div class="hud-row">
+      <div class="stat">
+        <span class="k">레벨</span>
+        <span class="v" id="hudLevel">1</span>
+      </div>
+      <div class="stat">
+        <span class="k">점수</span>
+        <span class="v" id="hudScore">0</span>
+      </div>
+      <div class="grow"></div>
+      <div class="tags" id="hudTags"></div>
+      <div class="stat right">
+        <span class="k">남은 시간</span>
+        <span class="v" id="hudTime">20.0</span>
+      </div>
+    </div>
+    <div class="bar" id="hudBar"><i id="barFill"></i></div>
+  </div>
+
+  <div id="banner">
+    <div class="b-title" id="bannerTitle"></div>
+    <div class="b-sub" id="bannerSub"></div>
+  </div>
+
+  <div id="overlay">
+    <div class="panel">
+      <div class="eyebrow" id="ovEyebrow">THREAD THE NEEDLE</div>
+      <h1 id="ovTitle">실 꿰기</h1>
+      <p id="ovDesc">마우스를 움직여 실을 조종하세요.<br />실 끝이 바늘귀를 통과하면 성공입니다.</p>
+      <div class="rules">
+        <div class="rule"><i>1</i><span>제한 시간 안에 <b class="em">모든 바늘</b>을 통과시키세요.</span></div>
+        <div class="rule"><i>2</i><span>레벨 10부터 바늘이 화면을 떠돌고, 25부터 여러 개가 됩니다.</span></div>
+        <div class="rule"><i>3</i><span>작은 바늘·휜 바늘도 섞여 나옵니다.</span></div>
+      </div>
+      <button id="ovBtn">시작하기 <kbd>SPACE</kbd></button>
+      <div class="best" id="ovBest"></div>
+    </div>
+  </div>
+
+  <script src="game.js"></script>
+</body>
+</html>
