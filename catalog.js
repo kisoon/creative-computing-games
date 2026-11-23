@@ -11,7 +11,8 @@ window.ARCHIVE = {
     },
     {
       "id": 2,
-      "label": "2주차"
+      "label": "2주차",
+      "note": "11회차 수업"
     },
     {
       "id": 3,
@@ -269,5 +270,245 @@ window.GAMES = [
     "art": "assets/previews/fight.jpg",
     "classroom": "A",
     "week": 1
+  },
+  {
+    "id": "a-week-02-lemon-ten",
+    "classroom": "A",
+    "week": 2,
+    "title": "LEMON TEN · 레몬 텐",
+    "by": "이수빈 / 1조",
+    "category": "퍼즐",
+    "description": "레몬을 묶어 합이 10이 되는 영역을 찾는 숫자 퍼즐.",
+    "controls": "마우스 드래그",
+    "camera": false,
+    "path": "games/a/week-02/lemon-ten/index.html",
+    "art": "assets/previews/a-week-02-lemon-ten.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/a/week-02/lemon-ten/index.html",
+        "preview": "assets/previews/a-week-02-lemon-ten.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-week-02-hand-sign-portal",
+    "classroom": "A",
+    "week": 2,
+    "title": "HAND SIGN PORTAL",
+    "by": "김경빈 / 10조",
+    "category": "인터랙션",
+    "description": "손가락 모양으로 포탈을 열고 실시간 영상 필터를 바꿔 보세요.",
+    "controls": "카메라 · 손가락 제스처 / 데모 모드",
+    "camera": true,
+    "path": "games/a/week-02/hand-sign-portal/index.html",
+    "art": "assets/previews/a-week-02-hand-sign-portal.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/a/week-02/hand-sign-portal/index.html",
+        "preview": "assets/previews/a-week-02-hand-sign-portal.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-week-02-palm-fruit",
+    "classroom": "A",
+    "week": 2,
+    "title": "손바닥 과일 받기",
+    "by": "김현경",
+    "category": "아케이드",
+    "description": "손바닥을 움직여 하늘에서 떨어지는 과일을 받아 보세요.",
+    "controls": "카메라 · 손바닥 이동",
+    "camera": true,
+    "path": "games/a/week-02/palm-fruit/index.html",
+    "art": "assets/previews/a-week-02-palm-fruit.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/a/week-02/palm-fruit/index.html",
+        "preview": "assets/previews/a-week-02-palm-fruit.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-week-02-hand-mole",
+    "classroom": "A",
+    "week": 2,
+    "title": "손 인식 두더지 잡기",
+    "by": "김민주",
+    "category": "아케이드",
+    "description": "손을 펴서 망치를 움직이고 주먹을 쥐어 두더지를 잡아요.",
+    "controls": "카메라 · 주먹 / 마우스 · Space",
+    "camera": true,
+    "path": "games/a/week-02/hand-mole/index.html",
+    "art": "assets/previews/a-week-02-hand-mole.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/a/week-02/hand-mole/index.html",
+        "preview": "assets/previews/a-week-02-hand-mole.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-week-02-jelly-touch",
+    "classroom": "A",
+    "week": 2,
+    "title": "말랑이 터치",
+    "by": "김수현",
+    "category": "인터랙션",
+    "description": "손끝으로 말랑이를 누르고 문지르며 소리와 움직임을 느껴요.",
+    "controls": "카메라 · 손동작 / 마우스 데모",
+    "camera": true,
+    "path": "games/a/week-02/jelly-touch/index.html",
+    "art": "assets/previews/a-week-02-jelly-touch.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/a/week-02/jelly-touch/index.html",
+        "preview": "assets/previews/a-week-02-jelly-touch.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-week-02-fingertip-magic",
+    "classroom": "A",
+    "week": 2,
+    "title": "손끝 마법",
+    "by": "안다해",
+    "category": "인터랙션",
+    "description": "손끝으로 불꽃을 만들고 발사해 어두운 공간의 촛불을 밝혀요.",
+    "controls": "카메라 · 손동작 / K 시뮬레이션",
+    "camera": true,
+    "path": "games/a/week-02/fingertip-magic/index.html",
+    "art": "assets/previews/a-week-02-fingertip-magic.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/a/week-02/fingertip-magic/index.html",
+        "preview": "assets/previews/a-week-02-fingertip-magic.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-week-02-hand-elements",
+    "classroom": "A",
+    "week": 2,
+    "title": "손바닥 원소 · Hand Elements",
+    "by": "김요한 · 최유찬",
+    "category": "인터랙션",
+    "description": "손바닥에 불·물·번개·얼음을 소환하고 펼쳐서 발사해요.",
+    "controls": "카메라 · 손가락 맞대기 · 손바닥 펼치기",
+    "camera": true,
+    "path": "games/a/week-02/hand-elements/index.html",
+    "art": "assets/previews/a-week-02-hand-elements.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/a/week-02/hand-elements/index.html",
+        "preview": "assets/previews/a-week-02-hand-elements.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-week-02-seal-trainer",
+    "classroom": "A",
+    "week": 2,
+    "title": "印 · 인술 트레이너",
+    "by": "권태경",
+    "category": "인터랙션",
+    "description": "손 모양을 학습하고 정해진 순서로 인을 맺어 이펙트를 펼쳐요.",
+    "controls": "카메라 · 손 모양 / 데모 키보드",
+    "camera": true,
+    "path": "games/a/week-02/seal-trainer/index.html",
+    "art": "assets/previews/a-week-02-seal-trainer.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/a/week-02/seal-trainer/index.html",
+        "preview": "assets/previews/a-week-02-seal-trainer.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-week-02-mochi-ar",
+    "classroom": "A",
+    "week": 2,
+    "title": "한정선 찹쌀떡 AR 체험",
+    "by": "황지민",
+    "category": "인터랙션",
+    "description": "과일 찹쌀떡을 고르고 화면을 클릭해 먹어 보는 AR 시제품.",
+    "controls": "카메라 · 카드 선택 · 체험 시작 · 화면 클릭",
+    "camera": true,
+    "path": "games/a/week-02/mochi-ar/index.html",
+    "art": "assets/previews/a-week-02-mochi-ar.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/a/week-02/mochi-ar/index.html",
+        "preview": "assets/previews/a-week-02-mochi-ar.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-week-02-balloon-pop",
+    "classroom": "A",
+    "week": 2,
+    "title": "하늘빛 풍선 팡팡",
+    "by": "김단영",
+    "category": "아케이드",
+    "description": "카메라에 손을 보여 주고 손끝으로 풍선을 터뜨려요.",
+    "controls": "카메라 · 손끝 이동 (손 인식 후 시작)",
+    "camera": true,
+    "path": "games/a/week-02/balloon-pop/index.html",
+    "art": "assets/previews/a-week-02-balloon-pop.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/a/week-02/balloon-pop/index.html",
+        "preview": "assets/previews/a-week-02-balloon-pop.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-week-02-pause-pose",
+    "classroom": "A",
+    "week": 2,
+    "title": "Pause Pose · 손으로 연주하는 악기",
+    "by": "이현슬",
+    "category": "사운드",
+    "description": "손의 높이와 펼침 정도로 음높이와 음량을 조절하는 악기.",
+    "controls": "카메라 · 손동작 · 연주 시작",
+    "camera": true,
+    "path": "games/a/week-02/pause-pose/handpose.html",
+    "art": "assets/previews/a-week-02-pause-pose.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/a/week-02/pause-pose/handpose.html",
+        "preview": "assets/previews/a-week-02-pause-pose.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-week-02-mosquito",
+    "classroom": "A",
+    "week": 2,
+    "title": "모기 잡기",
+    "by": "이현슬",
+    "category": "아케이드",
+    "description": "손뼉과 손동작으로 모기를 잡고 새로운 기술을 해금해요.",
+    "controls": "카메라 · 손뼉 / 데모 마우스 · Space",
+    "camera": true,
+    "path": "games/a/week-02/pause-pose/mosquito.html",
+    "art": "assets/previews/a-week-02-mosquito.jpg",
+    "versions": [
+      {
+        "label": "대표 버전",
+        "path": "games/a/week-02/pause-pose/mosquito.html",
+        "preview": "assets/previews/a-week-02-mosquito.jpg"
+      }
+    ]
   }
 ];

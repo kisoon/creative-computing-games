@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>印 · 인술 트레이너</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;700;900&family=Noto+Serif+KR:wght@600;900&display=swap"
+    rel="stylesheet"
+  />
+  <link rel="stylesheet" href="style.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <script src="https://unpkg.com/ml5@1/dist/ml5.js"></script>
+</head>
+<body>
+  <main id="stage">
+    <div id="canvasHost"></div>
+
+    <div class="overlay">
+      <header id="topbar">
+        <div class="brand">
+          <span class="brand-mark">忍</span>
+          <span class="brand-text">인술 트레이너</span>
+        </div>
+        <div class="top-actions">
+          <button class="icon-btn" id="btnSound" title="소리 켜기/끄기">🔊</button>
+          <button class="btn small" id="btnTrain">12인 학습</button>
+          <button class="btn small ghost" id="btnHelp">도움말</button>
+        </div>
+      </header>
+
+      <div id="seqBar" aria-live="polite"></div>
+
+      <aside id="jutsuPanel">
+        <div class="panel-title">인술 목록</div>
+        <div id="jutsuList"></div>
+      </aside>
+
+      <div id="sealNow"></div>
+      <div id="statusLine"></div>
+
+      <div id="banner">
+        <div class="banner-name"></div>
+        <div class="banner-sub"></div>
+      </div>
+
+      <div id="prompt"></div>
+      <div id="toast"></div>
+
+      <aside id="trainDrawer" aria-hidden="true">
+        <div class="drawer-head">
+          <div>
+            <div class="drawer-kicker">CALIBRATION</div>
+            <h2>12인 학습</h2>
+          </div>
+          <button class="icon-btn" id="drawerClose" title="닫기">✕</button>
+        </div>
+        <p class="drawer-note">
+          인을 맺은 뒤 <b>3초</b> 기다리면 자동으로 촬영됩니다.<br />
+          손이 잘 보이게 한 뒤 카드를 누르세요. 인마다 한 번씩 학습하면 됩니다.
+        </p>
+        <div id="sealGrid" class="seal-grid"></div>
+        <div class="drawer-foot">
+          <div id="trainCount" class="train-count">0 / 12 학습됨</div>
+          <button class="btn danger small" id="btnReset">학습 초기화</button>
+        </div>
+      </aside>
+
+      <div id="startOverlay">
+        <div class="start-card">
+          <div class="start-kicker">NINJUTSU · HAND SEAL TRAINER</div>
+          <h1><span class="kanji">印</span> 인술 트레이너</h1>
+          <p class="start-desc">
+            12지신의 인을 맺고, 정해진 순서가 맞으면 인술이 발동합니다.<br />
+            <b>치도리 · 호화구의 술법 · 분신술</b>
+          </p>
+          <div class="start-btns">
+            <button class="btn primary" id="btnStart">카메라로 시작</button>
+            <button class="btn ghost" id="btnDemo">데모 모드</button>
+          </div>
+          <ul class="start-notes">
+            <li>밝은 곳에서 양손이 화면에 보이게 해 주세요.</li>
+            <li>처음이라면 우측 상단 <b>12인 학습</b>을 먼저 진행하세요.</li>
+            <li>학습 없이 연출만 보려면 <b>데모 모드</b> + 키보드 <b>1~0, Q, W</b>.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div id="helpModal">
+        <div class="help-card">
+          <button class="icon-btn help-close" id="helpClose">✕</button>
+          <div class="drawer-kicker">HOW TO PLAY</div>
+          <h2>사용법</h2>
+          <ol class="help-steps">
+            <li><b>12인 학습</b>에서 각 인을 맺고 3초 유지 → 자동 촬영 (인당 1회)</li>
+            <li>인을 <b>0.5초 이상</b> 유지하면 화면에 인이 기록됩니다</li>
+            <li>정해진 <b>순서</b>가 완성되면 인술이 발동합니다</li>
+          </ol>
+          <h3>인술 레시피</h3>
+          <div id="helpJutsu" class="help-jutsu"></div>
+          <h3>데모 키 <span class="muted">(카메라 없이 연출 확인)</span></h3>
+          <p class="help-keys">1 쥐 · 2 소 · 3 호랑이 · 4 토끼 · 5 용 · 6 뱀 · 7 말 · 8 염소 · 9 원숭이 · 0 닭 · Q 개 · W 돼지</p>
+          <p class="help-note">
+            마우스/카메라 없이도 위 키로 인을 입력할 수 있습니다. <b>H</b>는 관절 표시 토글.
+          </p>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script src="sketch.js"></script>
+</body>
+</html>

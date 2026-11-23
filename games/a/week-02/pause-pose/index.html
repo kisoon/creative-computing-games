@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Pause Pose · ml5.js HandPose</title>
+    <link rel="stylesheet" href="css/style.css" />
+  </head>
+  <body>
+    <header class="app-header">
+      <div class="app-header__title">
+        <h1>Pause Pose</h1>
+        <p>손으로 연주하는 악기 · ml5.js HandPose</p>
+      </div>
+      <div class="app-header__links">
+        <span class="app-header__tag">ml5.js v1 · p5.js</span>
+        <a class="app-header__tag app-header__tag--link" href="mosquito.html">
+          🦟 손뼉 사냥 게임 →
+        </a>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section class="stage">
+        <div id="canvas-holder" class="canvas-holder"></div>
+        <p class="stage-caption">
+          손을 펴면 크게 · 오므리면 작게, 위아래로 음높이, 좌우로 흔들면 비브라토.
+          <kbd>Space</kbd> 감지 · <kbd>P</kbd> 연주
+        </p>
+        <p id="file-hint" class="stage-caption stage-caption--warn" hidden>
+          파일을 더블클릭해 열면 브라우저가 카메라를 차단할 수 있습니다. 터미널에서
+          <code>python3 -m http.server 8000</code> 실행 후
+          <code>http://localhost:8000</code> 으로 접속해 주세요.
+        </p>
+      </section>
+
+      <aside class="panel">
+        <div class="status-row">
+          <span id="status-badge" class="badge badge--loading">로딩</span>
+          <span id="status-text" class="status-text">모델을 불러오는 중…</span>
+        </div>
+
+        <dl class="stats">
+          <div class="stats__item">
+            <dt>감지된 손</dt>
+            <dd id="hands-count">0</dd>
+          </div>
+          <div class="stats__item">
+            <dt>모델</dt>
+            <dd id="model-info">handPose · full</dd>
+          </div>
+        </dl>
+
+        <section class="panel__section instrument">
+          <h2>악기</h2>
+          <div class="note-display">
+            <span id="note-name" class="note-display__name">—</span>
+            <span id="note-freq" class="note-display__freq">0 Hz</span>
+          </div>
+          <div class="meter" aria-label="음량">
+            <div id="volume-meter" class="meter__fill"></div>
+          </div>
+          <div class="vibrato-row">
+            <span class="vibrato-row__label">비브라토</span>
+            <div class="meter meter--thin">
+              <div id="vibrato-meter" class="meter__fill"></div>
+            </div>
+          </div>
+          <div class="octave-row">
+            <span class="octave-row__label">옥타브</span>
+            <div class="octave-row__controls">
+              <button id="octave-down" type="button" class="btn btn--step" aria-label="옥타브 내리기">
+                −
+              </button>
+              <span id="octave-value" class="octave-row__value">4</span>
+              <button id="octave-up" type="button" class="btn btn--step" aria-label="옥타브 올리기">
+                +
+              </button>
+            </div>
+          </div>
+          <button id="play-toggle" type="button" class="btn btn--play">
+            연주 시작
+          </button>
+          <p class="instrument__hint">
+            <b>펼치기</b> → 음량 · <b>위아래</b> → 음높이 · <b>좌우 흔들기</b> → 비브라토
+          </p>
+        </section>
+
+        <section class="panel__section">
+          <h2>손 목록</h2>
+          <ul id="hands-list" class="hand-list">
+            <li class="hand-list__empty">아직 감지된 손이 없습니다.</li>
+          </ul>
+        </section>
+
+        <section class="panel__section controls">
+          <button id="toggle-detect" type="button" class="btn btn--primary">
+            감지 시작
+          </button>
+          <button id="toggle-skeleton" type="button" class="btn">
+            뼈대 표시 끄기
+          </button>
+          <button id="toggle-label" type="button" class="btn">
+            이름 표시 켜기
+          </button>
+        </section>
+
+        <section class="panel__section hint">
+          <h2>단축키</h2>
+          <ul>
+            <li><kbd>Space</kbd> 감지 시작 / 정지</li>
+            <li><kbd>P</kbd> 연주 시작 / 정지</li>
+            <li><kbd>S</kbd> 뼈대 연결선 표시 전환</li>
+            <li><kbd>K</kbd> 키포인트 이름 표시 전환</li>
+          </ul>
+        </section>
+      </aside>
+    </main>
+
+    <!-- p5.js 1.x + ml5.js 1.x -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
+    <script src="https://unpkg.com/ml5@1/dist/ml5.js"></script>
+
+    <!-- 앱 코드: 설정 → 오디오 → 감지 래퍼 → 렌더링 → 악기 → 스케치 -->
+    <script src="js/config.js"></script>
+    <script src="js/audio.js"></script>
+    <script src="js/detector.js"></script>
+    <script src="js/drawer.js"></script>
+    <script src="js/instrument.js"></script>
+    <script src="js/sketch.js"></script>
+  </body>
+</html>

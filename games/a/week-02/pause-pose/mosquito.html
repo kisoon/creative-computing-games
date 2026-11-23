@@ -1,0 +1,2954 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>손뼉 사냥 · Mosquito Clap Arena</title>
+    <style>
+      :root {
+        --bg: #07090b;
+        --surface: rgba(20, 24, 28, 0.82);
+        --surface-solid: #121619;
+        --border: rgba(255, 255, 255, 0.09);
+        --border-strong: rgba(255, 255, 255, 0.16);
+        --text: #f2f5f4;
+        --dim: #8e9a97;
+        --lime: #b7ff4a;
+        --cyan: #5ee7ff;
+        --violet: #b98cff;
+        --fire: #ff8a3d;
+        --danger: #ff5c72;
+        --gold: #ffd75e;
+        --radius: 18px;
+      }
+
+      * { box-sizing: border-box; }
+
+      html, body { margin: 0; padding: 0; }
+
+      body {
+        min-height: 100vh;
+        color: var(--text);
+        background:
+          radial-gradient(1100px 620px at 8% -12%, rgba(183, 255, 74, 0.10), transparent 60%),
+          radial-gradient(900px 600px at 105% 10%, rgba(94, 231, 255, 0.09), transparent 55%),
+          radial-gradient(800px 500px at 50% 120%, rgba(255, 138, 61, 0.08), transparent 60%),
+          var(--bg);
+        font-family: "Pretendard", system-ui, -apple-system, "Apple SD Gothic Neo",
+          "Segoe UI", "Malgun Gothic", sans-serif;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      button { font: inherit; }
+
+      /* ---------------------------------------------------------- header */
+
+      .game-header {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 14px;
+        width: min(1360px, calc(100% - 40px));
+        margin: 0 auto;
+        padding: 24px 4px 18px;
+      }
+
+      .brand { display: flex; align-items: center; gap: 14px; }
+
+      .brand__mark {
+        display: grid;
+        place-items: center;
+        width: 46px;
+        height: 46px;
+        border-radius: 14px;
+        background:
+          radial-gradient(circle at 30% 25%, rgba(255, 255, 255, 0.35), transparent 45%),
+          linear-gradient(140deg, var(--lime), #4dbf28 55%, #1d7a12);
+        color: #0a1406;
+        font-size: 23px;
+        box-shadow: 0 10px 26px rgba(120, 220, 40, 0.22);
+      }
+
+      .brand h1 {
+        margin: 0;
+        font-size: 21px;
+        letter-spacing: -0.02em;
+      }
+
+      .brand h1 span {
+        background: linear-gradient(90deg, var(--lime), var(--cyan));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .brand p {
+        margin: 3px 0 0;
+        color: var(--dim);
+        font-size: 12.5px;
+        letter-spacing: 0.01em;
+      }
+
+      .header-tag {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 13px;
+        border: 1px solid var(--border);
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.025);
+        color: var(--dim);
+        font-size: 12px;
+        white-space: nowrap;
+      }
+
+      .header-tag::before {
+        content: "";
+        width: 7px;
+        height: 7px;
+        border-radius: 50%;
+        background: var(--lime);
+        box-shadow: 0 0 10px var(--lime);
+      }
+
+      /* ------------------------------------------------------------ layout */
+
+      .game-main {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 330px;
+        gap: 18px;
+        align-items: start;
+        width: min(1360px, calc(100% - 40px));
+        margin: 0 auto;
+        padding-bottom: 46px;
+      }
+
+      .stage {
+        position: relative;
+        padding: 10px;
+        border: 1px solid var(--border);
+        border-radius: calc(var(--radius) + 6px);
+        background: linear-gradient(160deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.015));
+        box-shadow: 0 26px 70px rgba(0, 0, 0, 0.45);
+        overflow: hidden;
+      }
+
+      .stage::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        pointer-events: none;
+        background: linear-gradient(120deg, rgba(183, 255, 74, 0.12), transparent 22%, transparent 78%, rgba(94, 231, 255, 0.10));
+        opacity: 0.7;
+      }
+
+      .canvas-holder {
+        position: relative;
+        overflow: hidden;
+        border-radius: var(--radius);
+        background: #05080a;
+        aspect-ratio: 4 / 3;
+        isolation: isolate;
+      }
+
+      .canvas-holder canvas {
+        display: block;
+        width: 100% !important;
+        height: 100% !important;
+      }
+
+      .stage-foot {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: space-between;
+        gap: 8px;
+        padding: 11px 8px 3px;
+        color: var(--dim);
+        font-size: 12px;
+      }
+
+      .stage-foot kbd {
+        display: inline-block;
+        min-width: 18px;
+        padding: 1px 5px;
+        border: 1px solid var(--border-strong);
+        border-bottom-width: 2px;
+        border-radius: 5px;
+        background: rgba(255, 255, 255, 0.05);
+        color: var(--text);
+        font-family: inherit;
+        font-size: 11px;
+        text-align: center;
+      }
+
+      /* ----------------------------------------------------------- overlay */
+
+      .overlay {
+        position: absolute;
+        inset: 0;
+        z-index: 5;
+        display: grid;
+        place-items: center;
+        padding: 24px;
+        background:
+          radial-gradient(circle at 50% 35%, rgba(183, 255, 74, 0.10), transparent 55%),
+          rgba(4, 7, 9, 0.74);
+        backdrop-filter: blur(9px);
+        transition: opacity 0.25s ease, visibility 0.25s ease;
+      }
+
+      .overlay.is-hidden {
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+      }
+
+      .overlay__card {
+        width: min(520px, 100%);
+        text-align: center;
+        animation: rise 0.45s cubic-bezier(0.2, 0.8, 0.25, 1) both;
+      }
+
+      @keyframes rise {
+        from { opacity: 0; transform: translateY(14px); }
+        to { opacity: 1; transform: translateY(0); }
+      }
+
+      .overlay__kicker {
+        margin: 0 0 10px;
+        color: var(--lime);
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+      }
+
+      .overlay h2 {
+        margin: 0;
+        font-size: clamp(26px, 4.1vw, 44px);
+        line-height: 1.12;
+        letter-spacing: -0.035em;
+      }
+
+      .overlay h2 em {
+        font-style: normal;
+        background: linear-gradient(90deg, var(--lime), var(--cyan) 65%, var(--violet));
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+      }
+
+      .overlay__desc {
+        max-width: 430px;
+        margin: 14px auto 22px;
+        color: #b8c3c0;
+        font-size: 14px;
+        line-height: 1.65;
+      }
+
+      .overlay__hint {
+        margin: 16px 0 0;
+        color: var(--dim);
+        font-size: 12px;
+        line-height: 1.6;
+      }
+
+      .overlay__hint b { color: var(--text); }
+
+      .overlay__spinner {
+        width: 46px;
+        height: 46px;
+        margin: 0 auto 20px;
+        border: 3px solid rgba(255, 255, 255, 0.1);
+        border-top-color: var(--lime);
+        border-radius: 50%;
+        animation: spin 0.9s linear infinite;
+      }
+
+      @keyframes spin { to { transform: rotate(360deg); } }
+
+      /* ------------------------------------------------------------ panel */
+
+      .panel {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        padding: 15px;
+        border: 1px solid var(--border);
+        border-radius: calc(var(--radius) + 6px);
+        background: var(--surface);
+        backdrop-filter: blur(16px);
+        box-shadow: 0 24px 60px rgba(0, 0, 0, 0.32);
+      }
+
+      .status-row {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        min-height: 24px;
+      }
+
+      .badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 4px 9px;
+        border-radius: 999px;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        white-space: nowrap;
+      }
+
+      .badge::before {
+        content: "";
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: currentColor;
+      }
+
+      .badge--idle { background: rgba(255, 255, 255, 0.07); color: #c2cbc8; }
+      .badge--loading { background: rgba(94, 231, 255, 0.14); color: var(--cyan); }
+      .badge--playing { background: rgba(183, 255, 74, 0.14); color: var(--lime); }
+      .badge--demo { background: rgba(185, 140, 255, 0.16); color: var(--violet); }
+      .badge--error { background: rgba(255, 92, 114, 0.16); color: var(--danger); }
+
+      .status-text {
+        overflow: hidden;
+        color: var(--dim);
+        font-size: 12px;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+      }
+
+      /* score */
+
+      .score-card {
+        position: relative;
+        overflow: hidden;
+        padding: 15px 16px 14px;
+        border: 1px solid var(--border);
+        border-radius: 15px;
+        background:
+          radial-gradient(420px 180px at 110% -30%, rgba(183, 255, 74, 0.18), transparent 60%),
+          linear-gradient(160deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.018));
+      }
+
+      .score-card__label {
+        display: block;
+        color: var(--dim);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.24em;
+      }
+
+      .score-card strong {
+        display: block;
+        margin-top: 1px;
+        font-size: 42px;
+        font-weight: 800;
+        line-height: 1.05;
+        letter-spacing: -0.05em;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .score-card__meta {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px 14px;
+        margin-top: 9px;
+        color: var(--dim);
+        font-size: 11.5px;
+      }
+
+      .score-card__meta b {
+        color: var(--text);
+        font-variant-numeric: tabular-nums;
+      }
+
+      /* energy */
+
+      .energy { padding: 4px 2px 2px; }
+
+      .energy__head {
+        display: flex;
+        align-items: baseline;
+        justify-content: space-between;
+        margin-bottom: 7px;
+        font-size: 11.5px;
+        color: var(--dim);
+      }
+
+      .energy__head b {
+        color: var(--cyan);
+        font-size: 12px;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .energy__track {
+        height: 8px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.07);
+        box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.4);
+      }
+
+      .energy__fill {
+        width: 100%;
+        height: 100%;
+        border-radius: inherit;
+        background: linear-gradient(90deg, #2fb8d8, var(--cyan), #d4fbff);
+        box-shadow: 0 0 14px rgba(94, 231, 255, 0.55);
+        transition: width 0.12s linear, background 0.2s ease;
+      }
+
+      .energy__fill.is-low {
+        background: linear-gradient(90deg, #d84a3f, var(--fire));
+        box-shadow: 0 0 14px rgba(255, 138, 61, 0.55);
+      }
+
+      /* skills */
+
+      .skill {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 11px;
+        padding: 10px 11px;
+        border: 1px solid var(--border);
+        border-radius: 13px;
+        background: rgba(255, 255, 255, 0.026);
+        transition: border-color 0.25s ease, background 0.25s ease, transform 0.25s ease;
+      }
+
+      .skill + .skill { margin-top: 8px; }
+
+      .skill__icon {
+        display: grid;
+        place-items: center;
+        flex: 0 0 auto;
+        width: 40px;
+        height: 40px;
+        border-radius: 11px;
+        background: rgba(255, 255, 255, 0.06);
+        font-size: 19px;
+        filter: grayscale(0.9);
+        opacity: 0.7;
+      }
+
+      .skill__body { min-width: 0; flex: 1; }
+
+      .skill__name {
+        display: flex;
+        align-items: center;
+        gap: 7px;
+        font-size: 12.5px;
+        font-weight: 700;
+      }
+
+      .skill__sub {
+        margin-top: 2px;
+        color: var(--dim);
+        font-size: 10.5px;
+        line-height: 1.4;
+      }
+
+      .skill__state {
+        flex: 0 0 auto;
+        color: var(--dim);
+        font-size: 10.5px;
+        font-weight: 700;
+        font-variant-numeric: tabular-nums;
+      }
+
+      .skill__bar {
+        height: 3px;
+        margin-top: 6px;
+        overflow: hidden;
+        border-radius: 999px;
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .skill__bar i {
+        display: block;
+        width: 0;
+        height: 100%;
+        border-radius: inherit;
+        background: var(--cyan);
+        transition: width 0.3s ease;
+      }
+
+      .skill.is-unlocked {
+        border-color: rgba(94, 231, 255, 0.32);
+        background: linear-gradient(120deg, rgba(94, 231, 255, 0.08), rgba(255, 255, 255, 0.02));
+      }
+
+      .skill.is-unlocked .skill__icon {
+        filter: none;
+        opacity: 1;
+        background: rgba(94, 231, 255, 0.12);
+        box-shadow: inset 0 0 0 1px rgba(94, 231, 255, 0.2);
+      }
+
+      #skill-fire.is-unlocked {
+        border-color: rgba(255, 138, 61, 0.34);
+        background: linear-gradient(120deg, rgba(255, 138, 61, 0.09), rgba(255, 255, 255, 0.02));
+      }
+
+      #skill-fire.is-unlocked .skill__icon {
+        background: rgba(255, 138, 61, 0.13);
+        box-shadow: inset 0 0 0 1px rgba(255, 138, 61, 0.22);
+      }
+
+      #skill-fire .skill__bar i { background: var(--fire); }
+
+      #skill-fire .skill__state { color: var(--fire); }
+      #skill-electric .skill__state { color: var(--cyan); }
+
+      /* guide + controls */
+
+      .guide {
+        padding: 12px 13px;
+        border: 1px solid var(--border);
+        border-radius: 14px;
+        background: rgba(255, 255, 255, 0.02);
+      }
+
+      .guide h2,
+      .panel h2 {
+        margin: 0 0 8px;
+        color: var(--dim);
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .guide ul {
+        display: grid;
+        gap: 6px;
+        margin: 0;
+        padding: 0;
+        list-style: none;
+      }
+
+      .guide li {
+        display: flex;
+        align-items: center;
+        gap: 9px;
+        color: #c3ccc9;
+        font-size: 11.5px;
+        line-height: 1.45;
+      }
+
+      .guide li span:first-child {
+        flex: 0 0 auto;
+        width: 20px;
+        font-size: 14px;
+        text-align: center;
+      }
+
+      .guide li b { color: var(--text); }
+
+      .controls { display: grid; gap: 8px; }
+
+      .controls__row { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        gap: 7px;
+        min-height: 38px;
+        padding: 0 14px;
+        border: 1px solid var(--border-strong);
+        border-radius: 11px;
+        background: rgba(255, 255, 255, 0.055);
+        color: var(--text);
+        font-size: 12.5px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: transform 0.12s ease, background 0.18s ease, border-color 0.18s ease, opacity 0.18s ease;
+      }
+
+      .btn:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.25); }
+      .btn:active { transform: translateY(1px) scale(0.995); }
+      .btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+
+      .btn--primary {
+        min-height: 47px;
+        border: 0;
+        background: linear-gradient(135deg, #d6ff7c, var(--lime) 40%, #70d92c);
+        color: #0c1704;
+        font-size: 13.5px;
+        box-shadow: 0 12px 30px rgba(140, 230, 50, 0.22);
+      }
+
+      .btn--primary:hover { background: linear-gradient(135deg, #e2ff9e, #c4ff62 40%, #7fe834); }
+
+      .btn--lg { min-height: 52px; padding: 0 30px; font-size: 14.5px; border-radius: 14px; }
+
+      .btn--ghost { background: transparent; }
+
+      .btn.is-on { border-color: rgba(94, 231, 255, 0.4); color: var(--cyan); }
+
+      .note {
+        margin: 0;
+        padding: 9px 11px;
+        border: 1px solid rgba(185, 140, 255, 0.28);
+        border-radius: 10px;
+        background: rgba(185, 140, 255, 0.08);
+        color: #d8c8ff;
+        font-size: 10.5px;
+        line-height: 1.55;
+      }
+
+      .panel-foot {
+        margin: 0;
+        color: #65706d;
+        font-size: 10.5px;
+        text-align: center;
+      }
+
+      @media (max-width: 980px) {
+        .game-main { grid-template-columns: 1fr; }
+        .panel { order: 2; }
+        .brand h1 { font-size: 19px; }
+      }
+
+      @media (max-width: 560px) {
+        .game-header,
+        .game-main { width: calc(100% - 22px); }
+        .game-header { padding-top: 16px; }
+        .stage { padding: 6px; }
+        .stage-foot { font-size: 11px; }
+        .score-card strong { font-size: 36px; }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="game-header">
+      <div class="brand">
+        <div class="brand__mark" aria-hidden="true">🦟</div>
+        <div>
+          <h1><span>손뼉 사냥</span> · Mosquito Clap Arena</h1>
+          <p>ml5.js HandPose로 손을 읽고, 손뼉으로 모기를 잡는 카메라 게임</p>
+        </div>
+      </div>
+      <span class="header-tag">ml5.js HandPose · p5.js</span>
+    </header>
+
+    <main class="game-main">
+      <section class="stage" aria-label="게임 화면">
+        <div class="canvas-holder">
+          <div id="canvas-holder"></div>
+
+          <div id="overlay" class="overlay">
+            <div class="overlay__card">
+              <p id="overlay-kicker" class="overlay__kicker">CLAP HUNT</p>
+              <h2 id="overlay-title">손뼉으로<br /><em>모기를 잡아라</em></h2>
+              <p id="overlay-desc" class="overlay__desc">
+                시작을 누르면 웹캠과 ml5 손 모델이 켜집니다. 카메라 앞에서 두 손을
+                모아 모기 위치에서 손뼉을 치면 모기가 잡힙니다.
+              </p>
+              <button id="overlay-btn" type="button" class="btn btn--primary btn--lg">
+                카메라 켜고 시작
+              </button>
+              <p id="overlay-hint" class="overlay__hint">
+                <b>🎥 웹캠 필요</b> · <b>👏 두 손뼉</b> · <b>✋ 휘두르기</b> · <b>✌️ 전기</b> · <b>✊ 화염</b>
+              </p>
+            </div>
+          </div>
+        </div>
+
+        <div class="stage-foot">
+          <span>🎥 웹캠 손인식 · 👏 두 손뼉으로 모기 잡기</span>
+          <span><kbd>R</kbd> 다시 시작 · <kbd>M</kbd> 사운드</span>
+        </div>
+      </section>
+
+      <aside class="panel">
+        <div class="status-row">
+          <span id="status-badge" class="badge badge--idle">대기</span>
+          <span id="status-text" class="status-text">게임을 시작해 주세요</span>
+        </div>
+
+        <div class="score-card">
+          <span class="score-card__label">SCORE</span>
+          <strong id="score-value">0</strong>
+          <div class="score-card__meta">
+            <span>잡은 모기 <b id="catch-value">0</b></span>
+            <span>콤보 <b id="combo-value">0</b></span>
+            <span>최고 <b id="best-value">0</b></span>
+          </div>
+        </div>
+
+        <div class="energy">
+          <div class="energy__head">
+            <span>스킬 에너지</span>
+            <b id="energy-value">100%</b>
+          </div>
+          <div class="energy__track">
+            <div id="energy-fill" class="energy__fill"></div>
+          </div>
+        </div>
+
+        <section aria-label="해금 스킬">
+          <h2>Skills</h2>
+
+          <article id="skill-electric" class="skill is-locked">
+            <div class="skill__icon" aria-hidden="true">✌️⚡</div>
+            <div class="skill__body">
+              <div class="skill__name">전기 파리채</div>
+              <div class="skill__sub">검지·중지를 펴면 가까운 모기를 감전</div>
+              <div class="skill__bar"><i id="electric-bar"></i></div>
+            </div>
+            <span id="electric-state" class="skill__state">0 / 5</span>
+          </article>
+
+          <article id="skill-fire" class="skill is-locked">
+            <div class="skill__icon" aria-hidden="true">✊🔥</div>
+            <div class="skill__body">
+              <div class="skill__name">화염방사</div>
+              <div class="skill__sub">주먹을 쥐면 손끝에서 화염 분사</div>
+              <div class="skill__bar"><i id="fire-bar"></i></div>
+            </div>
+            <span id="fire-state" class="skill__state">0 / 15</span>
+          </article>
+        </section>
+
+        <section class="guide" aria-label="손동작 가이드">
+          <h2>How to play</h2>
+          <ul>
+            <li><span>👏</span><span><b>두 손을 마주치면</b> 주변 모기를 한 번에 제압</span></li>
+            <li><span>✋</span><span><b>손을 빠르게 휘두르면</b> 지나간 자리의 모기를 타격</span></li>
+            <li><span>✊</span><span>모기 근처에서 <b>주먹을 확 쥐면</b> 즉시 손뼉 판정</span></li>
+            <li><span>⚡</span><span><b>✌️</b>를 유지하면 전기, <b>✊</b>을 유지하면 화염</span></li>
+          </ul>
+        </section>
+
+        <div class="controls">
+          <button id="start-btn" type="button" class="btn btn--primary">게임 시작</button>
+          <div class="controls__row">
+            <button id="sound-btn" type="button" class="btn btn--ghost">사운드 끄기</button>
+            <button id="demo-btn" type="button" class="btn btn--ghost">데모 모드</button>
+          </div>
+        </div>
+
+        <p id="demo-note" class="note" hidden>
+          마우스 데모 모드입니다. 마우스로 손을 움직이고 클릭하면 손뼉이 나갑니다.
+          <b>1</b>·<b>2</b> 키로 손모양(✌️/✊)을 바꾸고, <b>U</b> 키로 스킬을 모두 해금할 수 있습니다.
+        </p>
+
+        <p class="panel-foot">카메라 권한이 필요합니다 · 처리된 영상은 저장되지 않습니다</p>
+      </aside>
+    </main>
+
+    <!-- p5.js 1.x + ml5.js 1.x (인터넷 연결 필요) -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
+    <script src="https://unpkg.com/ml5@1/dist/ml5.js"></script>
+
+    <script>
+      /* ================================================================
+       * 손뼉 사냥 · Mosquito Clap Arena
+       * - ml5.handPose 로 손 21개 키포인트를 읽습니다.
+       * - 화면 좌표는 웹캠을 거울처럼 뒤집은 기준으로 변환합니다.
+       * - 두 손 거리가 급격히 줄면 "손뼉", 손의 빠른 이동은 "휘두르기".
+       * - 손가락 모양으로 전기 파리채(✌️) / 화염방사(✊)를 판정합니다.
+       * ================================================================ */
+
+      /* ------------------------------------------------------------ config */
+
+      const GAME = {
+        width: 960,
+        height: 720,
+        mirror: true,
+        handPose: {
+          maxHands: 2,
+          flipped: false,
+          runtime: "tfjs",
+          modelType: "full",
+        },
+        catch: {
+          swipeSpeed: 680,      // 이 속도(px/s) 이상이면 휘두르기 판정
+          swipeRadius: 62,      // 손이 지나간 선 주변 판정 반경
+          snapRadius: 104,      // 주먹을 쥘 때 즉시 판정 반경
+          clapRadius: 172,      // 두 손뼉 판정 반경
+        },
+        roundSeconds: 60,       // 한 라운드 길이
+        mosquito: {
+          baseSpeed: 58,
+          speedPerCatch: 1.15,
+          maxSpeed: 150,
+          maxAliveBase: 3,
+          maxAliveStep: 4,      // 4마리마다 최대 개체 +1
+          maxAliveCap: 14,
+          lifespan: 26,         // 이 시간이 지나면 화면 밖으로 날아갑니다
+        },
+        skills: {
+          electric: { unlock: 5, drain: 27, range: 310, lockAfter: 0 },
+          fire: { unlock: 15, drain: 33, range: 290, halfAngle: 0.48 },
+        },
+      };
+
+      const CONNECTIONS = [
+        [0, 1], [1, 2], [2, 3], [3, 4],
+        [0, 5], [5, 6], [6, 7], [7, 8],
+        [5, 9], [9, 10], [10, 11], [11, 12],
+        [9, 13], [13, 14], [14, 15], [15, 16],
+        [13, 17], [17, 18], [18, 19], [19, 20],
+        [0, 17],
+      ];
+
+      const COLORS = {
+        lime: [183, 255, 74],
+        cyan: [94, 231, 255],
+        violet: [185, 140, 255],
+        fire: [255, 138, 61],
+        gold: [255, 215, 94],
+        gore: [112, 168, 74],
+      };
+
+      const GESTURE_LABEL = {
+        open: "손바닥",
+        fist: "주먹",
+        peace: "✌️ 전기",
+        point: "검지",
+        other: "손",
+      };
+
+      /* ------------------------------------------------------------- state */
+
+      const G = {
+        phase: "idle",          // idle | loading | countdown | playing | error
+        message: "게임을 시작해 주세요",
+        score: 0,
+        best: 0,
+        catches: 0,
+        combo: 0,
+        comboTimer: 0,
+        energy: 100,
+        energyLock: false,
+        noSkillTime: 0,
+        unlocked: { electric: false, fire: false },
+        countdown: 0,
+        countdownEnd: 0,
+        timeLeft: 60,
+        roundEnd: 0,
+        elapsed: 0,
+        spawnTimer: 0,
+        shake: 0,
+        fireActive: false,
+        banner: null,
+        demoGesture: "open",
+      };
+
+      try {
+        G.best = Number(window.localStorage.getItem("mosquito-clap-best") || 0) || 0;
+      } catch (error) {
+        G.best = 0;
+      }
+
+      const dom = {};
+      // ml5 공식 HandPose 예제와 같은 구조:
+      //   handPose = await ml5.handPose();
+      //   video = createCapture(VIDEO);
+      //   handPose.detectStart(video, gotHands);
+      let video = null;
+      let videoW = 640;
+      let videoH = 480;
+      let handPose = null;
+      let rawHands = [];
+      let detecting = false;
+      let demoMode = false;
+      let ready = false;
+      let booting = false;
+      let hasCamera = false;
+      let hasModel = false;
+
+      // p5 createCapture는 카메라 권한 거부 시 내부 Promise를 처리하지 않아
+      // 콘솔에 unhandled rejection이 찍힙니다. 게임은 자체 오류 화면으로
+      // 안내하므로, 카메라 준비 중 발생한 장치 오류만 조용히 넘깁니다.
+      window.addEventListener("unhandledrejection", (event) => {
+        const name = event.reason && event.reason.name;
+        if (
+          booting &&
+          (name === "NotAllowedError" ||
+            name === "NotFoundError" ||
+            name === "NotReadableError")
+        ) {
+          event.preventDefault();
+        }
+      });
+
+      let hands = [];
+      const handMemory = new Map();
+      const clapMemory = new Map();
+      let clapArm = null;
+      let lastClapAt = 0;
+      let lastHandAt = 0;
+      let lastPanelSync = 0;
+
+      const mosquitoes = [];
+      const bolts = [];
+      const rings = [];
+      const gore = [];
+      const fireParts = [];
+      const floaters = [];
+
+      /* ================================================================
+       * utils
+       * ================================================================ */
+
+      const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
+      const rand = (min, max) => min + Math.random() * (max - min);
+      const dist2 = (ax, ay, bx, by) => {
+        const dx = ax - bx;
+        const dy = ay - by;
+        return dx * dx + dy * dy;
+      };
+      const dist = (ax, ay, bx, by) => Math.sqrt(dist2(ax, ay, bx, by));
+
+      function pointSegmentDistance(px, py, ax, ay, bx, by) {
+        const dx = bx - ax;
+        const dy = by - ay;
+        const lengthSq = dx * dx + dy * dy;
+        if (lengthSq === 0) return dist(px, py, ax, ay);
+        const t = clamp(((px - ax) * dx + (py - ay) * dy) / lengthSq, 0, 1);
+        return dist(px, py, ax + dx * t, ay + dy * t);
+      }
+
+      function normalize(x, y) {
+        const length = Math.hypot(x, y) || 1;
+        return { x: x / length, y: y / length };
+      }
+
+      function pointToScreen(keypoint) {
+        const scaleX = width / videoW;
+        const scaleY = height / videoH;
+        const x = keypoint.x * scaleX;
+        return {
+          x: GAME.mirror ? width - x : x,
+          y: keypoint.y * scaleY,
+        };
+      }
+
+      /* ================================================================
+       * sound · Web Audio 로 만드는 타격음/전기/화염
+       * ================================================================ */
+
+      const Sound = {
+        ctx: null,
+        master: null,
+        noiseBuf: null,
+        muted: false,
+        fireGain: null,
+        buzzGain: null,
+        lastZapAt: 0,
+
+        init() {
+          if (this.ctx) {
+            if (this.ctx.state === "suspended") this.ctx.resume();
+            return;
+          }
+          try {
+            const AudioCtx = window.AudioContext || window.webkitAudioContext;
+            if (!AudioCtx) return;
+
+            const ctx = new AudioCtx();
+            this.ctx = ctx;
+            this.master = ctx.createGain();
+            this.master.gain.value = this.muted ? 0 : 0.6;
+            this.master.connect(ctx.destination);
+
+            this.noiseBuf = this.makeNoise(2);
+            this.setupBuzz();
+            this.setupFire();
+          } catch (error) {
+            console.warn("[손뼉 사냥] 오디오 초기화 실패:", error);
+            this.ctx = null;
+            this.master = null;
+          }
+        },
+
+        makeNoise(seconds) {
+          const ctx = this.ctx;
+          const buffer = ctx.createBuffer(
+            1,
+            Math.floor(ctx.sampleRate * seconds),
+            ctx.sampleRate,
+          );
+          const data = buffer.getChannelData(0);
+          for (let i = 0; i < data.length; i += 1) {
+            data[i] = Math.random() * 2 - 1;
+          }
+          return buffer;
+        },
+
+        setupBuzz() {
+          const ctx = this.ctx;
+          const gain = ctx.createGain();
+          gain.gain.value = 0;
+
+          const filter = ctx.createBiquadFilter();
+          filter.type = "lowpass";
+          filter.frequency.value = 620;
+          filter.Q.value = 5;
+
+          const pan = ctx.createStereoPanner();
+          const oscA = ctx.createOscillator();
+          const oscB = ctx.createOscillator();
+          oscA.type = "sawtooth";
+          oscB.type = "square";
+          oscA.frequency.value = 172;
+          oscB.frequency.value = 183;
+
+          const panLfo = ctx.createOscillator();
+          const panGain = ctx.createGain();
+          panLfo.frequency.value = 0.23;
+          panGain.gain.value = 0.5;
+          panLfo.connect(panGain);
+          panGain.connect(pan.pan);
+
+          oscA.connect(filter);
+          oscB.connect(filter);
+          filter.connect(gain);
+          gain.connect(pan);
+          pan.connect(this.master);
+          oscA.start();
+          oscB.start();
+          panLfo.start();
+          this.buzzGain = gain;
+        },
+
+        setupFire() {
+          const ctx = this.ctx;
+          const source = ctx.createBufferSource();
+          source.buffer = this.noiseBuf;
+          source.loop = true;
+
+          const filter = ctx.createBiquadFilter();
+          filter.type = "lowpass";
+          filter.frequency.value = 1100;
+          filter.Q.value = 0.8;
+
+          const gain = ctx.createGain();
+          gain.gain.value = 0;
+
+          source.connect(filter);
+          filter.connect(gain);
+          gain.connect(this.master);
+          source.start();
+          this.fireGain = gain;
+        },
+
+        setBuzz(level) {
+          if (!this.ctx || !this.buzzGain) return;
+          const target = this.muted ? 0 : clamp(level, 0, 1) * 0.022;
+          this.buzzGain.gain.setTargetAtTime(target, this.ctx.currentTime, 0.25);
+        },
+
+        setFire(on) {
+          if (!this.ctx || !this.fireGain) return;
+          const target = !on || this.muted ? 0 : 0.14;
+          this.fireGain.gain.setTargetAtTime(target, this.ctx.currentTime, 0.07);
+        },
+
+        burst({ dur = 0.1, freq = 1800, q = 1, gain = 0.25, type = "bandpass" }) {
+          if (!this.ctx || this.muted) return;
+          const ctx = this.ctx;
+          const now = ctx.currentTime;
+          const src = ctx.createBufferSource();
+          src.buffer = this.noiseBuf;
+          const filter = ctx.createBiquadFilter();
+          filter.type = type;
+          filter.frequency.value = freq;
+          filter.Q.value = q;
+          const amp = ctx.createGain();
+          amp.gain.setValueAtTime(gain, now);
+          amp.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+          src.connect(filter);
+          filter.connect(amp);
+          amp.connect(this.master);
+          src.start(now);
+          src.stop(now + dur + 0.03);
+        },
+
+        tone({ from = 440, to = from, dur = 0.15, type = "sine", gain = 0.1, delay = 0 }) {
+          if (!this.ctx || this.muted) return;
+          const ctx = this.ctx;
+          const start = ctx.currentTime + delay;
+          const osc = ctx.createOscillator();
+          const amp = ctx.createGain();
+          osc.type = type;
+          osc.frequency.setValueAtTime(Math.max(20, from), start);
+          osc.frequency.exponentialRampToValueAtTime(Math.max(20, to), start + dur);
+          amp.gain.setValueAtTime(0.0001, start);
+          amp.gain.exponentialRampToValueAtTime(gain, start + 0.012);
+          amp.gain.exponentialRampToValueAtTime(0.0001, start + dur);
+          osc.connect(amp);
+          amp.connect(this.master);
+          osc.start(start);
+          osc.stop(start + dur + 0.03);
+        },
+
+        catch(golden) {
+          this.burst({ dur: 0.1, freq: 1400, gain: 0.24, type: "lowpass" });
+          this.tone({ from: golden ? 720 : 340, to: golden ? 220 : 90, dur: 0.13, type: "square", gain: 0.09 });
+          if (golden) {
+            this.tone({ from: 1180, to: 1560, dur: 0.22, type: "triangle", gain: 0.07, delay: 0.03 });
+          }
+        },
+
+        clap() {
+          this.burst({ dur: 0.075, freq: 2200, gain: 0.4, type: "highpass" });
+          this.tone({ from: 190, to: 70, dur: 0.09, type: "triangle", gain: 0.1 });
+        },
+
+        zap() {
+          const now = performance.now();
+          if (now - this.lastZapAt < 95) return;
+          this.lastZapAt = now;
+          this.burst({ dur: 0.09, freq: 3800, gain: 0.15, type: "bandpass", q: 2 });
+          this.tone({ from: 940, to: 130, dur: 0.16, type: "sawtooth", gain: 0.05 });
+        },
+
+        unlock() {
+          this.tone({ from: 440, to: 660, dur: 0.16, type: "triangle", gain: 0.1 });
+          this.tone({ from: 660, to: 990, dur: 0.24, type: "triangle", gain: 0.09, delay: 0.14 });
+          this.tone({ from: 990, to: 1320, dur: 0.3, type: "triangle", gain: 0.08, delay: 0.3 });
+        },
+
+        toggle() {
+          this.muted = !this.muted;
+          if (this.master && this.ctx) {
+            this.master.gain.setTargetAtTime(this.muted ? 0 : 0.6, this.ctx.currentTime, 0.03);
+          }
+          if (this.muted) this.setFire(false);
+          return this.muted;
+        },
+      };
+
+      /* ================================================================
+       * hand analysis
+       * ================================================================ */
+
+      const FINGERS = [
+        { name: "thumb", tip: 4, pip: 2, mcp: 1 },
+        { name: "index", tip: 8, pip: 6, mcp: 5 },
+        { name: "middle", tip: 12, pip: 10, mcp: 9 },
+        { name: "ring", tip: 16, pip: 14, mcp: 13 },
+        { name: "pinky", tip: 20, pip: 18, mcp: 17 },
+      ];
+
+      function analyzeRawHand(raw, index) {
+        if (!raw || !Array.isArray(raw.keypoints) || raw.keypoints.length < 21) {
+          return null;
+        }
+        const pts = raw.keypoints.map(pointToScreen);
+        const palmPoints = [0, 5, 9, 13, 17];
+        let palmX = 0;
+        let palmY = 0;
+        for (const i of palmPoints) {
+          palmX += pts[i].x;
+          palmY += pts[i].y;
+        }
+        palmX /= palmPoints.length;
+        palmY /= palmPoints.length;
+
+        const wrist = pts[0];
+        const middleMcp = pts[9];
+        const handSize = Math.max(18, dist(wrist.x, wrist.y, middleMcp.x, middleMcp.y));
+
+        const extended = {};
+        let extendedCount = 0;
+        for (const finger of FINGERS) {
+          const tip = pts[finger.tip];
+          const pip = pts[finger.pip];
+          if (finger.name === "thumb") {
+            const isOut = dist(tip.x, tip.y, wrist.x, wrist.y) >
+              dist(pts[finger.mcp].x, pts[finger.mcp].y, wrist.x, wrist.y) * 1.35;
+            extended.thumb = isOut;
+            continue;
+          }
+          const isOut = dist(tip.x, tip.y, wrist.x, wrist.y) >
+            dist(pip.x, pip.y, wrist.x, wrist.y) * 1.12;
+          extended[finger.name] = isOut;
+          if (isOut) extendedCount += 1;
+        }
+
+        let openness = 0;
+        for (const finger of FINGERS.slice(1)) {
+          openness += dist(pts[finger.tip].x, pts[finger.tip].y, palmX, palmY);
+        }
+        openness = openness / 4 / handSize;
+
+        let gesture = "other";
+        if (extended.index && extended.middle && !(extended.ring && extended.pinky)) {
+          gesture = "peace";
+        } else if (extendedCount === 0) {
+          gesture = "fist";
+        } else if (extendedCount >= 4) {
+          gesture = "open";
+        } else if (extended.index && extendedCount === 1) {
+          gesture = "point";
+        }
+
+        return {
+          key: raw.handedness || `hand-${index}`,
+          pts,
+          palm: { x: palmX, y: palmY },
+          wrist,
+          handSize,
+          openness,
+          gesture,
+          dir: normalize(middleMcp.x - wrist.x, middleMcp.y - wrist.y),
+        };
+      }
+
+      function demoAnalysis() {
+        const gesture = G.demoGesture;
+        const palm = { x: mouseX, y: mouseY };
+        const dir = { x: 0, y: -1 };
+        return {
+          key: "demo",
+          pts: null,
+          palm,
+          wrist: { x: palm.x, y: palm.y + 50 },
+          handSize: 70,
+          openness: gesture === "fist" ? 1.05 : gesture === "peace" ? 1.7 : 2.2,
+          gesture,
+          dir,
+        };
+      }
+
+      function buildHands(dt) {
+        const now = performance.now() / 1000;
+        const analyses = demoMode
+          ? [demoAnalysis()]
+          : rawHands.map(analyzeRawHand).filter(Boolean);
+
+        const next = [];
+        const aliveKeys = new Set();
+
+        for (const analysis of analyses) {
+          const key = analysis.key;
+          aliveKeys.add(key);
+          const mem = handMemory.get(key);
+          const smoothing = mem ? 0.55 : 1;
+
+          const palm = mem
+            ? {
+                x: mem.palm.x + (analysis.palm.x - mem.palm.x) * smoothing,
+                y: mem.palm.y + (analysis.palm.y - mem.palm.y) * smoothing,
+              }
+            : { ...analysis.palm };
+
+          const prevPalm = mem ? { ...mem.palm } : { ...palm };
+          const rawVx = (palm.x - prevPalm.x) / Math.max(dt, 0.001);
+          const rawVy = (palm.y - prevPalm.y) / Math.max(dt, 0.001);
+          const vel = mem
+            ? {
+                x: mem.vel.x + (rawVx - mem.vel.x) * 0.45,
+                y: mem.vel.y + (rawVy - mem.vel.y) * 0.45,
+              }
+            : { x: rawVx, y: rawVy };
+          const speed = Math.hypot(vel.x, vel.y);
+
+          let candidate = analysis.gesture;
+          let gestureFrames = 1;
+          if (mem && mem.candidate === candidate) {
+            gestureFrames = mem.gestureFrames + 1;
+          }
+          const gesture = gestureFrames >= 2 ? candidate : mem?.gesture || candidate;
+
+          const hand = {
+            key,
+            pts: analysis.pts,
+            palm,
+            prevPalm,
+            wrist: analysis.wrist,
+            handSize: analysis.handSize,
+            dir: analysis.dir,
+            vel,
+            speed,
+            openness: analysis.openness,
+            prevOpenness: mem ? mem.openness : analysis.openness,
+            gesture,
+            prevGesture: mem ? mem.gesture : gesture,
+            candidate,
+            gestureFrames,
+            fistHeld: gesture === "fist" ? (mem?.fistHeld || 0) + dt : 0,
+            swatCd: Math.max(0, (mem?.swatCd || 0) - dt),
+            lastSeen: now,
+          };
+
+          handMemory.set(key, hand);
+          next.push(hand);
+        }
+
+        for (const [key, mem] of handMemory) {
+          if (!aliveKeys.has(key) && now - mem.lastSeen > 0.45) {
+            handMemory.delete(key);
+          }
+        }
+
+        hands = next;
+        if (next.length > 0) lastHandAt = millis();
+        return hands;
+      }
+
+      /* ================================================================
+       * game entities
+       * ================================================================ */
+
+      function spawnMosquito(options = {}) {
+        const margin = 48;
+        const side = Math.floor(Math.random() * 4);
+        let x;
+        let y;
+
+        if (side === 0) {
+          x = rand(margin, width - margin);
+          y = margin;
+        } else if (side === 1) {
+          x = width - margin;
+          y = rand(margin, height - margin);
+        } else if (side === 2) {
+          x = rand(margin, width - margin);
+          y = height - margin;
+        } else {
+          x = margin;
+          y = rand(margin, height - margin);
+        }
+
+        const toCenter = Math.atan2(height / 2 - y, width / 2 - x);
+        const golden = options.golden ?? (G.catches >= 6 && Math.random() < 0.075);
+        const speed =
+          (GAME.mosquito.baseSpeed + G.catches * GAME.mosquito.speedPerCatch) *
+          (golden ? 1.22 : 1) *
+          rand(0.82, 1.15);
+
+        mosquitoes.push({
+          x,
+          y,
+          angle: toCenter + rand(-0.6, 0.6),
+          speed: Math.min(GAME.mosquito.maxSpeed * (golden ? 1.2 : 1), speed),
+          seed: rand(0, Math.PI * 2),
+          wobble: rand(1.2, 2.8),
+          size: rand(0.85, 1.2) * (golden ? 1.2 : 1),
+          golden,
+          alive: true,
+          age: rand(0, 6),
+          zapTime: 0,
+          burn: 0,
+          alpha: 1,
+        });
+      }
+
+      function resetRound() {
+        mosquitoes.length = 0;
+        bolts.length = 0;
+        rings.length = 0;
+        gore.length = 0;
+        fireParts.length = 0;
+        floaters.length = 0;
+        handMemory.clear();
+        clapMemory.clear();
+        clapArm = null;
+
+        G.score = 0;
+        G.catches = 0;
+        G.combo = 0;
+        G.comboTimer = 0;
+        G.energy = 100;
+        G.energyLock = false;
+        G.noSkillTime = 0;
+        G.unlocked = { electric: false, fire: false };
+        G.elapsed = 0;
+        G.timeLeft = GAME.roundSeconds;
+        G.roundEnd = 0;
+        G.spawnTimer = 0;
+        G.shake = 0;
+        G.fireActive = false;
+        G.banner = null;
+
+        for (let i = 0; i < 3; i += 1) spawnMosquito();
+
+        G.phase = "countdown";
+        G.countdown = 2.6;
+        G.countdownEnd = performance.now() / 1000 + 2.6;
+        G.message = "모기를 향해 손을 준비하세요";
+        updateOverlay();
+        syncPanel(true);
+      }
+
+      function maxAlive() {
+        return Math.min(
+          GAME.mosquito.maxAliveCap,
+          GAME.mosquito.maxAliveBase + Math.floor(G.catches / GAME.mosquito.maxAliveStep),
+        );
+      }
+
+      function updateMosquitoes(dt) {
+        const time = millis() / 1000;
+
+        for (const m of mosquitoes) {
+          if (!m.alive) continue;
+
+          m.age += dt;
+          if (m.age > GAME.mosquito.lifespan) {
+            // 수명이 다하면 화면 밖으로 도망칩니다.
+            const escapeAngle = Math.atan2(m.y - height / 2, m.x - width / 2);
+            m.angle = escapeAngle;
+            m.alpha = Math.max(0, 0.55 - (m.age - GAME.mosquito.lifespan) * 0.25);
+            if (m.age > GAME.mosquito.lifespan + 2.4) {
+              m.alive = false;
+              continue;
+            }
+          }
+
+          m.angle +=
+            (Math.sin(time * m.wobble + m.seed) * 1.7 +
+              (Math.random() - 0.5) * 2.2) * dt;
+
+          let steerX = Math.cos(m.angle) * m.speed;
+          let steerY = Math.sin(m.angle) * m.speed;
+
+          for (const hand of hands) {
+            const d = dist(m.x, m.y, hand.palm.x, hand.palm.y);
+            if (d < 175 && d > 1) {
+              const push = ((175 - d) / 175) * 260;
+              steerX += ((m.x - hand.palm.x) / d) * push;
+              steerY += ((m.y - hand.palm.y) / d) * push;
+            }
+          }
+
+          m.x += steerX * dt;
+          m.y += steerY * dt;
+
+          const margin = 26;
+          if (m.x < margin) { m.x = margin; m.angle = Math.PI - m.angle; }
+          if (m.x > width - margin) { m.x = width - margin; m.angle = Math.PI - m.angle; }
+          if (m.y < margin) { m.y = margin; m.angle = -m.angle; }
+          if (m.y > height - margin) { m.y = height - margin; m.angle = -m.angle; }
+
+          // 전기는 스킬 쪽에서, 불은 화염 판정에서 누적됩니다.
+          m.zapTime = Math.max(0, m.zapTime - dt * 0.55);
+          m.burn = Math.max(0, m.burn - dt * 0.5);
+        }
+      }
+
+      function maybeSpawn(dt) {
+        G.spawnTimer -= dt;
+        if (G.spawnTimer > 0) return;
+        if (mosquitoes.filter((m) => m.alive).length >= maxAlive()) {
+          G.spawnTimer = 0.35;
+          return;
+        }
+        spawnMosquito();
+        G.spawnTimer = Math.max(0.62, 1.75 - G.catches * 0.035) * rand(0.82, 1.18);
+      }
+
+      function catchMosquito(m, method) {
+        if (!m.alive) return false;
+        m.alive = false;
+        G.catches += 1;
+        G.combo += 1;
+        G.comboTimer = 2.7;
+
+        const mult = 1 + Math.min(4, Math.floor(G.combo / 5));
+        const base = m.golden ? 300 : 100;
+        const gained = base * mult;
+        G.score += gained;
+
+        if (G.score > G.best) {
+          G.best = G.score;
+          try {
+            window.localStorage.setItem("mosquito-clap-best", String(G.best));
+          } catch (error) {
+            /* 저장할 수 없는 환경은 무시합니다. */
+          }
+        }
+
+        goreBurst(m.x, m.y, m.golden);
+        floaters.push({
+          x: m.x,
+          y: m.y - 12,
+          text: `+${gained}${mult > 1 ? `  x${mult}` : ""}`,
+          color: m.golden ? COLORS.gold : COLORS.lime,
+          life: 1,
+          maxLife: 1,
+          size: m.golden ? 24 : 19,
+        });
+        if (method === "clap" || method === "snap") {
+          rings.push({
+            x: m.x,
+            y: m.y,
+            radius: 10,
+            maxRadius: 90,
+            life: 0.32,
+            maxLife: 0.32,
+            color: COLORS.lime,
+          });
+        }
+
+        G.shake = Math.max(G.shake, m.golden ? 13 : 7);
+        Sound.catch(m.golden);
+        checkUnlocks();
+        return true;
+      }
+
+      function checkUnlocks() {
+        if (!G.unlocked.electric && G.catches >= GAME.skills.electric.unlock) {
+          G.unlocked.electric = true;
+          showBanner("전기 파리채 해금!", "검지와 중지를 펴고 손을 들고 있어 보세요", COLORS.cyan);
+        }
+        if (!G.unlocked.fire && G.catches >= GAME.skills.fire.unlock) {
+          G.unlocked.fire = true;
+          showBanner("화염방사 해금!", "주먹을 쥐고 있으면 손끝에서 불이 나갑니다", COLORS.fire);
+        }
+      }
+
+      function showBanner(title, sub, color) {
+        G.banner = { title, sub, color: color || COLORS.lime, life: 3, maxLife: 3 };
+        setTimeout(() => Sound.unlock(), 90);
+      }
+
+      /* ------------------------------------------------------------ effects */
+
+      function goreBurst(x, y, golden) {
+        const count = golden ? 20 : 12;
+        for (let i = 0; i < count; i += 1) {
+          const angle = rand(0, Math.PI * 2);
+          const speed = rand(70, 320);
+          gore.push({
+            x,
+            y,
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            size: rand(2, golden ? 6 : 4.5),
+            life: rand(0.35, 0.8),
+            maxLife: 0.8,
+            color: golden ? COLORS.gold : COLORS.gore,
+          });
+        }
+        rings.push({
+          x,
+          y,
+          radius: 6,
+          maxRadius: golden ? 110 : 62,
+          life: 0.28,
+          maxLife: 0.28,
+          color: golden ? COLORS.gold : [230, 255, 210],
+        });
+      }
+
+      function makeBolt(from, to, color) {
+        const points = [];
+        const segments = 9;
+        const dx = to.x - from.x;
+        const dy = to.y - from.y;
+        const length = Math.hypot(dx, dy) || 1;
+        const nx = -dy / length;
+        const ny = dx / length;
+        for (let i = 0; i <= segments; i += 1) {
+          const t = i / segments;
+          const offset =
+            i === 0 || i === segments
+              ? 0
+              : rand(-1, 1) * Math.min(34, length * 0.16);
+          points.push({
+            x: from.x + dx * t + nx * offset,
+            y: from.y + dy * t + ny * offset,
+          });
+        }
+        bolts.push({ points, life: 0.1, maxLife: 0.1, color: color || COLORS.cyan });
+      }
+
+      function updateEffects(dt) {
+        for (const bolt of bolts) bolt.life -= dt;
+        for (let i = bolts.length - 1; i >= 0; i -= 1) {
+          if (bolts[i].life <= 0) bolts.splice(i, 1);
+        }
+
+        for (const ring of rings) {
+          ring.life -= dt;
+          ring.radius += (ring.maxRadius - ring.radius) * Math.min(1, dt * 9);
+        }
+        for (let i = rings.length - 1; i >= 0; i -= 1) {
+          if (rings[i].life <= 0) rings.splice(i, 1);
+        }
+
+        for (const bit of gore) {
+          bit.life -= dt;
+          bit.vy += 420 * dt;
+          bit.vx *= 0.96;
+          bit.x += bit.vx * dt;
+          bit.y += bit.vy * dt;
+        }
+        for (let i = gore.length - 1; i >= 0; i -= 1) {
+          if (gore[i].life <= 0) gore.splice(i, 1);
+        }
+
+        for (const p of fireParts) {
+          p.life -= dt;
+          p.vx *= 0.94;
+          p.vy = p.vy * 0.94 - 130 * dt;
+          p.x += p.vx * dt;
+          p.y += p.vy * dt;
+          p.size += 34 * dt;
+        }
+        for (let i = fireParts.length - 1; i >= 0; i -= 1) {
+          if (fireParts[i].life <= 0) fireParts.splice(i, 1);
+        }
+
+        for (const floater of floaters) {
+          floater.life -= dt;
+          floater.y -= 44 * dt;
+        }
+        for (let i = floaters.length - 1; i >= 0; i -= 1) {
+          if (floaters[i].life <= 0) floaters.splice(i, 1);
+        }
+
+        if (G.banner) {
+          G.banner.life -= dt;
+          if (G.banner.life <= 0) G.banner = null;
+        }
+
+        if (G.comboTimer > 0) {
+          G.comboTimer -= dt;
+          if (G.comboTimer <= 0) G.combo = 0;
+        }
+
+        G.shake *= Math.pow(0.0025, dt);
+        if (G.shake < 0.2) G.shake = 0;
+      }
+
+      /* ================================================================
+       * action detection · 손뼉 / 휘두르기 / 주먹 스냅
+       * ================================================================ */
+
+      function triggerClap(point) {
+        const now = performance.now() / 1000;
+        if (now - lastClapAt < 0.34) return;
+        lastClapAt = now;
+
+        Sound.clap();
+        G.shake = Math.max(G.shake, 8);
+        rings.push({
+          x: point.x,
+          y: point.y,
+          radius: 18,
+          maxRadius: GAME.catch.clapRadius * 1.15,
+          life: 0.42,
+          maxLife: 0.42,
+          color: COLORS.cyan,
+        });
+
+        let hits = 0;
+        for (const m of mosquitoes) {
+          if (!m.alive) continue;
+          if (dist(m.x, m.y, point.x, point.y) <= GAME.catch.clapRadius) {
+            if (catchMosquito(m, "clap")) hits += 1;
+          }
+        }
+
+        floaters.push({
+          x: point.x,
+          y: point.y - 28,
+          text: hits > 0 ? `짝! ×${hits}` : "짝!",
+          color: hits > 0 ? COLORS.cyan : [220, 240, 245],
+          life: 0.8,
+          maxLife: 0.8,
+          size: hits > 0 ? 24 : 18,
+        });
+      }
+
+      function detectClaps() {
+        const now = performance.now() / 1000;
+
+        if (hands.length >= 2) {
+          for (let i = 0; i < hands.length; i += 1) {
+            for (let j = i + 1; j < hands.length; j += 1) {
+              const a = hands[i];
+              const b = hands[j];
+              const key = [a.key, b.key].sort().join("|");
+              const d = dist(a.palm.x, a.palm.y, b.palm.x, b.palm.y);
+              const mid = {
+                x: (a.palm.x + b.palm.x) / 2,
+                y: (a.palm.y + b.palm.y) / 2,
+              };
+              const prev = clapMemory.get(key);
+
+              if (
+                prev &&
+                now - prev.t < 0.4 &&
+                prev.d > 115 &&
+                d < 100 &&
+                prev.d - d > 28
+              ) {
+                triggerClap(mid);
+                clapArm = null;
+              } else if (prev && d < 178 && prev.d - d > 14) {
+                // 두 손이 가까워지는 중. 손이 겹쳐 하나로 합쳐져도
+                // 바로 아래에서 손뼉으로 인정할 수 있게 기억합니다.
+                clapArm = { mid, at: now };
+              }
+
+              clapMemory.set(key, { d, t: now });
+            }
+          }
+        } else if (hands.length === 1 && clapArm && now - clapArm.at < 0.24) {
+          // 박수 순간 두 손이 한 개로 합쳐져 감지되는 경우.
+          const remaining = hands[0];
+          if (
+            dist(
+              remaining.palm.x,
+              remaining.palm.y,
+              clapArm.mid.x,
+              clapArm.mid.y,
+            ) < 190
+          ) {
+            triggerClap(clapArm.mid);
+            clapArm = null;
+          }
+        }
+
+        if (clapArm && now - clapArm.at > 0.3) clapArm = null;
+
+        for (const [key, value] of clapMemory) {
+          if (now - value.t > 0.7) clapMemory.delete(key);
+        }
+      }
+
+      function handleHandActions() {
+        if (G.phase !== "playing" && G.phase !== "countdown") return;
+
+        for (const hand of hands) {
+          // 1) 빠른 휘두르기: 손이 지나간 선분 근처의 모기를 잡습니다.
+          if (hand.speed > GAME.catch.swipeSpeed && hand.swatCd === 0) {
+            let hit = false;
+            for (const m of mosquitoes) {
+              if (!m.alive) continue;
+              const d = pointSegmentDistance(
+                m.x,
+                m.y,
+                hand.prevPalm.x,
+                hand.prevPalm.y,
+                hand.palm.x,
+                hand.palm.y,
+              );
+              if (d < GAME.catch.swipeRadius + m.size * 8) {
+                if (catchMosquito(m, "swipe")) hit = true;
+              }
+            }
+            if (hit) {
+              hand.swatCd = 0.24;
+              G.shake = Math.max(G.shake, 5);
+            }
+          }
+
+          // 2) 주먹 스냅: 모기 근처에서 주먹을 확 쥐면 즉시 타격.
+          if (hand.gesture === "fist" && hand.prevGesture !== "fist") {
+            let target = null;
+            let bestDistance = GAME.catch.snapRadius;
+            for (const m of mosquitoes) {
+              if (!m.alive) continue;
+              const d = dist(m.x, m.y, hand.palm.x, hand.palm.y);
+              if (d < bestDistance) {
+                bestDistance = d;
+                target = m;
+              }
+            }
+            if (target) {
+              catchMosquito(target, "snap");
+              rings.push({
+                x: target.x,
+                y: target.y,
+                radius: 12,
+                maxRadius: 100,
+                life: 0.34,
+                maxLife: 0.34,
+                color: COLORS.fire,
+              });
+            }
+          }
+        }
+
+        detectClaps();
+      }
+
+      /* ================================================================
+       * skills
+       * ================================================================ */
+
+      function addEnergy(amount) {
+        G.energy = clamp(G.energy + amount, 0, 100);
+        if (G.energy > 32) G.energyLock = false;
+      }
+
+      function runElectric(hand, dt) {
+        const cfg = GAME.skills.electric;
+        G.energy -= cfg.drain * dt;
+        if (G.energy <= 0) {
+          G.energy = 0;
+          G.energyLock = true;
+        }
+
+        const targets = mosquitoes
+          .filter((m) => m.alive && dist(m.x, m.y, hand.palm.x, hand.palm.y) <= cfg.range)
+          .sort(
+            (a, b) =>
+              dist(a.x, a.y, hand.palm.x, hand.palm.y) -
+              dist(b.x, b.y, hand.palm.x, hand.palm.y),
+          );
+
+        if (targets.length === 0) {
+          if (Math.random() < 0.55) {
+            const angle = rand(0, Math.PI * 2);
+            const reach = rand(35, 95);
+            makeBolt(
+              { x: hand.palm.x, y: hand.palm.y },
+              {
+                x: hand.palm.x + Math.cos(angle) * reach,
+                y: hand.palm.y + Math.sin(angle) * reach,
+              },
+              COLORS.cyan,
+            );
+          }
+          return;
+        }
+
+        const primary = targets[0];
+        makeBolt(hand.palm, primary, COLORS.cyan);
+        primary.zapTime += dt;
+        if (primary.zapTime > 0.16) {
+          catchMosquito(primary, "electric");
+        }
+
+        // 주변 모기로 연쇄 번개.
+        for (let i = 1; i < Math.min(3, targets.length); i += 1) {
+          const chainTarget = targets[i];
+          if (dist(chainTarget.x, chainTarget.y, primary.x, primary.y) < 180) {
+            makeBolt(primary, chainTarget, [160, 240, 255]);
+            chainTarget.zapTime += dt * 0.7;
+            if (chainTarget.zapTime > 0.2) catchMosquito(chainTarget, "electric");
+          }
+        }
+
+        Sound.zap();
+      }
+
+      function runFire(hand, dt) {
+        const cfg = GAME.skills.fire;
+        G.energy -= cfg.drain * dt;
+        if (G.energy <= 0) {
+          G.energy = 0;
+          G.energyLock = true;
+        }
+
+        const origin = {
+          x: hand.palm.x + hand.dir.x * 10,
+          y: hand.palm.y + hand.dir.y * 10,
+        };
+
+        const count = Math.min(9, Math.ceil(dt * 220));
+        for (let i = 0; i < count; i += 1) {
+          const angle = Math.atan2(hand.dir.y, hand.dir.x) + rand(-0.38, 0.38);
+          const speed = rand(260, 620);
+          fireParts.push({
+            x: origin.x + rand(-6, 6),
+            y: origin.y + rand(-6, 6),
+            vx: Math.cos(angle) * speed,
+            vy: Math.sin(angle) * speed,
+            size: rand(5, 13),
+            life: rand(0.32, 0.62),
+            maxLife: 0.62,
+          });
+        }
+
+        for (const m of mosquitoes) {
+          if (!m.alive) continue;
+          const dx = m.x - origin.x;
+          const dy = m.y - origin.y;
+          const d = Math.hypot(dx, dy);
+          if (d > cfg.range || d < 1) continue;
+          const dot = (dx / d) * hand.dir.x + (dy / d) * hand.dir.y;
+          if (dot < Math.cos(cfg.halfAngle)) continue;
+          m.burn += dt;
+          if (m.burn > 0.28) {
+            catchMosquito(m, "fire");
+            rings.push({
+              x: m.x,
+              y: m.y,
+              radius: 10,
+              maxRadius: 84,
+              life: 0.3,
+              maxLife: 0.3,
+              color: COLORS.fire,
+            });
+          }
+        }
+      }
+
+      function updateSkills(dt) {
+        let used = false;
+        let fireActive = false;
+
+        if (G.phase === "playing" || G.phase === "countdown") {
+          const peaceHand = hands.find((hand) => hand.gesture === "peace");
+          const fistHand = hands.find(
+            (hand) => hand.gesture === "fist" && hand.fistHeld > 0.14,
+          );
+
+          if (peaceHand && G.unlocked.electric && !G.energyLock) {
+            used = true;
+            runElectric(peaceHand, dt);
+          }
+
+          if (fistHand && G.unlocked.fire && !G.energyLock) {
+            used = true;
+            fireActive = true;
+            runFire(fistHand, dt);
+          }
+        }
+
+        if (used) {
+          G.noSkillTime = 0;
+        } else {
+          G.noSkillTime += dt;
+          if (G.noSkillTime > 0.45) addEnergy(18 * dt);
+        }
+
+        G.fireActive = fireActive;
+        Sound.setFire(fireActive);
+
+        if (G.energyLock && G.energy > 32) G.energyLock = false;
+      }
+
+      /* ================================================================
+       * rendering
+       * ================================================================ */
+
+      function drawVideo() {
+        if (demoMode) {
+          drawDemoBackdrop();
+          return;
+        }
+
+        // 첫 프레임이 오기 전에는 영상 대신 로딩 배경을 보여 줍니다.
+        if (!video || !video.elt || video.elt.readyState < 2) {
+          drawDemoBackdrop();
+          return;
+        }
+
+        push();
+        if (GAME.mirror) {
+          translate(width, 0);
+          scale(-1, 1);
+        }
+        tint(255, 179);
+        image(video, 0, 0, width, height);
+        noTint();
+        pop();
+
+        const ctx = drawingContext;
+        // 비네트로 가장자리를 어둡게.
+        const gradient = ctx.createRadialGradient(
+          width / 2,
+          height / 2,
+          Math.min(width, height) * 0.24,
+          width / 2,
+          height / 2,
+          Math.max(width, height) * 0.7,
+        );
+        gradient.addColorStop(0, "rgba(0,0,0,0)");
+        gradient.addColorStop(1, "rgba(0,0,0,0.55)");
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, width, height);
+      }
+
+      function drawDemoBackdrop() {
+        noStroke();
+        for (let i = 0; i < 26; i += 1) {
+          const x = (i * 137.5) % width;
+          const y = (i * 211.3) % height;
+          fill(255, 255, 255, 8);
+          circle(x, y, 3);
+        }
+        const ctx = drawingContext;
+        const gradient = ctx.createRadialGradient(
+          width / 2,
+          height * 0.35,
+          40,
+          width / 2,
+          height / 2,
+          Math.max(width, height) * 0.65,
+        );
+        gradient.addColorStop(0, "rgba(60, 110, 30, 0.16)");
+        gradient.addColorStop(0.55, "rgba(10, 24, 18, 0.05)");
+        gradient.addColorStop(1, "rgba(0,0,0,0.6)");
+        ctx.fillStyle = gradient;
+        ctx.fillRect(0, 0, width, height);
+      }
+
+      function drawMosquito(m, time) {
+        if (!m.alive) return;
+        const flap = Math.sin(time * 46 + m.seed);
+
+        push();
+        translate(m.x, m.y);
+        rotate(Math.atan2(Math.sin(m.angle), Math.cos(m.angle)));
+        scale(m.size);
+        const alpha = 255 * m.alpha;
+
+        if (m.golden) {
+          drawingContext.shadowBlur = 22;
+          drawingContext.shadowColor = "rgba(255, 215, 94, 0.85)";
+        }
+
+        // 다리
+        stroke(m.golden ? 255 : 190, m.golden ? 230 : 210, m.golden ? 140 : 190, 150 * m.alpha);
+        strokeWeight(1.2);
+        for (let i = 0; i < 3; i += 1) {
+          const x = -6 + i * 6;
+          line(x, 2, x - 6, 12);
+          line(x, -2, x - 6, -12);
+        }
+
+        // 날개
+        noStroke();
+        fill(230, 255, 245, 60 * m.alpha);
+        push();
+        rotate(-0.45 + flap * 0.35);
+        ellipse(-2, -9, 20, 7);
+        pop();
+        push();
+        rotate(0.45 - flap * 0.35);
+        ellipse(-2, 9, 20, 7);
+        pop();
+
+        // 몸통
+        fill(m.golden ? 255 : 26, m.golden ? 215 : 32, m.golden ? 94 : 28, alpha);
+        ellipse(-1, 0, 17, 6.5);
+        fill(m.golden ? 255 : 132, m.golden ? 232 : 40, m.golden ? 150 : 34, alpha);
+        ellipse(-7, 0, 9, 5);
+
+        // 머리 + 주둥이
+        fill(m.golden ? 255 : 210, m.golden ? 240 : 220, m.golden ? 180 : 210, alpha);
+        ellipse(7, 0, 6, 6);
+        stroke(m.golden ? 255 : 210, m.golden ? 225 : 220, m.golden ? 150 : 210, alpha);
+        strokeWeight(1.2);
+        line(10, 0, 20, 0);
+
+        if (m.golden) {
+          noFill();
+          stroke(255, 215, 94, 90 * m.alpha);
+          strokeWeight(1.4);
+          circle(1, 0, 34 + Math.sin(time * 4 + m.seed) * 3);
+          drawingContext.shadowBlur = 0;
+        }
+
+        if (m.zapTime > 0.02) {
+          noFill();
+          stroke(94, 231, 255, 150);
+          strokeWeight(1);
+          circle(0, 0, 28 + m.zapTime * 30);
+        }
+
+        pop();
+      }
+
+      function drawHands() {
+        for (const hand of hands) {
+          const isElectric = hand.gesture === "peace" && G.unlocked.electric;
+          const isFire = hand.gesture === "fist" && G.unlocked.fire;
+          const color = isElectric ? COLORS.cyan : isFire ? COLORS.fire : COLORS.lime;
+
+          if (hand.pts) {
+            noFill();
+            stroke(...color, 42);
+            strokeWeight(2);
+            for (const [from, to] of CONNECTIONS) {
+              const a = hand.pts[from];
+              const b = hand.pts[to];
+              if (!a || !b) continue;
+              line(a.x, a.y, b.x, b.y);
+            }
+
+            noStroke();
+            fill(...color, 105);
+            for (const point of hand.pts) {
+              circle(point.x, point.y, 4);
+            }
+          } else {
+            // 데모 모드 커서
+            noFill();
+            stroke(...color, 150);
+            strokeWeight(1.5);
+            circle(hand.palm.x, hand.palm.y, 46);
+            line(hand.palm.x - 58, hand.palm.y, hand.palm.x + 58, hand.palm.y);
+            line(hand.palm.x, hand.palm.y - 58, hand.palm.x, hand.palm.y + 58);
+          }
+
+          // 손바닥 링
+          noFill();
+          stroke(...color, 170);
+          strokeWeight(2.5);
+          circle(hand.palm.x, hand.palm.y, 34 + Math.sin(millis() / 220) * 5);
+
+          if (isElectric) {
+            noFill();
+            stroke(...COLORS.cyan, 34);
+            strokeWeight(1.2);
+            circle(hand.palm.x, hand.palm.y, GAME.skills.electric.range * 2);
+          }
+
+          // 손모양 라벨
+          const label = GESTURE_LABEL[hand.gesture] || "손";
+          const labelText = isElectric
+            ? "⚡ 전기 파리채"
+            : isFire
+              ? "🔥 화염방사"
+              : label;
+          textSize(12);
+          textAlign(CENTER, CENTER);
+          const boxW = textWidth(labelText) + 18;
+          noStroke();
+          fill(6, 12, 14, 190);
+          rect(hand.palm.x - boxW / 2, hand.palm.y - 58, boxW, 23, 11);
+          fill(...color);
+          text(labelText, hand.palm.x, hand.palm.y - 46);
+        }
+      }
+
+      function drawClapGuide() {
+        if (demoMode || hands.length < 2) return;
+        const a = hands[0];
+        const b = hands[1];
+        const d = dist(a.palm.x, a.palm.y, b.palm.x, b.palm.y);
+        const mid = {
+          x: (a.palm.x + b.palm.x) / 2,
+          y: (a.palm.y + b.palm.y) / 2,
+        };
+        const near = clamp(1 - (d - 90) / 260, 0, 1);
+        const alpha = 28 + near * 90;
+
+        push();
+        stroke(...COLORS.cyan, alpha * 0.7);
+        strokeWeight(1.5);
+        line(a.palm.x, a.palm.y, b.palm.x, b.palm.y);
+
+        noFill();
+        stroke(...COLORS.cyan, alpha);
+        strokeWeight(1.2);
+        circle(mid.x, mid.y, GAME.catch.clapRadius * 2);
+
+        stroke(...COLORS.cyan, alpha * 1.5);
+        line(mid.x - 10, mid.y, mid.x + 10, mid.y);
+        line(mid.x, mid.y - 10, mid.x, mid.y + 10);
+
+        if (near > 0.12) {
+          noStroke();
+          fill(...COLORS.cyan, 120 + near * 120);
+          textAlign(CENTER, BOTTOM);
+          textSize(11);
+          text(near > 0.55 ? "손뼉!" : "손을 모아 손뼉", mid.x, mid.y - 14);
+        }
+        pop();
+      }
+
+      function drawEffects() {
+        // 손뼉 / 타격 링
+        push();
+        noFill();
+        for (const ring of rings) {
+          const alpha = 255 * (ring.life / ring.maxLife);
+          stroke(...ring.color, alpha);
+          strokeWeight(2 + 3 * (ring.life / ring.maxLife));
+          circle(ring.x, ring.y, ring.radius * 2);
+        }
+        pop();
+
+        // 모기 파편
+        push();
+        noStroke();
+        for (const bit of gore) {
+          fill(...bit.color, 255 * (bit.life / bit.maxLife));
+          circle(bit.x, bit.y, bit.size);
+        }
+        pop();
+
+        // 불꽃
+        push();
+        blendMode(ADD);
+        noStroke();
+        for (const p of fireParts) {
+          const t = p.life / p.maxLife;
+          const alpha = 255 * Math.min(1, t * 1.6);
+          if (t > 0.62) {
+            fill(255, 248, 190, alpha * 0.9);
+          } else if (t > 0.34) {
+            fill(255, 158, 66, alpha);
+          } else {
+            fill(228, 62, 40, alpha * 0.8);
+          }
+          circle(p.x, p.y, p.size);
+        }
+        blendMode(BLEND);
+        pop();
+
+        // 번개
+        push();
+        blendMode(ADD);
+        noFill();
+        for (const bolt of bolts) {
+          const alpha = clamp(bolt.life / bolt.maxLife, 0, 1);
+          stroke(...bolt.color, 52 * alpha);
+          strokeWeight(9);
+          drawPolyline(bolt.points);
+          stroke(...bolt.color, 200 * alpha);
+          strokeWeight(2.2);
+          drawPolyline(bolt.points);
+          stroke(255, 255, 255, 235 * alpha);
+          strokeWeight(1);
+          drawPolyline(bolt.points);
+        }
+        blendMode(BLEND);
+        pop();
+
+        // 떠오르는 점수
+        push();
+        textAlign(CENTER, CENTER);
+        for (const floater of floaters) {
+          const alpha = clamp(floater.life / floater.maxLife, 0, 1);
+          textSize(floater.size);
+          fill(...floater.color, 255 * alpha);
+          text(floater.text, floater.x, floater.y);
+        }
+        pop();
+      }
+
+      function drawPolyline(points) {
+        beginShape();
+        for (const point of points) vertex(point.x, point.y);
+        endShape();
+      }
+
+      function drawHUD() {
+        // 점수
+        noStroke();
+        fill(8, 11, 12, 150);
+        rect(22, 20, 176, 72, 14);
+        fill(183, 255, 74, 220);
+        textAlign(LEFT, TOP);
+        textSize(10);
+        text("SCORE", 38, 30);
+        fill(255, 255, 255, 245);
+        textSize(32);
+        text(String(G.score), 36, 44);
+        fill(160, 172, 168, 220);
+        textSize(11);
+        text(`잡은 모기 ${G.catches}`, 128, 60);
+
+        // 웹캠 손 인식 상태
+        if (!demoMode && (G.phase === "playing" || G.phase === "countdown")) {
+          const tracked = hands.length > 0;
+          const label = tracked
+            ? `● HAND TRACKING · 손 ${hands.length}`
+            : "○ 손을 카메라에 보여 주세요";
+          textSize(11.5);
+          textAlign(RIGHT, TOP);
+          const boxW = textWidth(label) + 22;
+          noStroke();
+          fill(5, 9, 10, 165);
+          rect(width - 24 - boxW, 62, boxW, 28, 9);
+          fill(
+            tracked ? COLORS.lime[0] : 255,
+            tracked ? COLORS.lime[1] : 196,
+            tracked ? COLORS.lime[2] : 120,
+            tracked ? 235 : 210,
+          );
+          text(label, width - 35, 69);
+        }
+
+        // 콤보
+        if (G.combo > 1) {
+          const mult = 1 + Math.min(4, Math.floor(G.combo / 5));
+          const label = `COMBO ×${G.combo}${mult > 1 ? `  ·  ${mult}배` : ""}`;
+          textSize(13);
+          textAlign(RIGHT, TOP);
+          const boxW = textWidth(label) + 26;
+          noStroke();
+          fill(255, 138, 61, 30);
+          stroke(255, 138, 61, 90);
+          strokeWeight(1);
+          rect(width - 24 - boxW, 22, boxW, 32, 10);
+          noStroke();
+          fill(255, 189, 120);
+          text(label, width - 37, 31);
+        }
+
+        // 손이 오랫동안 보이지 않을 때 안내
+        if (
+          !demoMode &&
+          G.phase === "playing" &&
+          hands.length === 0 &&
+          millis() - lastHandAt > 1800
+        ) {
+          textAlign(CENTER, CENTER);
+          noStroke();
+          fill(255, 206, 112, 225);
+          textSize(18);
+          text("손을 카메라에 보여 주세요", width / 2, height * 0.66);
+          fill(230, 238, 235, 160);
+          textSize(12);
+          text("손이 인식되면 두 손을 모아 모기 위치에서 손뼉!", width / 2, height * 0.66 + 28);
+        }
+
+        // 하단 힌트
+        textAlign(CENTER, BOTTOM);
+        textSize(11.5);
+        noStroke();
+        fill(225, 236, 233, 185);
+        text("✋ 빠르게 휘두르기   ·   👏 두 손 마주치기   ·   ✊ 모기 앞에서 주먹 쥐기", width / 2, height - 18);
+
+        // 배너
+        if (G.banner) {
+          const t = G.banner.life / G.banner.maxLife;
+          const appear = 1 - Math.pow(1 - Math.min(1, (1 - t) * 7), 3);
+          const alpha = 255 * Math.min(1, t * 4, appear);
+          push();
+          translate(width / 2, 118);
+          scale(0.94 + appear * 0.06);
+          noStroke();
+          fill(5, 9, 10, 205 * (alpha / 255));
+          rect(-220, -34, 440, 68, 16);
+          stroke(...G.banner.color, alpha * 0.65);
+          strokeWeight(1.4);
+          noFill();
+          rect(-220, -34, 440, 68, 16);
+          noStroke();
+          fill(...G.banner.color, alpha);
+          textAlign(CENTER, CENTER);
+          textSize(21);
+          text(G.banner.title, 0, -9);
+          fill(255, 255, 255, alpha * 0.85);
+          textSize(11.5);
+          text(G.banner.sub, 0, 15);
+          pop();
+        }
+
+        // 카운트다운
+        if (G.phase === "countdown") {
+          const number = Math.ceil(G.countdown);
+          const label = number > 0 ? String(number) : "사냥 시작!";
+          const progress = 1 - (G.countdown % 1);
+          const scaleValue = 0.8 + progress * 0.5;
+          push();
+          textAlign(CENTER, CENTER);
+          noStroke();
+          fill(5, 9, 10, 120);
+          rect(0, 0, width, height);
+          fill(183, 255, 74, 255 - progress * 120);
+          textSize(110 * scaleValue);
+          textStyle(BOLD);
+          text(label, width / 2, height / 2 - 8);
+          textStyle(NORMAL);
+          fill(255, 255, 255, 160);
+          textSize(13);
+          text("카메라 앞에서 손을 보여 주세요", width / 2, height / 2 + 66);
+          pop();
+        }
+      }
+
+      function drawStageScreen() {
+        if (G.phase === "loading") {
+          noStroke();
+          fill(3, 6, 8, 120);
+          rect(0, 0, width, height);
+        }
+      }
+
+      /* ================================================================
+       * p5 lifecycle
+       * ================================================================ */
+
+      function setup() {
+        const canvas = createCanvas(GAME.width, GAME.height);
+        canvas.parent("canvas-holder");
+        pixelDensity(1);
+        textFont("system-ui, -apple-system, 'Apple SD Gothic Neo', sans-serif");
+
+        cacheDom();
+        bindUi();
+        applyBest();
+        updateOverlay();
+        syncPanel(true);
+      }
+
+      function draw() {
+        const dt = Math.min(deltaTime / 1000, 0.05);
+        const time = millis() / 1000;
+
+        updateDemoGesture();
+        background(6, 9, 11);
+        drawStageScreen();
+        drawVideo();
+
+        buildHands(dt);
+
+        if (G.phase === "playing") {
+          G.elapsed += dt;
+          updateMosquitoes(dt);
+          maybeSpawn(dt);
+          handleHandActions();
+        } else if (G.phase === "countdown") {
+          updateMosquitoes(dt);
+          handleHandActions();
+          // 실제 시계를 기준으로 카운트다운: 프레임이 느려도 길어지지 않습니다.
+          G.countdown = G.countdownEnd - performance.now() / 1000;
+          if (G.countdown <= -0.7) {
+            G.phase = "playing";
+            G.message = "사냥 중";
+            updateOverlay();
+            syncPanel(true);
+          }
+        }
+
+        updateSkills(dt);
+        updateEffects(dt);
+
+        push();
+        if (G.shake > 0.2) {
+          translate(rand(-G.shake, G.shake), rand(-G.shake, G.shake));
+        }
+
+        for (const m of mosquitoes) drawMosquito(m, time);
+        drawEffects();
+        drawClapGuide();
+        drawHands();
+
+        pop();
+
+        drawHUD();
+
+        // 잡힌 모기는 배열에서 제거합니다.
+        for (let i = mosquitoes.length - 1; i >= 0; i -= 1) {
+          if (!mosquitoes[i].alive) mosquitoes.splice(i, 1);
+        }
+
+        Sound.setBuzz(clamp(mosquitoes.length / 9, 0, 1) * (G.phase === "playing" ? 1 : 0.35));
+
+        syncPanel();
+      }
+
+      /* ================================================================
+       * ui
+       * ================================================================ */
+
+      function cacheDom() {
+        dom.overlay = document.getElementById("overlay");
+        dom.overlayKicker = document.getElementById("overlay-kicker");
+        dom.overlayTitle = document.getElementById("overlay-title");
+        dom.overlayDesc = document.getElementById("overlay-desc");
+        dom.overlayHint = document.getElementById("overlay-hint");
+        dom.overlayBtn = document.getElementById("overlay-btn");
+        dom.statusBadge = document.getElementById("status-badge");
+        dom.statusText = document.getElementById("status-text");
+        dom.score = document.getElementById("score-value");
+        dom.catches = document.getElementById("catch-value");
+        dom.combo = document.getElementById("combo-value");
+        dom.best = document.getElementById("best-value");
+        dom.energyValue = document.getElementById("energy-value");
+        dom.energyFill = document.getElementById("energy-fill");
+        dom.skillElectric = document.getElementById("skill-electric");
+        dom.skillFire = document.getElementById("skill-fire");
+        dom.electricBar = document.getElementById("electric-bar");
+        dom.fireBar = document.getElementById("fire-bar");
+        dom.electricState = document.getElementById("electric-state");
+        dom.fireState = document.getElementById("fire-state");
+        dom.startBtn = document.getElementById("start-btn");
+        dom.soundBtn = document.getElementById("sound-btn");
+        dom.demoBtn = document.getElementById("demo-btn");
+        dom.demoNote = document.getElementById("demo-note");
+      }
+
+      function bindUi() {
+        dom.startBtn.addEventListener("click", onStartClick);
+        dom.overlayBtn.addEventListener("click", onStartClick);
+
+        dom.soundBtn.addEventListener("click", () => {
+          Sound.init();
+          const muted = Sound.toggle();
+          dom.soundBtn.textContent = muted ? "사운드 켜기" : "사운드 끄기";
+          dom.soundBtn.classList.toggle("is-on", muted);
+        });
+
+        dom.demoBtn.addEventListener("click", () => {
+          if (booting) return;
+
+          if (!ready) {
+            // 모델 없이도 바로 조작을 확인할 수 있는 데모 모드.
+            demoMode = true;
+            ready = true;
+            G.message = "데모 모드";
+            resetRound();
+            dom.demoNote.hidden = false;
+            syncPanel(true);
+            return;
+          }
+
+          // 카메라와 모델이 모두 준비된 경우에만 모드를 전환합니다.
+          if (!hasCamera || !hasModel) {
+            demoMode = true;
+            G.message = "이 환경에서는 데모 모드만 사용할 수 있습니다";
+            dom.demoNote.hidden = false;
+            syncPanel(true);
+            return;
+          }
+
+          demoMode = !demoMode;
+          if (!demoMode && handPose && video) {
+            startDetection();
+          } else if (demoMode) {
+            stopDetection();
+            handMemory.clear();
+          }
+          G.message = demoMode ? "데모 모드" : "카메라 모드";
+          dom.demoNote.hidden = !demoMode;
+          syncPanel(true);
+        });
+
+        if (window.location.protocol === "file:") {
+          dom.demoNote.hidden = false;
+          dom.demoNote.textContent =
+            "file:// 로 연 경우 카메라가 차단될 수 있습니다. python3 -m http.server 8000 으로 실행하거나 데모 모드를 사용하세요.";
+        }
+      }
+
+      async function onStartClick() {
+        if (booting) return;
+
+        if (!ready) {
+          await boot();
+          if (!ready) return;
+        }
+        if (G.phase === "loading") return;
+
+        Sound.init();
+        resetRound();
+      }
+
+      async function boot() {
+        booting = true;
+        demoMode = false;
+        G.phase = "loading";
+        G.message = "카메라와 손 모델을 준비하는 중…";
+        updateOverlay();
+        syncPanel(true);
+
+        const cameraOk = await setupCamera();
+        hasCamera = cameraOk;
+
+        // 카메라가 먼저 준비되어야 게임을 시작할 수 있습니다.
+        // 모델 다운로드가 늦어도 카메라 오류를 바로 알려 줍니다.
+        if (!cameraOk) {
+          booting = false;
+          ready = false;
+          G.phase = "error";
+          G.message =
+            window.location.protocol === "file:"
+              ? "file:// 로는 카메라를 켤 수 없습니다. 터미널에서 python3 -m http.server 8000 을 실행한 뒤 http://localhost:8000/mosquito.html 로 접속해 주세요."
+              : "웹캠을 켤 수 없습니다. 주소창의 카메라 권한을 허용하고 다시 시도해 주세요.";
+          dom.demoNote.hidden = true;
+          updateOverlay();
+          syncPanel(true);
+          return;
+        }
+
+        const modelOk = await loadHandModel();
+        hasModel = modelOk;
+        booting = false;
+
+        // 이 게임의 기본 모드는 실제 웹캠 + ml5 손 인식입니다.
+        // 모델을 못 불러오면 데모로 넘어가지 않고 원인을 보여 줍니다.
+        if (!modelOk) {
+          ready = false;
+          G.phase = "error";
+          G.message =
+            "ml5 손 모델을 불러오지 못했습니다. 인터넷 연결을 확인한 뒤 다시 시도해 주세요.";
+          dom.demoNote.hidden = true;
+          updateOverlay();
+          syncPanel(true);
+          return;
+        }
+
+        try {
+          startDetection();
+        } catch (error) {
+          console.warn("[손뼉 사냥] 손 감지를 시작하지 못했습니다.", error);
+          ready = false;
+          G.phase = "error";
+          G.message = "손 인식을 시작하지 못했습니다. 카메라를 확인한 뒤 다시 시도해 주세요.";
+          updateOverlay();
+          syncPanel(true);
+          return;
+        }
+
+        demoMode = false;
+        ready = true;
+        G.message = "카메라 준비 완료";
+        updateOverlay();
+        syncPanel(true);
+        resetRound();
+      }
+
+      async function setupCamera() {
+        // 이미 준비된 p5 capture가 있으면 재사용합니다.
+        if (
+          video &&
+          video.elt &&
+          video.elt.srcObject &&
+          video.elt.srcObject.getVideoTracks &&
+          video.elt.srcObject.getVideoTracks().some((track) => track.readyState === "live")
+        ) {
+          videoW = video.elt.videoWidth || videoW;
+          videoH = video.elt.videoHeight || videoH;
+          return videoW > 0;
+        }
+
+        try {
+          // p5 공식 예제와 동일한 웹캠 생성 방식.
+          video = createCapture(VIDEO);
+          video.size(640, 480);
+          video.hide();
+        } catch (error) {
+          console.warn("[손뼉 사냥] createCapture 실패:", error);
+          video = null;
+          return false;
+        }
+
+        const elt = video && video.elt;
+        if (!elt) {
+          video = null;
+          return false;
+        }
+
+        // p5는 getUserMedia 결과를 비동기로 srcObject에 연결합니다.
+        // 권한이 거부되면 srcObject가 끝까지 비어 있습니다.
+        if (!elt.srcObject) {
+          await new Promise((resolve) => {
+            let settled = false;
+            const finish = () => {
+              if (settled) return;
+              settled = true;
+              resolve();
+            };
+            const check = () => {
+              if (elt.srcObject) finish();
+            };
+            elt.addEventListener("loadedmetadata", check);
+            const timer = setInterval(check, 120);
+            setTimeout(() => {
+              clearInterval(timer);
+              elt.removeEventListener("loadedmetadata", check);
+              finish();
+            }, 6000);
+          });
+        }
+
+        // 권한 거부/장치 없음이면 srcObject나 live track이 없습니다.
+        const stream = elt.srcObject;
+        const live = Boolean(
+          stream &&
+            stream.getVideoTracks &&
+            stream.getVideoTracks().some((track) => track.readyState === "live"),
+        );
+        if (!live) {
+          stopCamera();
+          return false;
+        }
+
+        await elt.play().catch(() => {});
+
+        // 권한 거부/장치 없음이면 videoWidth가 끝까지 0입니다.
+        if (!elt.videoWidth) {
+          await new Promise((resolve) => {
+            let settled = false;
+            const finish = () => {
+              if (settled) return;
+              settled = true;
+              resolve();
+            };
+            elt.addEventListener("loadeddata", finish, { once: true });
+            elt.addEventListener("canplay", finish, { once: true });
+            elt.addEventListener("error", finish, { once: true });
+            setTimeout(finish, 6000);
+          });
+        }
+
+        videoW = elt.videoWidth || 0;
+        videoH = elt.videoHeight || 0;
+
+        if (!videoW || !videoH) {
+          stopCamera();
+          return false;
+        }
+
+        return true;
+      }
+
+      async function loadHandModel() {
+        if (handPose) return true;
+        // 공식 예제처럼 await로 모델 준비를 기다립니다.
+        handPose = await ml5.handPose(GAME.handPose);
+        if (handPose && handPose.ready) await handPose.ready;
+        return Boolean(handPose);
+      }
+
+      // ml5가 손 추적 결과를 넘겨 주는 콜백. 저장만 합니다.
+      function gotHands(results) {
+        rawHands = results || [];
+      }
+
+      function startDetection() {
+        if (!handPose || !video || detecting) return false;
+        // 공식 예제와 동일: p5 video를 그대로 넘깁니다.
+        handPose.detectStart(video, gotHands);
+        detecting = true;
+        return true;
+      }
+
+      function stopDetection() {
+        if (!handPose || !detecting) return;
+        handPose.detectStop();
+        detecting = false;
+        rawHands = [];
+      }
+
+      function stopCamera() {
+        if (!video) return;
+        try {
+          const elt = video.elt;
+          if (elt && elt.srcObject) {
+            elt.srcObject.getTracks().forEach((track) => track.stop());
+          }
+          video.remove();
+        } catch (error) {
+          console.warn("[손뼉 사냥] 카메라 정리 실패:", error);
+        }
+        video = null;
+      }
+
+      function updateOverlay() {
+        if (!dom.overlay) return;
+
+        const visible =
+          G.phase === "idle" || G.phase === "loading" || G.phase === "error";
+        dom.overlay.classList.toggle("is-hidden", !visible);
+        dom.startBtn.textContent =
+          G.phase === "loading"
+            ? "준비 중…"
+            : G.phase === "error"
+              ? "카메라 다시 시도"
+              : G.phase === "idle"
+                ? "카메라 켜고 시작"
+                : "다시 시작";
+        dom.startBtn.disabled = G.phase === "loading";
+
+        if (G.phase === "loading") {
+          dom.overlayKicker.textContent = "GETTING READY";
+          dom.overlayTitle.innerHTML = '<span class="overlay__spinner"></span>준비하는 중';
+          dom.overlayDesc.textContent =
+            "웹캠 권한을 허용하고 손 모델을 불러오고 있습니다. 잠시만 기다려 주세요.";
+          dom.overlayBtn.textContent = "준비 중…";
+          dom.overlayBtn.disabled = true;
+          dom.overlayHint.textContent = "모델을 처음 받을 때는 시간이 조금 걸릴 수 있습니다.";
+        } else if (G.phase === "error") {
+          dom.overlayKicker.textContent = "CAMERA REQUIRED";
+          dom.overlayTitle.innerHTML = "게임을<br /><em>시작할 수 없어요</em>";
+          dom.overlayDesc.textContent = G.message;
+          dom.overlayBtn.textContent = "다시 시도";
+          dom.overlayBtn.disabled = false;
+          dom.overlayHint.innerHTML =
+            "웹캠 권한을 허용한 뒤 다시 시도하거나, 패널의 <b>데모 모드</b>로 마우스 조작을 연습할 수 있습니다.";
+        } else {
+          dom.overlayKicker.textContent = "WEBCAM · HAND POSE · CLAP";
+          dom.overlayTitle.innerHTML = "손뼉으로<br /><em>모기를 잡아라</em>";
+          dom.overlayDesc.textContent =
+            "시작을 누르면 웹캠과 ml5 손 모델이 켜집니다. 두 손을 모아 모기 위치에서 손뼉을 치면 그 주변 모기가 잡힙니다.";
+          dom.overlayBtn.textContent = "카메라 켜고 시작";
+          dom.overlayBtn.disabled = false;
+          dom.overlayHint.innerHTML =
+            "<b>🎥 웹캠 필요</b> · <b>👏 두 손뼉</b> · <b>✋ 휘두르기</b> · <b>✌️ 전기</b> · <b>✊ 화염</b>";
+        }
+      }
+
+      function applyBest() {
+        if (dom.best) dom.best.textContent = String(G.best);
+      }
+
+      function syncPanel(force = false) {
+        if (!force && millis() - lastPanelSync < 100) return;
+        lastPanelSync = millis();
+        if (!dom.score) return;
+
+        dom.score.textContent = String(G.score);
+        dom.catches.textContent = String(G.catches);
+        dom.combo.textContent = String(G.combo);
+        dom.best.textContent = String(G.best);
+
+        const energy = Math.round(G.energy);
+        dom.energyValue.textContent = `${energy}%`;
+        dom.energyFill.style.width = `${energy}%`;
+        dom.energyFill.classList.toggle("is-low", energy <= 25);
+
+        const electricUnlocked = G.unlocked.electric;
+        const fireUnlocked = G.unlocked.fire;
+
+        dom.skillElectric.classList.toggle("is-unlocked", electricUnlocked);
+        dom.skillFire.classList.toggle("is-unlocked", fireUnlocked);
+
+        const eProgress = Math.min(1, G.catches / GAME.skills.electric.unlock);
+        const fProgress = Math.min(1, G.catches / GAME.skills.fire.unlock);
+        dom.electricBar.style.width = `${eProgress * 100}%`;
+        dom.fireBar.style.width = `${fProgress * 100}%`;
+        dom.electricState.textContent = electricUnlocked
+          ? "해금"
+          : `${Math.min(G.catches, GAME.skills.electric.unlock)} / ${GAME.skills.electric.unlock}`;
+        dom.fireState.textContent = fireUnlocked
+          ? "해금"
+          : `${Math.min(G.catches, GAME.skills.fire.unlock)} / ${GAME.skills.fire.unlock}`;
+
+        const badge =
+          G.phase === "loading"
+            ? { label: "준비 중", className: "badge--loading" }
+            : G.phase === "error"
+              ? { label: "오류", className: "badge--error" }
+              : G.phase === "idle"
+                ? { label: "대기", className: "badge--idle" }
+                : demoMode
+                  ? { label: "데모", className: "badge--demo" }
+                  : { label: "카메라", className: "badge--playing" };
+
+        dom.statusBadge.textContent = badge.label;
+        dom.statusBadge.className = `badge ${badge.className}`;
+
+        if (
+          !demoMode &&
+          (G.phase === "playing" || G.phase === "countdown")
+        ) {
+          dom.statusText.textContent = hands.length
+            ? `손 ${hands.length}개 인식 중 · 손뼉으로 모기를 잡으세요`
+            : "손을 카메라에 보여 주세요";
+        } else {
+          dom.statusText.textContent = G.message;
+        }
+
+        dom.startBtn.textContent =
+          G.phase === "loading"
+            ? "준비 중…"
+            : G.phase === "error"
+              ? "카메라 다시 시도"
+              : G.phase === "idle"
+                ? "카메라 켜고 시작"
+                : "다시 시작";
+        dom.startBtn.disabled = G.phase === "loading";
+
+        const canSwitchModes = hasCamera && hasModel;
+        dom.demoBtn.textContent = canSwitchModes
+          ? demoMode
+            ? "카메라 모드"
+            : "데모 모드"
+          : "데모 모드";
+        dom.demoBtn.classList.toggle("is-on", demoMode);
+        dom.demoBtn.disabled = !canSwitchModes && ready;
+      }
+
+      /* ================================================================
+       * input
+       * ================================================================ */
+
+      function keyPressed() {
+        if (key === " " && demoMode && pointerInsideCanvas()) {
+          triggerClap({ x: mouseX, y: mouseY });
+          return false;
+        }
+
+        if (key === "r" || key === "R") {
+          if (ready) resetRound();
+          return false;
+        }
+
+        if (key === "m" || key === "M") {
+          Sound.init();
+          const muted = Sound.toggle();
+          if (dom.soundBtn) {
+            dom.soundBtn.textContent = muted ? "사운드 켜기" : "사운드 끄기";
+            dom.soundBtn.classList.toggle("is-on", muted);
+          }
+          return false;
+        }
+
+        if (key === "u" || key === "U") {
+          G.catches = Math.max(G.catches, GAME.skills.fire.unlock);
+          G.unlocked.electric = true;
+          G.unlocked.fire = true;
+          showBanner("모든 스킬 해금!", "✌️ 전기 · ✊ 화염을 사용해 보세요", COLORS.gold);
+          syncPanel(true);
+          return false;
+        }
+
+        return true;
+      }
+
+      function pointerInsideCanvas() {
+        return mouseX >= 0 && mouseX <= width && mouseY >= 0 && mouseY <= height;
+      }
+
+      function mousePressed() {
+        if (
+          demoMode &&
+          pointerInsideCanvas() &&
+          (G.phase === "playing" || G.phase === "countdown")
+        ) {
+          triggerClap({ x: mouseX, y: mouseY });
+          return false;
+        }
+        return true;
+      }
+
+      function touchStarted() {
+        if (
+          demoMode &&
+          pointerInsideCanvas() &&
+          (G.phase === "playing" || G.phase === "countdown")
+        ) {
+          triggerClap({ x: mouseX, y: mouseY });
+          return false;
+        }
+        return true;
+      }
+
+      // 데모 모드에서 1/2 키를 누르고 있으면 손모양이 바뀝니다.
+      function updateDemoGesture() {
+        if (!demoMode) return;
+        if (keyIsDown(49) || keyIsDown(97)) {
+          G.demoGesture = "peace";
+        } else if (keyIsDown(50) || keyIsDown(98)) {
+          G.demoGesture = "fist";
+        } else {
+          G.demoGesture = "open";
+        }
+      }
+
+    </script>
+  </body>
+</html>

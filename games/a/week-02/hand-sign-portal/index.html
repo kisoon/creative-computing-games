@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>HAND SIGN PORTAL · ml5.js</title>
+  <meta name="description" content="ml5.js HandPose로 만드는 실시간 손짓 필터 포탈. 엄지와 검지로 도형을 열고, 손가락으로 필터를 바꿔보세요." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='9' fill='%2307070a'/%3E%3Ccircle cx='16' cy='16' r='8' fill='none' stroke='%23fff' stroke-width='1.5'/%3E%3Ccircle cx='16' cy='16' r='2.6' fill='%23fff'/%3E%3C/svg%3E" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Noto+Sans+KR:wght@400;500;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="./style.css" />
+</head>
+<body>
+  <div id="stage">
+    <canvas id="view" aria-label="웹캠과 손짓 필터가 표시되는 캔버스"></canvas>
+    <div class="stage-grade" aria-hidden="true"></div>
+    <div class="stage-scanlines" aria-hidden="true"></div>
+    <div class="stage-grain" aria-hidden="true"></div>
+
+    <!-- 카메라 화면 위에 얹히는 HUD -->
+    <div id="hud">
+      <header class="brand">
+        <span class="brand-mark" aria-hidden="true">
+          <svg viewBox="0 0 40 40" fill="none">
+            <circle cx="20" cy="20" r="14.5" stroke="currentColor" stroke-opacity=".35"/>
+            <circle cx="20" cy="20" r="10" stroke="currentColor" stroke-dasharray="2 5" class="brand-spin"/>
+            <circle cx="20" cy="20" r="3" fill="currentColor"/>
+          </svg>
+        </span>
+        <span class="brand-copy">
+          <strong>HAND SIGN PORTAL</strong>
+          <em>ml5.js · handpose / facemesh</em>
+        </span>
+      </header>
+
+      <div class="toolbar" role="toolbar" aria-label="화면 도구">
+        <button class="icon-btn" id="soundBtn" type="button" aria-label="소리 끄기" title="소리 (M)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M11 5 6.5 9H3v6h3.5L11 19V5Z"/><path d="M15 9.5c.9.8 1.4 1.6 1.4 2.5S15.9 13.7 15 14.5"/><path d="M18 7c1.7 1.4 2.6 3.1 2.6 5s-.9 3.6-2.6 5"/></svg>
+        </button>
+        <button class="icon-btn" id="shotBtn" type="button" aria-label="스크린샷 저장" title="스크린샷 (S)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 8.5h3l1.5-2h7L17 8.5h3v10H4v-10Z"/><circle cx="12" cy="13.5" r="3.2"/></svg>
+        </button>
+        <button class="icon-btn" id="fullBtn" type="button" aria-label="전체 화면" title="전체 화면 (F)">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9 4H4v5M15 4h5v5M20 15v5h-5M4 15v5h5"/></svg>
+        </button>
+        <button class="icon-btn" id="helpBtn" type="button" aria-label="도움말 열기" title="도움말">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M9.6 9.4a2.5 2.5 0 0 1 4.9.6c0 1.8-2.5 2.1-2.5 3.7"/><circle cx="12" cy="17" r=".7" fill="currentColor" stroke="none"/></svg>
+        </button>
+      </div>
+
+      <div class="status-cluster">
+        <div class="status-pill" id="statusPill">
+          <span class="status-dot"></span>
+          <span id="statusText">카메라 대기 중</span>
+        </div>
+        <div class="filter-readout">
+          <span class="fr-en" id="filterEn">STANDBY</span>
+          <span class="fr-ko" id="filterKo">필터 없음</span>
+        </div>
+      </div>
+
+      <div class="portal-hint" id="portalHint">
+        <span class="pinch-glyph" aria-hidden="true">
+          <i></i><i></i>
+        </span>
+        <span id="hintText">엄지와 검지를 맞대면 포탈이 열립니다</span>
+      </div>
+
+      <div class="legend-wrap">
+        <div class="legend-head">
+          <span>GESTURE FILTERS</span>
+          <span class="legend-sub">포탈을 연 채, 나머지 세 손가락으로 선택</span>
+        </div>
+        <div class="legend" id="legend" role="group" aria-label="필터 선택"></div>
+      </div>
+
+      <div class="corner corner-tl" aria-hidden="true"></div>
+      <div class="corner corner-tr" aria-hidden="true"></div>
+      <div class="corner corner-bl" aria-hidden="true"></div>
+      <div class="corner corner-br" aria-hidden="true"></div>
+    </div>
+
+    <!-- 시작 화면 -->
+    <section id="intro">
+      <div class="intro-top">
+        <span class="intro-badge"><span class="live-dot"></span> LIVE / IN-BROWSER</span>
+        <span class="intro-date">SEOUL · 2026</span>
+      </div>
+
+      <div class="intro-inner">
+        <div class="intro-main">
+          <p class="eyebrow">A HAND-TRACKED VISUAL INSTRUMENT</p>
+          <h1>HAND<br /><span class="outline">SIGN</span></h1>
+          <div class="title-foot">
+            <span class="title-tag">PORTAL_</span>
+            <div class="intro-filters" aria-hidden="true">
+              <span><i style="--c:#ff4d6d"></i>네거티브</span>
+              <span><i style="--c:#25f4ee"></i>글리치</span>
+              <span><i style="--c:#ffd93d"></i>픽셀화</span>
+              <span><i style="--c:#f4f1ea"></i>모노크롬</span>
+              <span><i style="--c:#c9a7ff"></i>얼굴 왜곡</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="intro-aside">
+          <p class="lede">엄지와 검지를 맞대면<br /><strong>포탈</strong>이 열립니다.</p>
+          <p class="lede-sub">포탈은 손을 따라 움직입니다. 나머지 세 손가락의 모양으로 그 안의 질감을 바꿔 보세요.</p>
+
+          <ol class="steps">
+            <li><span>01</span><p>엄지 + 검지 <em>핀치</em>로 포탈 열기</p></li>
+            <li><span>02</span><p>중지 · 약지 · 새끼로 <em>필터 선택</em></p></li>
+            <li><span>03</span><p>손을 움직여 <em>구도 잡기</em></p></li>
+          </ol>
+
+          <div class="intro-actions">
+            <button class="btn-primary" id="startBtn" type="button">
+              <span>카메라 시작</span>
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h13M13 7l5 5-5 5"/></svg>
+            </button>
+            <button class="btn-ghost" id="demoBtn" type="button">카메라 없이 미리보기</button>
+          </div>
+
+          <p class="note" id="introNote">모든 영상은 이 브라우저 안에서만 처리되며, 어디에도 전송되지 않습니다.</p>
+        </div>
+      </div>
+
+      <div class="intro-foot">
+        <span>ML5.JS / TFJS</span>
+        <span>21 HAND KEYPOINTS · 468 FACE LANDMARKS</span>
+        <span>LOCAL ONLY</span>
+      </div>
+    </section>
+
+    <!-- 로딩 -->
+    <div id="loader" hidden>
+      <div class="loader-inner">
+        <span class="loader-ring" aria-hidden="true"><i></i></span>
+        <p class="loader-title" id="loaderTitle">준비 중</p>
+        <p class="loader-sub" id="loaderSub">잠시만 기다려 주세요</p>
+      </div>
+    </div>
+
+    <!-- 에러 -->
+    <div id="errorPanel" hidden>
+      <div class="error-card">
+        <p class="error-kicker">CAMERA / MODEL ERROR</p>
+        <h2>카메라를 열 수 없습니다</h2>
+        <p class="error-msg" id="errorMsg"></p>
+        <pre class="error-tip" id="errorTip"></pre>
+        <div class="error-actions">
+          <button class="btn-primary small" id="retryBtn" type="button"><span>다시 시도</span></button>
+          <button class="btn-ghost small" id="errorDemoBtn" type="button">데모로 보기</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="flash" aria-hidden="true"></div>
+  </div>
+
+  <noscript>이 페이지를 사용하려면 JavaScript를 켜주세요.</noscript>
+
+  <script src="https://unpkg.com/ml5@1.4.0/dist/ml5.js"></script>
+  <script type="module" src="./js/app.js"></script>
+</body>
+</html>

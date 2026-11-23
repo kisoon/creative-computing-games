@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>말랑이 터치</title>
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div id="app">
+      <div class="stage">
+        <canvas id="stage" width="1280" height="720" aria-label="말랑이 놀이 화면"></canvas>
+
+        <div class="hud">
+          <button id="settingsBtn" class="icon-btn" type="button" aria-label="설정 열기" title="설정">
+            <span aria-hidden="true">⚙</span>
+          </button>
+        </div>
+
+        <div id="hintBar" class="hintbar hidden">손을 화면에 보여주세요</div>
+
+        <section id="screen-start" class="overlay">
+          <div class="card">
+            <p class="eyebrow">WEBCAM PLAY</p>
+            <h1>말랑이 터치</h1>
+            <p class="lede">
+              카메라 앞에서 손을 움직여<br />
+              말랑이를 직접 만져보세요.
+            </p>
+            <p class="hint">
+              손끝으로 톡 찌르고,<br />
+              엄지와 검지로 집어서 쭉 당겨보세요.
+            </p>
+            <button id="startBtn" class="primary" type="button">시작하기</button>
+            <button id="demoBtn" class="linklike" type="button">카메라 없이 마우스로 체험</button>
+            <p class="hint">
+              카메라 영상은 화면에 표시되지 않고,<br />
+              어디에도 저장되지 않아요.
+            </p>
+          </div>
+        </section>
+
+        <section id="screen-loading" class="overlay hidden">
+          <div class="card small">
+            <div class="spinner" aria-hidden="true"></div>
+            <p id="loadingText" class="loading-text">카메라를 준비하는 중…</p>
+            <p class="hint">처음 한 번은 손 인식 모델을 내려받아서 조금 걸려요.</p>
+          </div>
+        </section>
+
+        <section id="screen-error" class="overlay hidden">
+          <div class="card small">
+            <p class="eyebrow">OOPS</p>
+            <h2 id="errorTitle">문제가 생겼어요</h2>
+            <p id="errorMessage" class="lede small"></p>
+            <button id="retryBtn" class="primary" type="button">다시 시도</button>
+          </div>
+        </section>
+
+        <aside id="settingsPanel" class="panel hidden" aria-label="설정">
+          <h2>설정</h2>
+          <label class="row">
+            <span>소리</span>
+            <input id="soundToggle" type="checkbox" checked />
+          </label>
+          <label class="row">
+            <span>손 인식 디버그</span>
+            <input id="debugToggle" type="checkbox" />
+          </label>
+          <p class="hint left">디버그를 켜면 손가락 점과 FPS가 보여요.</p>
+          <button id="reconnectBtn" class="ghost" type="button">카메라 다시 연결</button>
+          <button id="closeSettings" class="ghost" type="button">닫기</button>
+        </aside>
+      </div>
+    </div>
+
+    <script src="./vendor/ml5.min.js"></script>
+    <script type="module" src="./src/main.js"></script>
+  </body>
+</html>

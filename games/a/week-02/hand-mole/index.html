@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>손 인식 두더지 잡기</title>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.4/p5.min.js"></script>
+  <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+  <style>
+    /* style.css 없이도 동작하도록 index.html 안에 스타일을 포함했습니다. */
+    html, body {
+      margin: 0;
+      padding: 0;
+      height: 100%;
+      background: #0f1713;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+        "Malgun Gothic", "Noto Sans KR", sans-serif;
+      overflow: hidden;
+    }
+
+    main {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    canvas {
+      display: block;
+      /* 창 크기에 맞춰 자동 축소 (9:7 비율 유지) */
+      width: min(900px, 96vw, calc(96vh * 9 / 7)) !important;
+      height: auto !important;
+      border-radius: 18px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+    }
+  </style>
+</head>
+<body>
+  <main></main>
+  <script src="sketch.js"></script>
+</body>
+</html>

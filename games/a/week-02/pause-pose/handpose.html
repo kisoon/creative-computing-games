@@ -1,0 +1,1614 @@
+<!DOCTYPE html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark" />
+    <title>Pause Pose · ml5.js HandPose</title>
+    <style>
+:root {
+  --bg: #0c0c0e;
+  --surface: #15151a;
+  --surface-2: #1d1d24;
+  --border: #2a2a33;
+  --text: #f2f2f5;
+  --text-dim: #9a9aa6;
+  --accent: #00e676;
+  --accent-dim: #00b45c;
+  --danger: #ff5c72;
+  --radius: 14px;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(circle at 15% -10%, rgba(0, 230, 118, 0.12), transparent 45%),
+    var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", "Apple SD Gothic Neo",
+    "Malgun Gothic", sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ------------------------------------------------------------------ header */
+
+.app-header {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 28px 24px 20px;
+}
+
+.app-header h1 {
+  margin: 0;
+  font-size: 22px;
+  letter-spacing: -0.02em;
+}
+
+.app-header__title p {
+  margin: 4px 0 0;
+  color: var(--text-dim);
+  font-size: 13px;
+}
+
+.app-header__tag {
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  color: var(--text-dim);
+  font-size: 12px;
+}
+
+.app-header__links {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 8px;
+}
+
+.app-header__tag--link {
+  text-decoration: none;
+  color: var(--accent);
+  border-color: rgba(0, 230, 118, 0.35);
+  transition: background 0.18s ease, border-color 0.18s ease;
+}
+
+.app-header__tag--link:hover {
+  background: rgba(0, 230, 118, 0.1);
+  border-color: var(--accent);
+}
+
+/* -------------------------------------------------------------------- main */
+
+.app-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1.55fr) minmax(260px, 1fr);
+  gap: 20px;
+  align-items: start;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 0 24px 48px;
+}
+
+.stage {
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.canvas-holder {
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+  background: #000;
+  border-radius: 10px;
+}
+
+.canvas-holder canvas {
+  display: block;
+  width: 100% !important;
+  height: auto !important;
+  max-width: 100%;
+}
+
+.stage-caption {
+  margin: 12px 4px 2px;
+  color: var(--text-dim);
+  font-size: 13px;
+  text-align: center;
+}
+
+.stage-caption b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.stage-caption--warn {
+  color: #ffcf70;
+}
+
+.stage-caption code {
+  padding: 2px 5px;
+  border-radius: 5px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 12px;
+}
+
+/* ------------------------------------------------------------------- panel */
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  padding: 18px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+}
+
+.status-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: 24px;
+}
+
+.status-text {
+  color: var(--text-dim);
+  font-size: 13px;
+  line-height: 1.4;
+}
+
+.badge {
+  flex: none;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  background: var(--surface-2);
+  color: var(--text-dim);
+}
+
+.badge--loading {
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.badge--ready {
+  background: rgba(90, 160, 255, 0.16);
+  color: #8bb8ff;
+}
+
+.badge--detecting {
+  background: rgba(0, 230, 118, 0.16);
+  color: var(--accent);
+}
+
+.badge--stopped {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-dim);
+}
+
+.badge--error {
+  background: rgba(255, 92, 114, 0.16);
+  color: var(--danger);
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin: 0;
+}
+
+.stats__item {
+  padding: 12px 14px;
+  background: var(--surface-2);
+  border-radius: 10px;
+}
+
+.stats dt {
+  color: var(--text-dim);
+  font-size: 11px;
+  letter-spacing: 0.02em;
+}
+
+.stats dd {
+  margin: 4px 0 0;
+  font-size: 18px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.panel__section h2 {
+  margin: 0 0 10px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-dim);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* -------------------------------------------------------------- instrument */
+
+.note-display {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  padding: 10px 14px;
+  background: var(--surface-2);
+  border-radius: 10px;
+}
+
+.note-display__name {
+  font-size: 28px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  font-variant-numeric: tabular-nums;
+}
+
+.note-display__freq {
+  color: var(--text-dim);
+  font-size: 12px;
+  font-variant-numeric: tabular-nums;
+}
+
+.meter {
+  height: 8px;
+  margin-top: 8px;
+  border-radius: 999px;
+  background: var(--surface-2);
+  overflow: hidden;
+}
+
+.meter__fill {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: linear-gradient(90deg, #1e8f57, var(--accent));
+  transition: width 80ms linear;
+}
+
+.meter--thin {
+  flex: 1;
+  height: 6px;
+  margin-top: 0;
+}
+
+.vibrato-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+
+.vibrato-row__label {
+  flex: none;
+  color: var(--text-dim);
+  font-size: 10.5px;
+  letter-spacing: 0.02em;
+}
+
+.octave-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 12px;
+}
+
+.octave-row__label {
+  color: var(--text-dim);
+  font-size: 11px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.octave-row__controls {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn--step {
+  width: 36px;
+  padding: 6px 0;
+  font-size: 16px;
+  line-height: 1;
+}
+
+.octave-row__value {
+  width: 28px;
+  font-weight: 600;
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+
+.btn--play {
+  width: 100%;
+  margin-top: 10px;
+  border-color: rgba(0, 230, 118, 0.45);
+  background: rgba(0, 230, 118, 0.08);
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.btn--play:hover:not(:disabled) {
+  background: rgba(0, 230, 118, 0.16);
+  border-color: rgba(0, 230, 118, 0.7);
+}
+
+.btn--play.is-playing {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #06170d;
+}
+
+.btn--play.is-playing:hover:not(:disabled) {
+  background: #2bf08c;
+  border-color: #2bf08c;
+  color: #06170d;
+}
+
+.instrument__hint {
+  margin: 8px 0 0;
+  color: var(--text-dim);
+  font-size: 12px;
+  text-align: center;
+}
+
+.instrument__hint b {
+  color: var(--text);
+  font-weight: 600;
+}
+
+/* --------------------------------------------------------------- hand list */
+
+.hand-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.hand-list__empty {
+  padding: 12px;
+  border: 1px dashed var(--border);
+  border-radius: 10px;
+  color: var(--text-dim);
+  font-size: 13px;
+  text-align: center;
+}
+
+.hand-list__item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 10px 12px;
+  background: var(--surface-2);
+  border-radius: 10px;
+  font-size: 13px;
+}
+
+.hand-list__dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.hand-list__name {
+  flex: 1;
+}
+
+.hand-list__value {
+  color: var(--text-dim);
+  font-variant-numeric: tabular-nums;
+}
+
+/* ---------------------------------------------------------------- controls */
+
+.controls {
+  display: grid;
+  gap: 8px;
+}
+
+.btn {
+  padding: 11px 14px;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: inherit;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.15s ease, border-color 0.15s ease, opacity 0.15s ease;
+}
+
+.btn:hover:not(:disabled) {
+  background: #26262f;
+  border-color: #3a3a46;
+}
+
+.btn:disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+}
+
+.btn--primary {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #06170d;
+  font-weight: 700;
+}
+
+.btn--primary:hover:not(:disabled) {
+  background: #2bf08c;
+  border-color: #2bf08c;
+}
+
+/* -------------------------------------------------------------------- hint */
+
+.hint ul {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  color: var(--text-dim);
+  font-size: 12.5px;
+}
+
+kbd {
+  padding: 2px 6px;
+  border: 1px solid var(--border);
+  border-bottom-width: 2px;
+  border-radius: 5px;
+  background: var(--surface-2);
+  color: var(--text);
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-size: 11px;
+}
+
+/* ---------------------------------------------------------------- responsive */
+
+@media (max-width: 860px) {
+  .app-main {
+    grid-template-columns: 1fr;
+  }
+
+  .app-header,
+  .app-main {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+    </style>
+  </head>
+  <body>
+<header class="app-header">
+      <div class="app-header__title">
+        <h1>Pause Pose</h1>
+        <p>손으로 연주하는 악기 · ml5.js HandPose</p>
+      </div>
+      <div class="app-header__links">
+        <span class="app-header__tag">ml5.js v1 · p5.js</span>
+        <a class="app-header__tag app-header__tag--link" href="mosquito.html">
+          🦟 손뼉 사냥 게임 →
+        </a>
+      </div>
+    </header>
+
+    <main class="app-main">
+      <section class="stage">
+        <div id="canvas-holder" class="canvas-holder"></div>
+        <p class="stage-caption">
+          손을 펴면 크게 · 오므리면 작게, 위아래로 음높이, 좌우로 흔들면 비브라토.
+          <kbd>Space</kbd> 감지 · <kbd>P</kbd> 연주
+        </p>
+        <p id="file-hint" class="stage-caption stage-caption--warn" hidden>
+          파일을 더블클릭해 열면 브라우저가 카메라를 차단할 수 있습니다. 터미널에서
+          <code>python3 -m http.server 8000</code> 실행 후
+          <code>http://localhost:8000</code> 으로 접속해 주세요.
+        </p>
+      </section>
+
+      <aside class="panel">
+        <div class="status-row">
+          <span id="status-badge" class="badge badge--loading">로딩</span>
+          <span id="status-text" class="status-text">모델을 불러오는 중…</span>
+        </div>
+
+        <dl class="stats">
+          <div class="stats__item">
+            <dt>감지된 손</dt>
+            <dd id="hands-count">0</dd>
+          </div>
+          <div class="stats__item">
+            <dt>모델</dt>
+            <dd id="model-info">handPose · full</dd>
+          </div>
+        </dl>
+
+        <section class="panel__section instrument">
+          <h2>악기</h2>
+          <div class="note-display">
+            <span id="note-name" class="note-display__name">—</span>
+            <span id="note-freq" class="note-display__freq">0 Hz</span>
+          </div>
+          <div class="meter" aria-label="음량">
+            <div id="volume-meter" class="meter__fill"></div>
+          </div>
+          <div class="vibrato-row">
+            <span class="vibrato-row__label">비브라토</span>
+            <div class="meter meter--thin">
+              <div id="vibrato-meter" class="meter__fill"></div>
+            </div>
+          </div>
+          <div class="octave-row">
+            <span class="octave-row__label">옥타브</span>
+            <div class="octave-row__controls">
+              <button id="octave-down" type="button" class="btn btn--step" aria-label="옥타브 내리기">
+                −
+              </button>
+              <span id="octave-value" class="octave-row__value">4</span>
+              <button id="octave-up" type="button" class="btn btn--step" aria-label="옥타브 올리기">
+                +
+              </button>
+            </div>
+          </div>
+          <button id="play-toggle" type="button" class="btn btn--play">
+            연주 시작
+          </button>
+          <p class="instrument__hint">
+            <b>펼치기</b> → 음량 · <b>위아래</b> → 음높이 · <b>좌우 흔들기</b> → 비브라토
+          </p>
+        </section>
+
+        <section class="panel__section">
+          <h2>손 목록</h2>
+          <ul id="hands-list" class="hand-list">
+            <li class="hand-list__empty">아직 감지된 손이 없습니다.</li>
+          </ul>
+        </section>
+
+        <section class="panel__section controls">
+          <button id="toggle-detect" type="button" class="btn btn--primary">
+            감지 시작
+          </button>
+          <button id="toggle-skeleton" type="button" class="btn">
+            뼈대 표시 끄기
+          </button>
+          <button id="toggle-label" type="button" class="btn">
+            이름 표시 켜기
+          </button>
+        </section>
+
+        <section class="panel__section hint">
+          <h2>단축키</h2>
+          <ul>
+            <li><kbd>Space</kbd> 감지 시작 / 정지</li>
+            <li><kbd>P</kbd> 연주 시작 / 정지</li>
+            <li><kbd>S</kbd> 뼈대 연결선 표시 전환</li>
+            <li><kbd>K</kbd> 키포인트 이름 표시 전환</li>
+          </ul>
+        </section>
+      </aside>
+    </main>
+
+    <!-- p5.js 1.x + ml5.js 1.x (인터넷 연결 필요) -->
+    <script src="https://cdn.jsdelivr.net/npm/p5@1.11.3/lib/p5.min.js"></script>
+    <script src="https://unpkg.com/ml5@1/dist/ml5.js"></script>
+
+    <!-- 이 파일 하나에 모든 앱 코드가 들어 있습니다. -->
+    <!-- js/config.js -->
+    <script>
+/**
+ * 전역 설정값 모음.
+ * 튜닝 포인트를 한 곳에 모아 두면 이후 기능을 붙이기 쉽습니다.
+ */
+const CONFIG = {
+  // 캔버스(=웹캠) 해상도. 웹캠에서 흔히 쓰는 4:3 비율입니다.
+  canvas: {
+    width: 640,
+    height: 480,
+  },
+
+  // ml5.handPose(options) 에 그대로 전달되는 모델 옵션.
+  // 문서: maxHands, flipped, runtime("tfjs" | "mediapipe"), modelType("lite" | "full")
+  handPose: {
+    maxHands: 2,
+    flipped: false, // 결과 좌표 반전은 화면에서만 처리합니다(mirror 옵션 참고)
+    runtime: "tfjs",
+    modelType: "full",
+  },
+
+  // 웹캠 화면을 거울처럼 좌우 반전해서 보여 줄지 여부.
+  // 켜면 키포인트도 같은 기준으로 뒤집어 그립니다.
+  mirror: true,
+
+  keypointRadius: 6,
+
+  // 손 위치로 연주하는 악기 설정
+  instrument: {
+    defaultOctave: 4,
+    minOctave: 2,
+    maxOctave: 6,
+
+    // C 장조 음계만 사용합니다. 샵/플랫(반음) 없이 흰 건반 음만 나옵니다.
+    scale: [0, 2, 4, 5, 7, 9, 11, 12],
+
+    pitchTop: 0.1, // 캔버스 위쪽 10% 지점 = 최고음
+    pitchBottom: 0.9, // 아래쪽 90% 지점 = 최저음
+
+    // 손을 오므린 정도 → 음량
+    // (손목~중지 뿌리 길이로 나눈 손끝 평균 거리)
+    openness: {
+      closed: 1.05, // 이 값 이하 = 완전히 오므림 (무음)
+      open: 2.15, // 이 값 이상 = 활짝 펼침 (최대 음량)
+    },
+    volumeCurve: 1.15, // 크기 → 음량 곡선
+    volumeMax: 0.28, // 최대 출력 (클리핑 방지)
+
+    // 좌우로 흔드는 움직임 → 비브라토
+    vibrato: {
+      rate: 5.4, // 떨림 속도 (Hz)
+      maxCents: 32, // 최대 떨림 폭 (센트)
+      sensitivity: 42, // 좌우 속도 → 떨림 폭
+      threshold: 0.3, // 이 속도(화면 폭/초) 이하는 무시
+    },
+
+    smoothing: 0.18, // 손 움직임을 따라가는 부드러움 (0~1)
+  },
+
+  colors: {
+    background: [12, 12, 14],
+    keypoint: [0, 230, 118],
+    connection: [255, 255, 255],
+  },
+
+  // 손가락 21개 키포인트의 기본 연결 정보.
+  // handPose.getConnections() 를 사용할 수 없을 때의 대체값입니다.
+  connections: [
+    [0, 1], [1, 2], [2, 3], [3, 4],           // 엄지
+    [0, 5], [5, 6], [6, 7], [7, 8],           // 검지
+    [5, 9], [9, 10], [10, 11], [11, 12],      // 중지
+    [9, 13], [13, 14], [14, 15], [15, 16],    // 약지
+    [13, 17], [17, 18], [18, 19], [19, 20],   // 새끼
+    [0, 17],                                  // 손바닥 아래쪽
+  ],
+};
+    </script>
+    <!-- js/audio.js -->
+    <script>
+/**
+ * Web Audio 기반 신시사이저.
+ * - 단일 오실레이터 2개(사인 + 살짝 디튠된 트라이앵글)를 로우패스 필터로 다듬습니다.
+ * - 모든 값은 setTargetAtTime 으로 부드럽게 이동해 클릭/지직 소리를 막습니다.
+ */
+const NOTE_NAMES = ["C", "C#", "D", "D#", "E", "F", "F#", "G", "G#", "A", "A#", "B"];
+
+const AudioEngine = {
+  ctx: null,
+  masterGain: null,
+  voiceGain: null,
+  filter: null,
+  oscMain: null,
+  oscSub: null,
+
+  playing: false,
+  octave: CONFIG.instrument.defaultOctave,
+  volume: 0,
+  frequency: 261.63,
+  vibrato: 0,
+
+  /** 오디오 그래프를 최초 1회 구성합니다. (사용자 클릭 이후에 호출되어야 합니다) */
+  ensureContext() {
+    if (this.ctx) return this.ctx;
+
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    if (!AudioCtx) return null;
+
+    const ctx = new AudioCtx();
+
+    const masterGain = ctx.createGain();
+    masterGain.gain.value = 0.8;
+    masterGain.connect(ctx.destination);
+
+    const filter = ctx.createBiquadFilter();
+    filter.type = "lowpass";
+    filter.frequency.value = 2600;
+    filter.Q.value = 0.6;
+    filter.connect(masterGain);
+
+    const voiceGain = ctx.createGain();
+    voiceGain.gain.value = 0;
+    voiceGain.connect(filter);
+
+    const oscMain = ctx.createOscillator();
+    oscMain.type = "sine";
+    oscMain.frequency.value = this.frequency;
+    oscMain.connect(voiceGain);
+
+    const oscSub = ctx.createOscillator();
+    oscSub.type = "triangle";
+    oscSub.frequency.value = this.frequency;
+    oscSub.detune.value = 9;
+    const subGain = ctx.createGain();
+    subGain.gain.value = 0.3;
+    oscSub.connect(subGain);
+    subGain.connect(voiceGain);
+
+    // 비브라토 LFO: 두 오실레이터의 detune(센트)을 흔듭니다.
+    const lfo = ctx.createOscillator();
+    lfo.type = "sine";
+    lfo.frequency.value = CONFIG.instrument.vibrato.rate;
+    const lfoGain = ctx.createGain();
+    lfoGain.gain.value = 0;
+    lfo.connect(lfoGain);
+    lfoGain.connect(oscMain.detune);
+    lfoGain.connect(oscSub.detune);
+
+    oscMain.start();
+    oscSub.start();
+    lfo.start();
+
+    Object.assign(this, { ctx, masterGain, voiceGain, filter, oscMain, oscSub, lfo, lfoGain });
+    return ctx;
+  },
+
+  /** 연주 시작. 오디오 컨텍스트를 깨우고 소리를 낼 준비를 합니다. */
+  async start() {
+    const ctx = this.ensureContext();
+    if (!ctx) return false;
+
+    try {
+      await ctx.resume();
+    } catch (error) {
+      console.error("[Audio] 컨텍스트를 시작하지 못했습니다:", error);
+      return false;
+    }
+
+    this.playing = true;
+    return true;
+  },
+
+  /** 연주 정지. 볼륨을 0으로 내린 뒤 잠시 후 컨텍스트를 재웁니다. */
+  stop() {
+    this.playing = false;
+
+    if (!this.ctx) return;
+
+    const ctx = this.ctx;
+    this.voiceGain.gain.cancelScheduledValues(ctx.currentTime);
+    this.voiceGain.gain.setTargetAtTime(0, ctx.currentTime, 0.05);
+    this.volume = 0;
+
+    setTimeout(() => {
+      if (!this.playing && ctx.state === "running") {
+        ctx.suspend().catch(() => {});
+      }
+    }, 500);
+  },
+
+  /** 음량·주파수 목표값을 부드럽게 반영합니다. */
+  setTargets(volume, frequency) {
+    if (!this.playing || !this.ctx) return;
+
+    const now = this.ctx.currentTime;
+    this.voiceGain.gain.setTargetAtTime(volume, now, 0.06);
+    this.oscMain.frequency.setTargetAtTime(frequency, now, 0.07);
+    this.oscSub.frequency.setTargetAtTime(frequency, now, 0.07);
+
+    this.volume = volume;
+    this.frequency = frequency;
+  },
+
+  /** 비브라토 깊이(센트)를 부드럽게 반영합니다. */
+  setVibrato(cents) {
+    if (!this.ctx) return;
+
+    const max = CONFIG.instrument.vibrato.maxCents;
+    const depth = Math.min(max, Math.max(0, cents));
+    this.vibrato = depth;
+    this.lfoGain.gain.setTargetAtTime(depth, this.ctx.currentTime, 0.05);
+  },
+
+  midiFor(octave, semitone) {
+    return 12 * (octave + 1) + semitone;
+  },
+
+  /** 옥타브 + 반음 → 주파수(Hz) */
+  frequencyFor(octave, semitone) {
+    return 440 * Math.pow(2, (this.midiFor(octave, semitone) - 69) / 12);
+  },
+
+  /** 옥타브 + 반음 → 음이름 (예: 4, 9 → "A4") */
+  noteNameFor(octave, semitone) {
+    const midi = this.midiFor(octave, semitone);
+    return NOTE_NAMES[midi % 12] + (Math.floor(midi / 12) - 1);
+  },
+};
+    </script>
+    <!-- js/detector.js -->
+    <script>
+/**
+ * ml5.handPose 모델을 감싸는 얇은 래퍼.
+ * - 모델 로드 / 시작 / 정지 / 단일 프레임 감지를 한 곳에서 관리합니다.
+ * - sketch.js 는 이 객체만 바라보면 됩니다.
+ */
+const HandDetector = {
+  model: null,
+  hands: [],
+  isDetecting: false,
+  connections: CONFIG.connections.slice(),
+  sourceSize: { width: CONFIG.canvas.width, height: CONFIG.canvas.height },
+
+  /** 모델을 로드하고, 연결 정보를 확보합니다. */
+  async load() {
+    const instance = ml5.handPose(CONFIG.handPose);
+
+    // p5 1.x 에서는 인스턴스를 즉시 반환하고, 준비 완료는 instance.ready 로 알려 줍니다.
+    // p5 2.x 에서는 Promise 자체를 반환합니다. 두 경우를 모두 처리합니다.
+    this.model =
+      instance && typeof instance.then === "function" ? await instance : instance;
+
+    // 모델이 실제로 준비될 때까지 기다립니다.
+    if (this.model && this.model.ready) {
+      await this.model.ready;
+    }
+
+    if (typeof this.model.getConnections === "function") {
+      const connections = this.model.getConnections();
+      if (Array.isArray(connections) && connections.length > 0) {
+        this.connections = connections;
+      }
+    }
+
+    return this.model;
+  },
+
+  /**
+   * 연속 감지를 시작합니다.
+   * @param {HTMLVideoElement|p5.Element|p5.Image} media
+   * @param {(hands: Array) => void} [onResults]
+   */
+  start(media, onResults) {
+    if (!this.model || this.isDetecting) return;
+
+    this.rememberSourceSize(media);
+
+    // detectStart 는 웹캠/비디오에서 결과가 나올 때마다 콜백을 호출합니다.
+    this.model.detectStart(media, (results) => {
+      this.hands = results || [];
+      if (typeof onResults === "function") onResults(this.hands);
+    });
+
+    this.isDetecting = true;
+  },
+
+  /** 연속 감지를 중지하고 마지막 결과를 비웁니다. */
+  stop() {
+    if (!this.model || !this.isDetecting) return;
+    this.model.detectStop();
+    this.isDetecting = false;
+    this.hands = [];
+  },
+
+  /**
+   * 한 프레임만 감지합니다(정지 이미지 처리 등).
+   * @param {HTMLVideoElement|p5.Element|p5.Image} media
+   * @returns {Promise<Array>} 감지된 손 배열
+   */
+  async detectOnce(media) {
+    if (!this.model) return [];
+    this.rememberSourceSize(media);
+    const results = await this.model.detect(media);
+    return results || [];
+  },
+
+  /** 좌표 변환에 필요한 원본 미디어 크기를 기억합니다. */
+  rememberSourceSize(media) {
+    const elt = media?.elt || media;
+    const width = media?.width || elt?.videoWidth || CONFIG.canvas.width;
+    const height = media?.height || elt?.videoHeight || CONFIG.canvas.height;
+    this.sourceSize = { width, height };
+  },
+};
+    </script>
+    <!-- js/drawer.js -->
+    <script>
+/**
+ * 감지 결과를 캔버스에 그리는 역할만 담당합니다.
+ * 좌표 변환(스케일/좌우 반전)도 여기서 처리합니다.
+ */
+const HANDEDNESS_LABELS = {
+  Left: "왼손",
+  Right: "오른손",
+};
+
+const HandDrawer = {
+  showSkeleton: true,
+  showLabels: false,
+
+  drawHands(hands, connections) {
+    if (!Array.isArray(hands)) return;
+
+    for (const hand of hands) {
+      if (!hand || !Array.isArray(hand.keypoints)) continue;
+      if (this.showSkeleton) this.drawConnections(hand, connections);
+      this.drawKeypoints(hand);
+      if (this.showLabels) this.drawHandLabel(hand);
+    }
+  },
+
+  /** 뼈대 연결선: [[0,1], [1,2], ...] 형태의 인덱스 쌍을 선으로 연결 */
+  drawConnections(hand, connections) {
+    const keypoints = hand.keypoints;
+    stroke(...CONFIG.colors.connection, 140);
+    strokeWeight(3);
+
+    for (const [from, to] of connections) {
+      const a = keypoints[from];
+      const b = keypoints[to];
+      if (!a || !b) continue;
+
+      const p1 = this.toScreen(a);
+      const p2 = this.toScreen(b);
+      line(p1.x, p1.y, p2.x, p2.y);
+    }
+  },
+
+  /** 21개 키포인트 점 그리기 */
+  drawKeypoints(hand) {
+    noStroke();
+    fill(...CONFIG.colors.keypoint);
+
+    for (const keypoint of hand.keypoints) {
+      const point = this.toScreen(keypoint);
+      circle(point.x, point.y, CONFIG.keypointRadius * 2);
+    }
+  },
+
+  /** 손목(keypoint 0) 근처에 왼손/오른손 + 신뢰도 표시 */
+  drawHandLabel(hand) {
+    const wrist = hand.keypoints[0];
+    if (!wrist) return;
+
+    const point = this.toScreen(wrist);
+    const label = this.handednessLabel(hand);
+    const confidence = Math.round(this.handConfidence(hand) * 100);
+    const value = `${label} ${confidence}%`;
+
+    textSize(14);
+    textAlign(LEFT, BOTTOM);
+    const boxWidth = textWidth(value);
+
+    noStroke();
+    fill(0, 0, 0, 160);
+    rect(point.x - 4, point.y - 30, boxWidth + 8, 22, 6);
+
+    fill(255);
+    text(value, point.x, point.y - 12);
+  },
+
+  /** 결과 배열을 패널 표시용 문자열로 변환합니다. */
+  handednessLabel(hand) {
+    const raw = hand?.handedness;
+    return HANDEDNESS_LABELS[raw] || raw || "손";
+  },
+
+  handConfidence(hand) {
+    if (typeof hand?.confidence === "number") return hand.confidence;
+    if (typeof hand?.handednesses?.[0]?.confidence === "number") {
+      return hand.handednesses[0].confidence;
+    }
+    return 0;
+  },
+
+  /** 원본 미디어 좌표 → 캔버스 좌표 (스케일 + 좌우 반전) */
+  toScreen(keypoint) {
+    const source = HandDetector.sourceSize;
+    const scaleX = width / (source.width || width);
+    const scaleY = height / (source.height || height);
+    const x = keypoint.x * scaleX;
+
+    return {
+      x: CONFIG.mirror ? width - x : x,
+      y: keypoint.y * scaleY,
+    };
+  },
+};
+    </script>
+    <!-- js/instrument.js -->
+    <script>
+/**
+ * 손동작 → 악기 제어 매핑.
+ * - 손을 펴고 오므린 크기: 음량
+ * - 위아래 위치: 음높이 (C 장조, 샵/플랫 없음)
+ * - 좌우로 흔드는 움직임: 비브라토
+ */
+const Instrument = {
+  active: false,
+  octave: CONFIG.instrument.defaultOctave,
+  volume: 0,
+  frequency: 0,
+  vibrato: 0,
+  noteName: "—",
+  pointer: { x: 0, y: 0 },
+  openness: 0,
+
+  _lastPoint: null,
+  _lastTime: 0,
+
+  /** 옥타브를 delta 만큼 올리거나 내립니다. */
+  setOctave(delta) {
+    const { minOctave, maxOctave } = CONFIG.instrument;
+    this.octave = Math.min(maxOctave, Math.max(minOctave, this.octave + delta));
+    AudioEngine.octave = this.octave;
+    return this.octave;
+  },
+
+  /** 매 프레임 손 결과를 받아 음량·음높이·비브라토를 갱신합니다. */
+  update(hands) {
+    const hand = Array.isArray(hands) ? hands[0] : null;
+    if (!hand || !Array.isArray(hand.keypoints)) {
+      this.release();
+      return;
+    }
+
+    const settings = CONFIG.instrument;
+    const keypoints = hand.keypoints;
+    const palm = this.palmCenter(keypoints);
+
+    // 1) 음량: 손을 펼수록 커지고, 오므릴수록 작아집니다.
+    const openness = this.opennessRatio(keypoints);
+    this.openness = openness;
+
+    const { closed, open } = settings.openness;
+    const openT = Math.min(1, Math.max(0, (openness - closed) / (open - closed)));
+    const targetVolume = Math.pow(openT, settings.volumeCurve) * settings.volumeMax;
+
+    // 2) 음높이: 손바닥의 세로 위치 (위 = 높은 음). C 장조 음만 사용합니다.
+    const yNorm = Math.min(1, Math.max(0, palm.y / height));
+    const span = settings.pitchBottom - settings.pitchTop;
+    const pitchT = 1 - Math.min(1, Math.max(0, (yNorm - settings.pitchTop) / span));
+    const degree = Math.round(pitchT * (settings.scale.length - 1));
+    const semitone = settings.scale[degree];
+
+    const targetFrequency = AudioEngine.frequencyFor(this.octave, semitone);
+
+    // 3) 비브라토: 좌우로 흔드는 속도가 빠를수록 떨림이 커집니다.
+    const targetVibrato = this.computeVibrato(palm);
+    const vibratoK = targetVibrato > this.vibrato ? 0.35 : 0.12;
+    this.vibrato += (targetVibrato - this.vibrato) * vibratoK;
+
+    // 값이 튀지 않도록 보간합니다.
+    const k = settings.smoothing;
+    this.volume += (targetVolume - this.volume) * k;
+    this.frequency = this.frequency
+      ? this.frequency + (targetFrequency - this.frequency) * k
+      : targetFrequency;
+    this.noteName = AudioEngine.noteNameFor(this.octave, semitone);
+    this.pointer = { x: palm.x, y: palm.y };
+    this.active = true;
+
+    AudioEngine.setTargets(this.volume, this.frequency);
+    AudioEngine.setVibrato(this.vibrato);
+  },
+
+  /** 손이 사라졌을 때: 소리/비브라토만 서서히 줄이고 마지막 음높이는 유지합니다. */
+  release() {
+    this.active = false;
+    this.noteName = "—";
+    this.openness = 0;
+    this.volume += (0 - this.volume) * 0.2;
+    this.vibrato += (0 - this.vibrato) * 0.2;
+    this._lastPoint = null;
+
+    AudioEngine.setTargets(this.volume, this.frequency || 261.63);
+    AudioEngine.setVibrato(this.vibrato);
+  },
+
+  /** 손바닥 중심(손목 + 손가락 뿌리 4개)의 화면 좌표 */
+  palmCenter(keypoints) {
+    const indices = [0, 5, 9, 13, 17];
+    let sumX = 0;
+    let sumY = 0;
+    let count = 0;
+
+    for (const index of indices) {
+      const keypoint = keypoints[index];
+      if (!keypoint) continue;
+      const point = HandDrawer.toScreen(keypoint);
+      sumX += point.x;
+      sumY += point.y;
+      count += 1;
+    }
+
+    if (count === 0) return { x: width / 2, y: height / 2 };
+    return { x: sumX / count, y: sumY / count };
+  },
+
+  /**
+   * 손의 펼침 정도를 손 크기로 나눠 계산합니다.
+   * 손목~중지 뿌리 거리를 기준으로 삼아 손이 화면에서 멀어져도 값이 일정합니다.
+   * 주먹 ≈ 1.0, 활짝 편 손 ≈ 2.0 이상.
+   */
+  opennessRatio(keypoints) {
+    const wrist = keypoints[0];
+    const palm = keypoints[9] || keypoints[5];
+    if (!wrist || !palm) return 0;
+
+    const palmSize = Math.hypot(palm.x - wrist.x, palm.y - wrist.y) || 1;
+    const tips = [4, 8, 12, 16, 20].map((index) => keypoints[index]).filter(Boolean);
+    if (tips.length === 0) return 0;
+
+    const total = tips.reduce(
+      (sum, tip) => sum + Math.hypot(tip.x - wrist.x, tip.y - wrist.y),
+      0,
+    );
+    return total / tips.length / palmSize;
+  },
+
+  /** 좌우 속도(화면 폭/초)를 비브라토 깊이(센트)로 변환합니다. */
+  computeVibrato(palm) {
+    const now = millis();
+    const dt = this._lastTime
+      ? Math.min(0.2, Math.max(0.01, (now - this._lastTime) / 1000))
+      : 0;
+
+    let target = 0;
+    if (this._lastPoint && dt > 0) {
+      const speed = Math.abs(palm.x - this._lastPoint.x) / width / dt;
+      const { threshold, sensitivity, maxCents } = CONFIG.instrument.vibrato;
+      target = Math.min(maxCents, Math.max(0, (speed - threshold) * sensitivity));
+    }
+
+    this._lastPoint = palm;
+    this._lastTime = now;
+    return target;
+  },
+
+  /** 캔버스 위에 피치 가이드·손 크기 링·음이름을 표시합니다. */
+  drawOverlay() {
+    if (!this.active || !AudioEngine.playing) return;
+
+    const { x, y } = this.pointer;
+    const accent = CONFIG.colors.keypoint;
+
+    // 음높이 기준선
+    stroke(accent[0], accent[1], accent[2], 70);
+    strokeWeight(1);
+    line(0, y, width, y);
+
+    // 손을 펼친 크기에 따라 커지는 링
+    const ringSize = map(this.openness, 1.0, 2.3, 26, 86, true);
+    noFill();
+    stroke(accent[0], accent[1], accent[2], 110 + this.vibrato * 3);
+    strokeWeight(2);
+    circle(x, y, ringSize);
+
+    noStroke();
+    fill(accent[0], accent[1], accent[2]);
+    circle(x, y, 5);
+
+    // 음이름 배지
+    const label = this.noteName;
+    textSize(15);
+    textAlign(CENTER, BOTTOM);
+    const labelWidth = textWidth(label) + 18;
+
+    noStroke();
+    fill(0, 0, 0, 170);
+    rect(x - labelWidth / 2, y - ringSize / 2 - 26, labelWidth, 24, 8);
+    fill(255);
+    text(label, x, y - ringSize / 2 - 8);
+  },
+};
+    </script>
+    <!-- js/sketch.js -->
+    <script>
+/**
+ * p5.js 스케치 진입점.
+ * 카메라 세팅, 모델 로드, 상태 관리, 패널 UI 동기화를 담당합니다.
+ */
+
+let video;
+
+const appState = {
+  status: "loading", // loading | ready | detecting | stopped | error
+  message: "모델을 불러오는 중…",
+};
+
+const dom = {};
+let lastPanelSync = 0;
+let lastHandsSignature = "";
+
+/* ---------------------------------------------------------------- p5 life */
+
+function setup() {
+  const canvas = createCanvas(CONFIG.canvas.width, CONFIG.canvas.height);
+  canvas.parent("canvas-holder");
+  pixelDensity(1);
+  textFont("system-ui, -apple-system, 'Segoe UI', sans-serif");
+
+  cacheDom();
+  bindUi();
+  setupCamera();
+  initHandPose();
+}
+
+function draw() {
+  background(...CONFIG.colors.background);
+
+  drawVideo();
+
+  if (HandDetector.isDetecting) {
+    HandDrawer.drawHands(HandDetector.hands, HandDetector.connections);
+  }
+
+  if (AudioEngine.playing) {
+    // 감지 중이 아니면 빈 배열을 넘겨 소리만 서서히 줄입니다.
+    Instrument.update(HandDetector.isDetecting ? HandDetector.hands : []);
+    Instrument.drawOverlay();
+  }
+
+  drawStageMessage();
+  syncPanel();
+  tryAutoStart();
+}
+
+function keyPressed() {
+  if (key === " ") {
+    toggleDetection();
+    return false; // 스페이스로 페이지가 스크롤되지 않게
+  }
+
+  if (key === "s" || key === "S") {
+    HandDrawer.showSkeleton = !HandDrawer.showSkeleton;
+    updateButtonLabels();
+  }
+
+  if (key === "k" || key === "K") {
+    HandDrawer.showLabels = !HandDrawer.showLabels;
+    updateButtonLabels();
+  }
+
+  if (key === "p" || key === "P") {
+    togglePlay();
+  }
+
+  return true;
+}
+
+/* ------------------------------------------------------------ initialization */
+
+function cacheDom() {
+  dom.badge = document.getElementById("status-badge");
+  dom.statusText = document.getElementById("status-text");
+  dom.handsCount = document.getElementById("hands-count");
+  dom.handsList = document.getElementById("hands-list");
+  dom.modelInfo = document.getElementById("model-info");
+  dom.fileHint = document.getElementById("file-hint");
+  dom.noteName = document.getElementById("note-name");
+  dom.noteFreq = document.getElementById("note-freq");
+  dom.volumeMeter = document.getElementById("volume-meter");
+  dom.vibratoMeter = document.getElementById("vibrato-meter");
+  dom.octaveValue = document.getElementById("octave-value");
+  dom.octaveDown = document.getElementById("octave-down");
+  dom.octaveUp = document.getElementById("octave-up");
+  dom.playToggle = document.getElementById("play-toggle");
+  dom.toggleDetect = document.getElementById("toggle-detect");
+  dom.toggleSkeleton = document.getElementById("toggle-skeleton");
+  dom.toggleLabel = document.getElementById("toggle-label");
+}
+
+function bindUi() {
+  dom.toggleDetect.addEventListener("click", toggleDetection);
+
+  dom.toggleSkeleton.addEventListener("click", () => {
+    HandDrawer.showSkeleton = !HandDrawer.showSkeleton;
+    updateButtonLabels();
+  });
+
+  dom.toggleLabel.addEventListener("click", () => {
+    HandDrawer.showLabels = !HandDrawer.showLabels;
+    updateButtonLabels();
+  });
+
+  dom.playToggle.addEventListener("click", togglePlay);
+  dom.octaveDown.addEventListener("click", () => changeOctave(-1));
+  dom.octaveUp.addEventListener("click", () => changeOctave(1));
+
+  dom.modelInfo.textContent = `handPose · ${CONFIG.handPose.modelType}`;
+
+  // file:// 로 직접 열면 브라우저가 카메라를 막는 경우가 많아 안내를 보여 줍니다.
+  if (window.location.protocol === "file:" && dom.fileHint) {
+    dom.fileHint.hidden = false;
+  }
+
+  updateButtonLabels();
+}
+
+function setupCamera() {
+  if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+    setStatus("error", "이 브라우저에서는 웹캠을 사용할 수 없습니다.");
+    return;
+  }
+
+  // 권한 거부/장치 없음 등을 명확한 메시지로 안내하기 위해 먼저 확인합니다.
+  navigator.mediaDevices
+    .getUserMedia({ video: true, audio: false })
+    .then((stream) => {
+      stream.getTracks().forEach((track) => track.stop());
+      createWebcam();
+    })
+    .catch((error) => {
+      console.error("[HandPose] 웹캠 접근 실패:", error);
+      setStatus(
+        "error",
+        window.location.protocol === "file:"
+          ? "file:// 로는 카메라를 쓸 수 없습니다. 로컬 서버를 실행한 뒤 localhost 주소로 접속해 주세요."
+          : "웹캠 권한이 필요합니다. 주소창의 카메라 권한을 허용한 뒤 새로고침하세요.",
+      );
+    });
+}
+
+function createWebcam() {
+  video = createCapture(VIDEO, () => {
+    if (appState.status === "loading") {
+      setStatus("loading", "모델을 불러오는 중…");
+    }
+  });
+
+  video.size(CONFIG.canvas.width, CONFIG.canvas.height);
+  video.hide();
+
+  const elt = video.elt;
+  if (elt) {
+    elt.setAttribute("playsinline", "");
+    elt.addEventListener("error", () => {
+      setStatus("error", "웹캠을 시작하지 못했습니다. 브라우저 권한을 확인하세요.");
+    });
+  }
+}
+
+/**
+ * 모델을 로드합니다.
+ * 주의: p5.js 전역 모드에는 `loadModel`(3D 모델 로더)이 이미 있어
+ * 같은 이름을 쓰면 p5 쪽 함수로 덮어써집니다. 그래서 initHandPose 로 명명했습니다.
+ */
+async function initHandPose() {
+  try {
+    await HandDetector.load();
+    if (appState.status === "error") return;
+    setStatus("ready", "모델 준비 완료. 곧 감지를 시작합니다.");
+  } catch (error) {
+    console.error("[HandPose] 모델 로드 실패:", error);
+    setStatus("error", "모델을 불러오지 못했습니다. 네트워크와 CDN 상태를 확인하세요.");
+  }
+}
+
+/* ------------------------------------------------------------ render helpers */
+
+function drawVideo() {
+  if (!isVideoReady()) return;
+
+  push();
+  if (CONFIG.mirror) {
+    // 거울 모드: 영상만 뒤집고, 키포인트도 drawer 에서 같은 기준으로 뒤집습니다.
+    translate(width, 0);
+    scale(-1, 1);
+  }
+  image(video, 0, 0, width, height);
+  pop();
+}
+
+function drawStageMessage() {
+  const showMessage = !isVideoReady() || appState.status === "error";
+  if (!showMessage) return;
+
+  noStroke();
+  fill(0, 0, 0, 170);
+  rect(0, 0, width, height);
+
+  fill(255);
+  textAlign(CENTER, CENTER);
+  textSize(16);
+  const message =
+    appState.status === "error" ? appState.message : "웹캠 영상을 기다리는 중…";
+  text(message, width / 2, height / 2);
+}
+
+/* ---------------------------------------------------------------- detection */
+
+function isVideoReady() {
+  const elt = video?.elt;
+  return Boolean(
+    elt && elt.readyState >= 2 && elt.videoWidth > 0 && elt.videoHeight > 0,
+  );
+}
+
+function tryAutoStart() {
+  if (HandDetector.isDetecting) return;
+  if (appState.status !== "ready") return;
+  if (!isVideoReady()) return;
+  startDetection();
+}
+
+function startDetection() {
+  if (!HandDetector.model || !isVideoReady()) return;
+
+  HandDetector.start(video);
+  setStatus("detecting", "손을 감지하는 중입니다.");
+}
+
+function stopDetection() {
+  HandDetector.stop();
+  setStatus("stopped", "감지가 정지되었습니다.");
+  renderHandsList(HandDetector.hands);
+}
+
+function toggleDetection() {
+  if (HandDetector.isDetecting) {
+    stopDetection();
+  } else if (HandDetector.model) {
+    startDetection();
+  }
+}
+
+/* ------------------------------------------------------------------ instrument */
+
+async function togglePlay() {
+  if (AudioEngine.playing) {
+    AudioEngine.stop();
+    Instrument.release();
+    updateInstrumentUi();
+    return;
+  }
+
+  const started = await AudioEngine.start();
+  if (!started) {
+    setStatus("error", "이 브라우저에서는 오디오를 재생할 수 없습니다.");
+    return;
+  }
+
+  Instrument.octave = AudioEngine.octave;
+  updateInstrumentUi();
+}
+
+function changeOctave(delta) {
+  Instrument.setOctave(delta);
+  updateInstrumentUi();
+}
+
+function updateInstrumentUi() {
+  const max = CONFIG.instrument.volumeMax || 1;
+  const volume = AudioEngine.playing ? Instrument.volume : 0;
+  const ratio = Math.min(1, Math.max(0, volume / max));
+
+  dom.volumeMeter.style.width = `${(ratio * 100).toFixed(1)}%`;
+
+  const maxVibrato = CONFIG.instrument.vibrato.maxCents || 1;
+  const vibrato = AudioEngine.playing ? Instrument.vibrato : 0;
+  const vibratoRatio = Math.min(1, Math.max(0, vibrato / maxVibrato));
+  dom.vibratoMeter.style.width = `${(vibratoRatio * 100).toFixed(1)}%`;
+
+  dom.noteName.textContent = AudioEngine.playing && Instrument.active ? Instrument.noteName : "—";
+
+  const freq = AudioEngine.playing && Instrument.frequency ? Math.round(Instrument.frequency) : 0;
+  dom.noteFreq.textContent = freq ? `${freq} Hz` : "0 Hz";
+
+  dom.octaveValue.textContent = String(Instrument.octave);
+  dom.octaveDown.disabled = Instrument.octave <= CONFIG.instrument.minOctave;
+  dom.octaveUp.disabled = Instrument.octave >= CONFIG.instrument.maxOctave;
+
+  dom.playToggle.textContent = AudioEngine.playing ? "연주 정지" : "연주 시작";
+  dom.playToggle.classList.toggle("is-playing", AudioEngine.playing);
+}
+
+/* ---------------------------------------------------------------- panel sync */
+
+function syncPanel() {
+  if (millis() - lastPanelSync < 120) return;
+  lastPanelSync = millis();
+
+  const hands = HandDetector.hands;
+  dom.handsCount.textContent = String(hands.length);
+
+  // 웹캠/모델이 아직 준비되지 않았으면 시작 버튼을 비활성화합니다.
+  dom.toggleDetect.disabled =
+    !HandDetector.model || (!HandDetector.isDetecting && !isVideoReady());
+
+  const signature = hands
+    .map((hand) => `${HandDrawer.handednessLabel(hand)}:${Math.round(HandDrawer.handConfidence(hand) * 100)}`)
+    .join("|");
+
+  if (signature !== lastHandsSignature) {
+    lastHandsSignature = signature;
+    renderHandsList(hands);
+  }
+
+  updateInstrumentUi();
+}
+
+function renderHandsList(hands) {
+  if (!Array.isArray(hands) || hands.length === 0) {
+    dom.handsList.innerHTML =
+      '<li class="hand-list__empty">아직 감지된 손이 없습니다.</li>';
+    return;
+  }
+
+  dom.handsList.innerHTML = hands
+    .map((hand, index) => {
+      const label = HandDrawer.handednessLabel(hand);
+      const confidence = Math.round(HandDrawer.handConfidence(hand) * 100);
+      return `<li class="hand-list__item">
+        <span class="hand-list__dot"></span>
+        <span class="hand-list__name">${index + 1}. ${label}</span>
+        <span class="hand-list__value">${confidence}%</span>
+      </li>`;
+    })
+    .join("");
+}
+
+/* ------------------------------------------------------------------- 상태 UI */
+
+const STATUS_META = {
+  loading: { label: "로딩", className: "badge--loading" },
+  ready: { label: "준비", className: "badge--ready" },
+  detecting: { label: "감지 중", className: "badge--detecting" },
+  stopped: { label: "정지", className: "badge--stopped" },
+  error: { label: "오류", className: "badge--error" },
+};
+
+function setStatus(status, message) {
+  appState.status = status;
+  if (typeof message === "string") appState.message = message;
+
+  const meta = STATUS_META[status] || STATUS_META.loading;
+  dom.badge.textContent = meta.label;
+  dom.badge.className = `badge ${meta.className}`;
+  dom.statusText.textContent = appState.message;
+
+  updateButtonLabels();
+}
+
+function updateButtonLabels() {
+  if (!dom.toggleDetect) return;
+
+  dom.toggleDetect.textContent = HandDetector.isDetecting ? "감지 정지" : "감지 시작";
+
+  dom.toggleSkeleton.textContent = HandDrawer.showSkeleton
+    ? "뼈대 표시 끄기"
+    : "뼈대 표시 켜기";
+
+  dom.toggleLabel.textContent = HandDrawer.showLabels
+    ? "이름 표시 끄기"
+    : "이름 표시 켜기";
+}
+    </script>
+  </body>
+</html>

@@ -1,0 +1,31 @@
+/* 참고용 파일입니다.
+   스타일은 index.html 안에 <style> 태그로 포함되어 있어서
+   이 파일이 없어도 게임은 정상 동작합니다.
+   (ml5 에디터에 style.css 탭이 없어도 괜찮습니다.) */
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background: #0f1713;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+    "Malgun Gothic", "Noto Sans KR", sans-serif;
+  overflow: hidden;
+}
+
+main {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+canvas {
+  display: block;
+  width: min(900px, 96vw, calc(96vh * 9 / 7)) !important;
+  height: auto !important;
+  border-radius: 18px;
+  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+}

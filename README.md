@@ -9,11 +9,11 @@
 
 ## 반·주차별 결과물
 
-A·B반의 총 3주간 결과물을 모읍니다. 현재 올라온 A반 10회차 자료를 **1주차**로 분류했습니다. 2·3주차의 실제 수업 회차와 날짜는 자료 등록 시 기록합니다.
+A·B반의 총 3주간 결과물을 모읍니다. 현재 올라온 A반 10회차 자료를 **1주차**로 분류했습니다. A반 2주차는 11회차 제출 결과물입니다. 그 밖의 회차와 날짜는 자료 등록 시 기록합니다.
 
 | 구분 | 1주차 | 2주차 | 3주차 |
 | --- | --- | --- | --- |
-| A반 | [12개 작품 · 16개 실행 화면](collections/a/week-01/README.md) | [등록 예정](collections/a/week-02/README.md) | [등록 예정](collections/a/week-03/README.md) |
+| A반 | [12개 작품 · 16개 실행 화면](collections/a/week-01/README.md) | [12개 작품 · 11회차](collections/a/week-02/README.md) | [등록 예정](collections/a/week-03/README.md) |
 | B반 | [등록 예정](collections/b/week-01/README.md) | [등록 예정](collections/b/week-02/README.md) | [등록 예정](collections/b/week-03/README.md) |
 
 각 반·주차 문서에 작은 프리뷰(가로 160px)와 개별 실행 링크를 제공합니다. [결과물 추가 방법](CONTRIBUTING.md)을 따라 새 자료를 등록할 수 있습니다.
@@ -28,7 +28,7 @@ A·B반의 총 3주간 결과물을 모읍니다. 현재 올라온 A반 10회차
 
 작품에서 참고하거나 사용한 이미지·음원·캐릭터 등의 권리는 원저작자에게 있습니다. 출처나 사용과 관련해 살펴볼 부분이 있다면 편하게 알려 주세요. 확인 후 필요한 내용을 보완하겠습니다. [문의·의견 남기기](https://github.com/kisoon/creative-computing-games/issues/new)
 
-현재 A반 1주차의 12개 작품, 총 16개 실행 화면을 하나의 대표 페이지에서 연결합니다. 별도 서버, 데이터베이스, API 키, 설치 과정이 없는 HTML/CSS/JavaScript 정적 웹사이트입니다.
+현재 A반 1·2주차의 24개 작품, 총 28개 실행 화면을 하나의 대표 페이지에서 연결합니다. 별도 서버, 데이터베이스, API 키, 설치 과정이 없는 HTML/CSS/JavaScript 정적 웹사이트입니다.
 
 ## 파일 구성
 

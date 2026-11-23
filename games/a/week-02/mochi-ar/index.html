@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>한정선 찹쌀떡 AR 체험 - MVP</title>
+  <style>
+    :root{--bg:#f7f5f0;--card:#fff;--accent:#d8b07b;}
+    *{box-sizing:border-box}
+    body{font-family:Arial, sans-serif;margin:0;background:var(--bg);} 
+    header{text-align:center;padding:14px 0;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.05);}
+    h1{margin:0;font-size:22px}
+    .grid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;padding:16px;max-width:980px;margin:0 auto}
+    .card{background:var(--card);border-radius:12px;padding:10px;text-align:center;box-shadow:0 2px 6px rgba(0,0,0,.05);cursor:pointer}
+    .card img{width:100%;height:auto;border-radius:8px}
+    #stage{ display:block;margin:20px auto;width:640px;max-width:90%;height:480px;background:#000;border:1px solid #ddd;}
+    .panel{text-align:center;margin-top:6px}
+    .button{display:inline-block;padding:10px 14px;border-radius:999px;background:var(--accent);color:#fff;border:none;cursor:pointer;font-weight:bold;margin:0 6px}
+    #status{margin-top:6px;color:#333}
+  </style>
+</head>
+<body>
+  <header>
+    <h1>한정선 찹쌀떡 AR 체험 - MVP</h1>
+  </header>
+  <main>
+    <section class="grid" aria-label="선택 카드">
+      <div class="card" data-src="assets/한정선 멜론.png" data-name="멜론">
+        <img src="assets/한정선 멜론.png" onerror="this.src='assets/한정선.png'" alt="찹쌀떡 멜론">
+        <div>멜론</div>
+      </div>
+      <div class="card" data-src="assets/한정선_통귤.png" data-name="통귤">
+        <img src="assets/한정선_통귤.png" onerror="this.src='assets/한정선.png'" alt="찹쌀떡 통귤">
+        <div>통귤</div>
+      </div>
+      <div class="card" data-src="assets/한정선_파인애플.png" data-name="파인애플">
+        <img src="assets/한정선_파인애플.png" onerror="this.src='assets/한정선.png'" alt="찹쌀떡 파인애플">
+        <div>파인애플</div>
+      </div>
+      <div class="card" data-src="assets/한정선_하미과멜론.png" data-name="하미과멜론">
+        <img src="assets/한정선_하미과멜론.png" onerror="this.src='assets/한정선.png'" alt="찹쌀떡 하미과멜론">
+        <div>하미과멜론</div>
+      </div>
+    </section>
+    <section id="stage-area" style="text-align:center;">
+      <canvas id="stage" width="640" height="480"></canvas>
+      <div class="panel" style="margin-top:8px;">
+        <button class="button" id="start">체험 시작</button>
+        <button class="button" id="reset">다시 시작</button>
+        <span id="bite" style="margin-left:12px">(0/3)</span>
+      </div>
+      <div id="status" aria-live="polite"></div>
+    </section>
+  </main>
+  <script src="sketch.js"></script>
+</body>
+</html>

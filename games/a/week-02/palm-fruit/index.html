@@ -1,0 +1,958 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>손바닥 과일 받기 · ml5.js</title>
+  <style>
+    :root { color-scheme: dark; }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; margin: 0; }
+    body {
+      display: grid;
+      place-items: center;
+      background: radial-gradient(circle at 50% 15%, #24324a, #0b0f16 70%);
+      font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo",
+        "Malgun Gothic", sans-serif;
+      color: #e8eef7;
+      overflow: hidden;
+    }
+    #game { position: relative; }
+    #game canvas {
+      display: block;
+      border-radius: 18px;
+      box-shadow: 0 24px 60px rgba(0, 0, 0, 0.55);
+    }
+    #loading {
+      position: fixed;
+      inset: 0;
+      z-index: 10;
+      display: grid;
+      place-items: center;
+      background: #0b0f16;
+      color: #9db1cc;
+      font-size: 15px;
+      line-height: 1.7;
+      text-align: center;
+      transition: opacity 0.35s;
+    }
+    #loading.hidden { opacity: 0; pointer-events: none; }
+    .spinner {
+      width: 26px;
+      height: 26px;
+      margin: 0 auto 14px;
+      border-radius: 50%;
+      border: 3px solid rgba(255, 255, 255, 0.15);
+      border-top-color: #ffcc66;
+      animation: spin 1s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/p5@1.9.4/lib/p5.min.js"></script>
+  <script src="https://unpkg.com/ml5@1/dist/ml5.min.js"></script>
+</head>
+<body>
+  <div id="game"></div>
+
+  <div id="loading">
+    <div>
+      <div class="spinner"></div>
+      손 인식 모델을 불러오는 중이에요…<br />
+      <small>인터넷 연결이 필요합니다</small>
+    </div>
+  </div>
+
+  <script>
+    /* ------------------------------------------------------------------
+       손바닥 과일 받기
+       - p5.js          : 화면/게임 루프
+       - ml5.js handPose: 웹캠에서 손바닥 위치 추적
+       ------------------------------------------------------------------ */
+
+    const W = 640;
+    const H = 480;
+
+    const FRUITS = ["🍎", "🍊", "🍋", "🍇", "🍉", "🍓", "🥝"];
+
+    // MediaPipe 손 뼈대 연결 정보 (손가락 관절 21개)
+    const HAND_CONNECTIONS = [
+      [0, 1], [1, 2], [2, 3], [3, 4],
+      [0, 5], [5, 6], [6, 7], [7, 8],
+      [5, 9], [9, 10], [10, 11], [11, 12],
+      [9, 13], [13, 14], [14, 15], [15, 16],
+      [13, 17], [17, 18], [18, 19], [19, 20],
+      [0, 17],
+    ];
+
+    // 손바닥 중심을 구할 때 쓰는 관절: 손목 + 손가락 뿌리 4개
+    const PALM_POINTS = [0, 5, 9, 13, 17];
+
+    let handPose;
+
+    let videoEl = null;
+    let cameraStream = null;
+    let videoW = 640;
+    let videoH = 480;
+    let cameraState = "idle"; // idle | requesting | ready | error
+    let cameraError = "";
+    let cameraRequestedAt = 0;
+    let cameraRequestId = 0;
+    let cameraReadyAt = 0;
+    let detectionOn = false;
+    let detectionError = "";
+    let detectFrames = 0;
+    let detectLastAt = 0;
+    let detectStartedAt = 0;
+    let detectRetried = false;
+    let handsSeen = 0;
+    let lastHandConf = 0;
+    let debugOn = false;
+
+    let state = "ready"; // ready | playing | over
+
+    const basket = { x: W / 2, w: 150, top: H - 88, h: 76 };
+
+    let fruits = [];
+    let particles = [];
+    let score = 0;
+    let best = 0;
+    let lives = 3;
+    let lastSpawnAt = 0;
+    let spawnInterval = 900;
+
+    let lastHandX = null;
+    let lastHandY = null;
+    let lastHandAt = -Infinity;
+    let handKeypoints = null;
+
+    let shake = 0;
+    let flash = 0;
+    let toast = "";
+    let toastUntil = 0;
+
+    let audioCtx = null;
+
+    function preload() {
+      // MediaPipe 런타임이 기본(tfjs)보다 작은 손을 훨씬 잘 찾습니다.
+      handPose = ml5.handPose({ maxHands: 1, runtime: "mediapipe" });
+    }
+
+    function setup() {
+      const cnv = createCanvas(W, H);
+      cnv.parent("game");
+      pixelDensity(1);
+      textFont("system-ui, -apple-system, sans-serif");
+      textAlign(CENTER, CENTER);
+
+      try {
+        best = Number(localStorage.getItem("fruitBest")) || 0;
+      } catch (e) {
+        best = 0;
+      }
+
+      document.getElementById("loading").classList.add("hidden");
+
+      // 접속하자마자 카메라를 켜 봅니다 (권한 창이 바로 뜸).
+      // 거부되거나 대기 상태여도 마우스로 플레이할 수 있습니다.
+      initCamera();
+    }
+
+    /* ---------------------------- 입력 ---------------------------- */
+
+    function mousePressed() {
+      if (state === "ready") {
+        if (cameraState === "error") reconnectCamera();
+        else initCamera();
+        startGame();
+      } else if (state === "over") {
+        if (cameraState === "error") reconnectCamera();
+        startGame();
+      } else if (cameraState === "error") {
+        // 게임 중에도 클릭으로 카메라 재시도
+        reconnectCamera();
+      }
+    }
+
+    function keyPressed() {
+      // R: 카메라 다시 연결 (권한 허용 후 재시도할 때)
+      if (key === "r" || key === "R") reconnectCamera();
+    }
+
+    function initCamera() {
+      if (cameraState === "requesting" || cameraState === "ready") return;
+
+      // 파일을 직접 열면(file://) 브라우저가 카메라를 절대 허용하지 않습니다.
+      if (location.protocol === "file:") {
+        cameraState = "error";
+        cameraError = "파일로 열면 카메라가 안 돼요 · http://localhost:8000 접속";
+        return;
+      }
+
+      if (!window.isSecureContext) {
+        cameraState = "error";
+        cameraError = "카메라를 쓰려면 https 또는 http://localhost로 접속해 주세요";
+        return;
+      }
+
+      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+        cameraState = "error";
+        cameraError = "이 브라우저에서는 카메라를 사용할 수 없어요";
+        return;
+      }
+
+      cameraState = "requesting";
+      cameraError = "";
+      cameraRequestedAt = millis();
+
+      const requestId = ++cameraRequestId;
+
+      openCameraStream()
+        .then((stream) => {
+          // 그 사이 R 키 등으로 재시도했다면 이 스트림은 버림
+          if (requestId !== cameraRequestId) {
+            stream.getTracks().forEach((t) => t.stop());
+            return;
+          }
+
+          cameraStream = stream;
+
+          const el = document.createElement("video");
+          el.muted = true;
+          el.autoplay = true;
+          el.playsInline = true;
+          el.setAttribute("playsinline", "");
+          el.srcObject = stream;
+
+          return waitForVideo(el).then(() => {
+            if (requestId !== cameraRequestId) return;
+
+            videoEl = el;
+            videoW = el.videoWidth || 640;
+            videoH = el.videoHeight || 480;
+            cameraState = "ready";
+            startDetection();
+
+            // 카메라가 중간에 끊기면 상태 갱신
+            stream.getVideoTracks().forEach((track) => {
+              track.onended = () => {
+                cameraState = "error";
+                cameraError = "카메라 연결이 끊겼어요 · R 키로 다시 시도";
+              };
+            });
+          });
+        })
+        .catch((err) => {
+          if (requestId !== cameraRequestId) return;
+          cameraState = "error";
+          cameraError = describeCameraError(err);
+        });
+    }
+
+    // 설정이 안 맞는 카메라를 위해 단순한 요청으로 한 번 더 시도
+    async function openCameraStream() {
+      const attempts = [
+        {
+          video: {
+            width: { ideal: 640 },
+            height: { ideal: 480 },
+            facingMode: "user",
+          },
+          audio: false,
+        },
+        { video: true, audio: false },
+      ];
+
+      let lastError = null;
+      for (const constraints of attempts) {
+        try {
+          return await navigator.mediaDevices.getUserMedia(constraints);
+        } catch (err) {
+          lastError = err;
+          if (err.name !== "OverconstrainedError" && err.name !== "NotFoundError") {
+            throw err;
+          }
+        }
+      }
+      throw lastError;
+    }
+
+    function waitForVideo(el) {
+      return new Promise((resolve, reject) => {
+        let settled = false;
+        const timer = setTimeout(() => {
+          if (settled) return;
+          settled = true;
+          reject(new Error("카메라 응답이 없어요"));
+        }, 10000);
+
+        const ready = () => {
+          if (settled) return;
+          el.play()
+            .then(() => {
+              if (settled) return;
+              settled = true;
+              clearTimeout(timer);
+              resolve();
+            })
+            .catch((err) => {
+              if (settled) return;
+              settled = true;
+              clearTimeout(timer);
+              reject(err);
+            });
+        };
+
+        if (el.readyState >= 1) ready();
+        else {
+          el.onloadedmetadata = ready;
+          el.oncanplay = ready;
+        }
+      });
+    }
+
+    function describeCameraError(err) {
+      switch (err && err.name) {
+        case "NotAllowedError":
+          return "카메라 권한이 거부됐어요 · 주소창의 카메라 아이콘에서 허용 후 R";
+        case "NotFoundError":
+          return "카메라를 찾을 수 없어요 · 연결을 확인해 주세요";
+        case "NotReadableError":
+          return "다른 앱이 카메라를 쓰고 있어요 · 그 앱을 닫고 R";
+        case "OverconstrainedError":
+          return "카메라 설정을 지원하지 않아요";
+        case "SecurityError":
+          return "보안 정책 때문에 카메라를 쓸 수 없어요 · localhost로 열어 주세요";
+        default:
+          return "카메라를 열 수 없어요: " + ((err && err.message) || "알 수 없는 오류");
+      }
+    }
+
+    function reconnectCamera() {
+      if (cameraStream) {
+        cameraStream.getTracks().forEach((t) => t.stop());
+        cameraStream = null;
+      }
+      if (detectionOn) {
+        try {
+          handPose.detectStop();
+        } catch (e) {
+          /* 무시 */
+        }
+        detectionOn = false;
+      }
+      if (videoEl) {
+        videoEl.srcObject = null;
+        videoEl = null;
+      }
+      cameraState = "idle";
+      cameraError = "";
+      handKeypoints = null;
+      lastHandX = null;
+      lastHandY = null;
+      lastHandAt = -Infinity;
+      initCamera();
+    }
+
+    function startDetection() {
+      if (detectionOn || cameraState !== "ready" || !videoEl) return;
+
+      // 모델 로딩이 끝나기 전에 시작하면 조용히 멈출 수 있으므로 대기
+      if (!handPose || !handPose.model) {
+        detectionError = "";
+        return;
+      }
+
+      try {
+        handPose.detectStart(videoEl, onHands);
+        detectionOn = true;
+        detectionError = "";
+        detectFrames = 0;
+        detectLastAt = 0;
+        handsSeen = 0;
+      } catch (e) {
+        detectionError = "손 인식 시작 실패: " + ((e && e.message) || e);
+      }
+    }
+
+    // 손 인식 결과 콜백 (원본 웹캠 픽셀 좌표)
+    function onHands(hands) {
+      detectFrames += 1;
+      detectLastAt = millis();
+
+      if (hands && hands.length > 0) {
+        const hand = hands[0];
+        const kps = hand.keypoints;
+
+        if (kps && kps.length > 17) {
+          let sx = 0;
+          let sy = 0;
+          for (const i of PALM_POINTS) {
+            sx += kps[i].x;
+            sy += kps[i].y;
+          }
+          lastHandX = sx / PALM_POINTS.length;
+          lastHandY = sy / PALM_POINTS.length;
+          lastHandAt = millis();
+          lastHandConf = hand.confidence ?? hand.score ?? 0;
+          handKeypoints = kps;
+          handsSeen += 1;
+          return;
+        }
+      }
+
+      handKeypoints = null;
+    }
+
+    // 웹캠 영상을 캔버스에 꽉 차게(cover) 그리기 위한 배치 계산
+    function videoLayout() {
+      const scale = max(W / videoW, H / videoH);
+      const dw = videoW * scale;
+      const dh = videoH * scale;
+      return { scale, dw, dh, dx: (W - dw) / 2, dy: (H - dh) / 2 };
+    }
+
+    // 원본 웹캠 좌표 → 거울 반전된 캔버스 좌표
+    function mapHandPoint(x, y) {
+      const L = videoLayout();
+      return {
+        x: W - (L.dx + x * L.scale),
+        y: L.dy + y * L.scale,
+      };
+    }
+
+    /* ---------------------------- 게임 상태 ---------------------------- */
+
+    function startGame() {
+      fruits = [];
+      particles = [];
+      score = 0;
+      lives = 3;
+      spawnInterval = 900;
+      lastSpawnAt = millis();
+      basket.x = W / 2;
+      shake = 0;
+      flash = 0;
+      toast = "";
+      state = "playing";
+      ensureAudio();
+    }
+
+    function gameOver() {
+      state = "over";
+      if (score > best) {
+        best = score;
+        try {
+          localStorage.setItem("fruitBest", String(best));
+        } catch (e) {
+          /* 저장 실패는 무시 */
+        }
+      }
+    }
+
+    function loseLife(message) {
+      lives -= 1;
+      shake = 10;
+      flash = 150;
+      toast = message;
+      toastUntil = millis() + 900;
+      beep(140, 0.18, "sawtooth");
+    }
+
+    /* ---------------------------- 업데이트 ---------------------------- */
+
+    function updateGame() {
+      if (state !== "playing") {
+        updateParticles();
+        return;
+      }
+
+      const now = millis();
+      shake = max(0, shake - 0.7);
+      flash = max(0, flash - 5);
+
+      // 바구니 목표 위치: 손이 잡히면 손, 아니면 마우스
+      const handFresh = lastHandX !== null && now - lastHandAt < 400;
+      const rawTarget = handFresh
+        ? mapHandPoint(lastHandX, lastHandY).x
+        : mouseX;
+      const targetX = constrain(rawTarget, basket.w / 2 + 8, W - basket.w / 2 - 8);
+      basket.x = lerp(basket.x, targetX, 0.35);
+
+      // 과일 생성
+      if (now - lastSpawnAt > spawnInterval) {
+        spawnFruit();
+        lastSpawnAt = now;
+        spawnInterval = constrain(950 - score * 22, 330, 950);
+      }
+
+      // 과일 낙하 & 판정
+      for (let i = fruits.length - 1; i >= 0; i--) {
+        const f = fruits[i];
+        f.y += f.vy;
+        f.x += f.vx;
+        f.rot += f.spin;
+
+        if (f.x < 30 || f.x > W - 30) f.vx *= -1;
+
+        const inX = abs(f.x - basket.x) < basket.w / 2 + 4;
+        const inY = f.y > basket.top - 16 && f.y < basket.top + 34;
+
+        if (inX && inY) {
+          if (f.isBomb) {
+            loseLife("💥 폭탄이다!");
+            burst(f.x, f.y, "💥");
+          } else {
+            score += 1;
+            burst(f.x, f.y, f.emoji);
+            beep(520 + min(score, 20) * 18, 0.07, "triangle");
+          }
+          fruits.splice(i, 1);
+          continue;
+        }
+
+        if (f.y > H + 40) {
+          if (!f.isBomb) loseLife("놓쳤어요!");
+          fruits.splice(i, 1);
+        }
+      }
+
+      updateParticles();
+
+      if (lives <= 0) gameOver();
+    }
+
+    function spawnFruit() {
+      const isBomb = random() < min(0.07 + score * 0.007, 0.28);
+      const fallSpeed = random(2.4, 3.6) + min(score * 0.05, 2.4);
+
+      fruits.push({
+        x: random(50, W - 50),
+        y: -40,
+        vx: random(-0.7, 0.7),
+        vy: fallSpeed,
+        size: random(40, 52),
+        rot: random(TWO_PI),
+        spin: random(-0.06, 0.06),
+        emoji: isBomb ? "💣" : random(FRUITS),
+        isBomb,
+      });
+    }
+
+    function burst(x, y, emoji) {
+      for (let i = 0; i < 10; i++) {
+        const angle = random(TWO_PI);
+        const speed = random(1, 4);
+        particles.push({
+          x,
+          y,
+          vx: cos(angle) * speed,
+          vy: sin(angle) * speed - 1,
+          life: 1,
+          emoji,
+          size: random(12, 22),
+        });
+      }
+    }
+
+    function updateParticles() {
+      for (let i = particles.length - 1; i >= 0; i--) {
+        const p = particles[i];
+        p.x += p.vx;
+        p.y += p.vy;
+        p.vy += 0.15;
+        p.life -= 0.03;
+        if (p.life <= 0) particles.splice(i, 1);
+      }
+    }
+
+    /* ---------------------------- 그리기 ---------------------------- */
+
+    function draw() {
+      drawBackground();
+
+      if (state === "ready") {
+        drawReadyScreen();
+        return;
+      }
+
+      updateGame();
+
+      push();
+      if (shake > 0) translate(random(-shake, shake), random(-shake, shake));
+      drawFruits();
+      drawParticles();
+      drawBasket(basket.x);
+      drawHandMarker();
+      pop();
+
+      if (flash > 0) {
+        noStroke();
+        fill(255, 70, 70, flash);
+        rect(0, 0, W, H);
+      }
+
+      drawHUD();
+      drawHint();
+      drawToast();
+
+      if (state === "over") drawGameOver();
+    }
+
+    function drawBackground() {
+      if (cameraState === "ready" && videoEl) {
+        const L = videoLayout();
+
+        // 거울처럼 보이도록 좌우 반전해서 웹캠 영상 표시
+        push();
+        translate(W, 0);
+        scale(-1, 1);
+        drawingContext.drawImage(videoEl, L.dx, L.dy, L.dw, L.dh);
+        pop();
+
+        noStroke();
+        fill(8, 12, 18, 110);
+        rect(0, 0, W, H);
+      } else {
+        background(13, 18, 28);
+        noStroke();
+        for (let i = 0; i < 3; i++) {
+          fill(40 + i * 12, 62 + i * 8, 92 + i * 12, 34);
+          circle(W * (0.2 + i * 0.3), H * 0.32, 240);
+        }
+      }
+    }
+
+    function drawFruits() {
+      for (const f of fruits) {
+        push();
+        translate(f.x, f.y);
+        rotate(f.rot);
+
+        // 어두운 화면에서도 잘 보이도록 은은한 받침
+        noStroke();
+        fill(f.isBomb ? color(255, 120, 120, 40) : color(255, 240, 200, 45));
+        circle(0, 0, f.size * 0.95);
+
+        // 컬러 이모지는 fill의 알파 영향을 받으므로 불투명하게 되돌림
+        fill(255);
+        textSize(f.size);
+        text(f.emoji, 0, 0);
+        pop();
+      }
+    }
+
+    function drawParticles() {
+      push();
+      fill(255);
+      for (const p of particles) {
+        push();
+        translate(p.x, p.y);
+        textSize(p.size);
+        drawingContext.globalAlpha = max(p.life, 0);
+        text(p.emoji, 0, 0);
+        pop();
+      }
+      drawingContext.globalAlpha = 1;
+      pop();
+    }
+
+    function drawBasket(bx) {
+      const { w, top, h } = basket;
+      const bottomW = w * 0.72;
+
+      push();
+      translate(bx, 0);
+      noStroke();
+
+      // 받기 영역 표시 (은은한 빛)
+      const glow = 0.5 + 0.5 * sin(millis() / 400);
+      fill(255, 208, 96, 30 + glow * 25);
+      ellipse(0, top + 4, w + 46, 30);
+
+      // 그림자
+      fill(0, 60);
+      ellipse(0, top + h + 4, w * 0.95, 16);
+
+      // 바구니 몸통
+      fill(178, 116, 62);
+      beginShape();
+      vertex(-w / 2, top);
+      vertex(w / 2, top);
+      vertex(bottomW / 2, top + h);
+      vertex(-bottomW / 2, top + h);
+      endShape(CLOSE);
+
+      // 세로 결
+      stroke(146, 92, 46, 150);
+      strokeWeight(3);
+      for (let i = -2; i <= 2; i++) {
+        line((w / 5) * i, top + 10, (bottomW / 5) * i, top + h - 4);
+      }
+      noStroke();
+
+      // 위 테두리
+      fill(232, 176, 108);
+      ellipse(0, top, w, 26);
+      fill(96, 58, 32, 140);
+      ellipse(0, top + 2, w - 18, 16);
+      pop();
+    }
+
+    function drawHandMarker() {
+      if (!handKeypoints) return;
+      if (millis() - lastHandAt > 400) return;
+
+      const pts = handKeypoints.map((kp) => mapHandPoint(kp.x, kp.y));
+      const palm = mapHandPoint(lastHandX, lastHandY);
+
+      push();
+
+      // 손 뼈대 (인식 확인용)
+      stroke(120, 255, 190, 90);
+      strokeWeight(2);
+      for (const [a, b] of HAND_CONNECTIONS) {
+        if (!pts[a] || !pts[b]) continue;
+        line(pts[a].x, pts[a].y, pts[b].x, pts[b].y);
+      }
+
+      // 손바닥 중심
+      noFill();
+      stroke(120, 255, 190, 200);
+      strokeWeight(2);
+      circle(palm.x, palm.y, 34);
+      noStroke();
+      fill(120, 255, 190, 55);
+      circle(palm.x, palm.y, 30);
+
+      pop();
+    }
+
+    function drawHUD() {
+      push();
+      noStroke();
+
+      fill(0, 95);
+      rect(0, 0, W, 54);
+
+      textAlign(LEFT, CENTER);
+      textSize(22);
+      fill(255);
+      text(`점수 ${score}`, 22, 27);
+
+      textAlign(CENTER, CENTER);
+      textSize(13);
+      fill(160, 182, 208);
+      text(`최고 ${best}`, W / 2, 27);
+
+      textAlign(RIGHT, CENTER);
+      textSize(19);
+      fill(255, 120, 130);
+      text("❤️".repeat(max(lives, 0)), W - 22, 27);
+
+      pop();
+    }
+
+    function drawHint() {
+      const now = millis();
+      if (state !== "playing") return;
+
+      push();
+      noStroke();
+      textAlign(CENTER, CENTER);
+
+      if (cameraState === "error") {
+        fill(255, 150, 150, 225);
+        textSize(12);
+        text(cameraError, W / 2, 72);
+      } else if (cameraState === "requesting") {
+        const st = cameraStatus();
+        fill(st.r, st.g, st.b, 220);
+        textSize(12);
+        text(st.text + " · 마우스로도 조작돼요", W / 2, 72);
+      } else if (handKeypoints) {
+        fill(130, 255, 190, 190);
+        textSize(13);
+        text("손 인식 중", W / 2, 72);
+      } else if (cameraState === "ready") {
+        fill(200, 215, 235, 200);
+        textSize(13);
+        text("손바닥을 카메라에 보여주세요 · 마우스로도 조작돼요", W / 2, 72);
+      } else {
+        fill(200, 215, 235, 200);
+        textSize(13);
+        text("카메라를 준비하는 중… 마우스로도 조작돼요", W / 2, 72);
+      }
+
+      pop();
+    }
+
+    function drawToast() {
+      if (!toast || millis() > toastUntil) return;
+
+      const alpha = map(millis(), toastUntil - 900, toastUntil, 230, 0);
+      push();
+      noStroke();
+      textAlign(CENTER, CENTER);
+      textSize(24);
+
+      // 어두운 배경 위에서도 잘 읽히도록 반투명 알약 배경
+      const tw = textWidth(toast) + 40;
+      fill(0, 150 * (alpha / 230));
+      rect(W / 2 - tw / 2, 124 - 25, tw, 50, 25);
+
+      fill(255, 130, 130, alpha);
+      text(toast, W / 2, 124);
+      pop();
+    }
+
+    function drawReadyScreen() {
+      push();
+      noStroke();
+      fill(8, 12, 18, 180);
+      rect(0, 0, W, H);
+
+      textAlign(CENTER, CENTER);
+
+      // 카메라 연결 상태를 시작 화면에서도 바로 확인
+      const st = cameraStatus();
+      textSize(13);
+      fill(st.r, st.g, st.b, st.a);
+      text(st.text, W / 2, 52);
+
+      textSize(34);
+      fill(255, 214, 120);
+      text("🍎 손바닥 과일 받기 🍉", W / 2, H / 2 - 120);
+
+      textSize(17);
+      fill(232, 240, 250);
+      text("카메라 앞에서 손바닥을 펴고", W / 2, H / 2 - 58);
+      text("떨어지는 과일을 바구니로 받아 보세요!", W / 2, H / 2 - 30);
+
+      textSize(14);
+      fill(152, 172, 198);
+      text("폭탄 💣 은 피하세요 · 목숨은 3개", W / 2, H / 2 + 12);
+
+      const fileBlocked = location.protocol === "file:";
+
+      if (fileBlocked) {
+        // 파일을 직접 열면 브라우저가 카메라를 허용하지 않음 → 명확히 안내
+        fill(255, 140, 90);
+        textSize(14);
+        text("지금은 파일로 열려서 카메라를 쓸 수 없어요", W / 2, H / 2 + 48);
+        textSize(13);
+        fill(255, 200, 140);
+        text("터미널에서 bash start.sh 실행 후 아래 주소로 접속하세요", W / 2, H / 2 + 72);
+        textSize(16);
+        fill(255, 214, 120);
+        text("http://localhost:8000", W / 2, H / 2 + 100);
+      } else {
+        text("카메라 권한을 허용하면 손으로 조작할 수 있어요", W / 2, H / 2 + 38);
+        text("카메라가 없어도 마우스로 플레이할 수 있어요", W / 2, H / 2 + 62);
+      }
+
+      const pulse = 0.55 + 0.45 * sin(millis() / 320);
+      textSize(19);
+      fill(255, 255, 255, 255 * pulse);
+      text("화면을 클릭해서 시작", W / 2, fileBlocked ? H / 2 + 142 : H / 2 + 116);
+      pop();
+    }
+
+    function cameraStatus() {
+      if (cameraState === "ready") {
+        return {
+          text: "카메라 준비 완료 · 손을 보여주세요",
+          r: 130,
+          g: 255,
+          b: 190,
+          a: 220,
+        };
+      }
+      if (cameraState === "requesting") {
+        const waiting = millis() - cameraRequestedAt > 6000;
+        return {
+          text: waiting
+            ? "권한 창이 안 보이면 주소창의 카메라 아이콘을 확인하세요"
+            : "카메라 연결 중… 브라우저의 권한 창을 허용해 주세요",
+          r: 255,
+          g: 210,
+          b: 120,
+          a: 225,
+        };
+      }
+      if (cameraState === "error") {
+        return { text: cameraError, r: 255, g: 150, b: 150, a: 230 };
+      }
+      return { text: "카메라 대기 중", r: 180, g: 195, b: 215, a: 190 };
+    }
+
+    function drawGameOver() {
+      push();
+      noStroke();
+      fill(8, 12, 18, 205);
+      rect(0, 0, W, H);
+
+      textAlign(CENTER, CENTER);
+
+      textSize(40);
+      fill(255, 214, 120);
+      text("게임 끝!", W / 2, H / 2 - 92);
+
+      textSize(26);
+      fill(255);
+      text(`점수 ${score}`, W / 2, H / 2 - 26);
+
+      textSize(15);
+      fill(168, 188, 214);
+      text(
+        score >= best && score > 0 ? "🎉 최고 기록이에요!" : `최고 기록 ${best}`,
+        W / 2,
+        H / 2 + 18
+      );
+
+      const pulse = 0.55 + 0.45 * sin(millis() / 320);
+      textSize(18);
+      fill(255, 255, 255, 255 * pulse);
+      text("클릭해서 다시 하기", W / 2, H / 2 + 88);
+      pop();
+    }
+
+    /* ---------------------------- 사운드 ---------------------------- */
+
+    function ensureAudio() {
+      if (audioCtx) {
+        if (audioCtx.state === "suspended") audioCtx.resume();
+        return;
+      }
+      try {
+        const AudioCtor = window.AudioContext || window.webkitAudioContext;
+        audioCtx = new AudioCtor();
+      } catch (e) {
+        audioCtx = null;
+      }
+    }
+
+    function beep(freq, dur, type = "sine") {
+      if (!audioCtx) return;
+      try {
+        const osc = audioCtx.createOscillator();
+        const gain = audioCtx.createGain();
+        const now = audioCtx.currentTime;
+
+        osc.type = type;
+        osc.frequency.setValueAtTime(freq, now);
+
+        gain.gain.setValueAtTime(0.0001, now);
+        gain.gain.exponentialRampToValueAtTime(0.1, now + 0.01);
+        gain.gain.exponentialRampToValueAtTime(0.0001, now + dur);
+
+        osc.connect(gain).connect(audioCtx.destination);
+        osc.start(now);
+        osc.stop(now + dur + 0.02);
+      } catch (e) {
+        /* 사운드 실패는 무시 */
+      }
+    }
+  </script>
+</body>
+</html>

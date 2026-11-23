@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>손끝 마법 — MVP</title>
+  <style>
+    html, body {
+      margin: 0;
+      height: 100%;
+      background: #04060c;
+      color: #cfe3ff;
+      font-family: ui-monospace, SFMono-Regular, Menlo, monospace;
+      overflow: hidden;
+    }
+    #stage {
+      position: fixed;
+      inset: 0;
+      display: grid;
+      place-items: center;
+    }
+    canvas {
+      display: block;
+      max-width: 100vw;
+      max-height: 100vh;
+      box-shadow: 0 0 80px rgba(0, 0, 0, 0.9) inset;
+    }
+    #hint {
+      position: fixed;
+      left: 16px;
+      bottom: 12px;
+      font-size: 11px;
+      line-height: 1.7;
+      color: #6f87a8;
+      pointer-events: none;
+      user-select: none;
+    }
+    #hint b { color: #9fc9ee; font-weight: 600; }
+    #boot {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      text-align: center;
+      background: #04060c;
+      color: #8fb3e0;
+      font-size: 13px;
+      line-height: 1.8;
+      letter-spacing: 0.04em;
+      z-index: 10;
+    }
+    #boot.hide { display: none; }
+    #boot b { color: #cfe3ff; }
+  </style>
+</head>
+<body>
+  <div id="stage"></div>
+  <div id="hint">
+    <b>F</b> 길게 = 불꽃 자세 &nbsp;·&nbsp;
+    <b>L</b> = 주먹(발사) &nbsp;·&nbsp;
+    <b>S</b> 길게 = 방어막<br />
+    <b>K</b> 시뮬레이션 모드 &nbsp;·&nbsp; <b>R</b> 재시작 &nbsp;·&nbsp; <b>D</b> 디버그
+  </div>
+  <div id="boot"><div>모델 로딩 중…<br />웹캠 권한을 허용해 주세요</div></div>
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/p5.js/1.9.0/p5.min.js"></script>
+  <script src="https://unpkg.com/ml5@1.4.0/dist/ml5.min.js"></script>
+  <script type="module" src="./src/main.js"></script>
+</body>
+</html>
