@@ -1,0 +1,298 @@
+{
+  "sourceArchiveSha256": "00bb2346b2c63f628bae6792454f5dcc0e0cc5dcd413253ae26012fefb9ccd76",
+  "runtimeFiles": 58,
+  "identicalFiles": 57,
+  "executionOnlyChanges": 1,
+  "files": [
+    {
+      "path": "games/a/week-02/lemon-ten/index.html",
+      "sha256": "1064f831c6cfb9938edfe84b934e644286a0e1aa2229bc68f57a4e2d46fc88af",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/hand-sign-portal/index.html",
+      "sha256": "aa16ffa9adb07b51f4d98a2217037c825a27c3fba242a3c280df8de5e21c8561",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/hand-sign-portal/js/app.js",
+      "sha256": "36ca256dff04e46b55685543e13a4353eda5644df13fefc2aeb576bdfec48864",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/hand-sign-portal/js/effects.js",
+      "sha256": "4bd9777ab015fad37dc9a63fb174fe9f2346f372a603d48e489d47649c305a28",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/hand-sign-portal/style.css",
+      "sha256": "6b441693b173d6bd1ccf7321a54f3d7586b226791e9d17051acb228356e0304d",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/palm-fruit/index.html",
+      "sha256": "788b4c43dbcb181fd8c7e983e5d26a862b9c3261bf00ac812d7fdbd4c9886c9e",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/hand-mole/index.html",
+      "sha256": "e8a1b6cc903cf42d9fa31f638184d54042ad4dd6370d423a5d70e19d314f35e1",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/hand-mole/sketch.js",
+      "sha256": "c6582e4f390e5ea7e3741e5daa2714fabc5fe5dca5c427b5013593eb8c9c0665",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/hand-mole/style.css",
+      "sha256": "c8e23fa0ee5b5f8d5735a8d8cf1335bc0515fef2aeaeb9b7c80caca42d9ec92a",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/jelly-touch/index.html",
+      "sha256": "699fb1311ebf88833135646f91a79fd2f68cc25a69c50bba9f682929c3866255",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/jelly-touch/src/audio/squish.js",
+      "sha256": "5678e4cbe24bf803aea672eee0b780b8911f570600cf4eca9a57853f62268967",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/jelly-touch/src/config.js",
+      "sha256": "cf658b9dfdbc1d9b069103b192c9a8331a7b0e402b379d705a73e827de924a58",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/jelly-touch/src/input/camera.js",
+      "sha256": "3593d64cb7af033e6baf64b17f8788fcf84a654f110aca75ba0a6849647ef0f2",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/jelly-touch/src/input/handTracker.js",
+      "sha256": "1072b7eb298e61a24ea68b6f998a3e0defc5a76f90a49fce72c8570cc464cd3f",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/jelly-touch/src/input/landmarks.js",
+      "sha256": "1064c7bc0605e96eaabfeb7cc7a0a083910e5ab74e33c480afdab8ad8e5a55bf",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/jelly-touch/src/main.js",
+      "sha256": "71c6f2e82da8fd384f4ed5a21361df42b979e0c4067ba234b1459fb5ae895463",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/jelly-touch/src/physics/jelly.js",
+      "sha256": "5254d7315e84c854f82ef13b91f0bef1f2f674ebf3ed787d30461c3c036f5361",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/jelly-touch/src/physics/oneEuroFilter.js",
+      "sha256": "d2ca5873a9c2c4096a3668eed807a5ff8f8398524c5312ec1233c8014477dd0b",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/jelly-touch/src/render/effects.js",
+      "sha256": "72d961ae0199700193a31cfedc3a670de3c89c1c01bbc574161564b5edcf8a23",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/jelly-touch/src/render/face.js",
+      "sha256": "92fe49fe5d0f1148be50a9bc8510336ec916a5b15ab8f0564d2af9289fafdaba",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/jelly-touch/src/render/renderer.js",
+      "sha256": "74c05c3759ae16659c52b3fdbe5f2fce67bf4cc5d2fd8071f55c94eac95bd765",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/jelly-touch/src/ui/screens.js",
+      "sha256": "772e4a9e9db1360e7e5f0c715add2e758d1073c1fbdd468f51e49e5c52d69117",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/jelly-touch/styles.css",
+      "sha256": "c3328e7236620859ef5e10a8f4c26f8a6044204f65f5bfaf15f593b661b09270",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/jelly-touch/vendor/ml5.min.js",
+      "sha256": "5facbc15115a5f0277f0e99e634ffe606f5382c9efd72d5092d9701aaaf680c5",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/fingertip-magic/index.html",
+      "sha256": "d634d56930f3f2f6d2a1038fb2a6499a57260e846656d7aa2e223c3b0ea75d10",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/fingertip-magic/src/config.js",
+      "sha256": "1d3da421adb9a543bcea509e9a9ad3aa235994b7ecb514ec3b4b99f5847c2503",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/fingertip-magic/src/game.js",
+      "sha256": "9b0049c035445aa69891d3c80a441e13566e011c2ee756b8548ddb5c990e2cae",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/fingertip-magic/src/gestures.js",
+      "sha256": "7148e0d2ae2b9ebe9170848ab6599fec2aba26312e03b61874b0f1d4fe2a4379",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/fingertip-magic/src/hand.js",
+      "sha256": "3038c2c6f1c6c00af49e06f56a56efe3e8ac303511b7fb5068842a7d059291c5",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/fingertip-magic/src/main.js",
+      "sha256": "8876ccb3a9a21a0a15426240c302d6c79e0959910aa542577e302385a3890ee0",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/fingertip-magic/src/util.js",
+      "sha256": "ed4ef5e0c616146d0950046c80cc81a92eb7f893d30f8b92eeed1c3ca667f929",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/hand-elements/index.html",
+      "sha256": "2d0d6b1204157861fdf21426783aa65df0ab51725078607d3144de2dac09f0fd",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/hand-elements/sketch.js",
+      "sha256": "b28c4c22dfe4dd385d0aeeadc0bf7cd89fe1038a1f97b11e62948c2a69d9bb84",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/seal-trainer/index.html",
+      "sha256": "28010ca8c1338a79bd1988f80fbcd001df4fb0199f4e10863be50974e243db26",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/seal-trainer/sketch.js",
+      "sha256": "433f31922f3ffd739a6d70054809dc32e1c1202851cc0b3f25fe05f64ebc76c0",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/seal-trainer/style.css",
+      "sha256": "376d6e64971e28fcb77510151d6499f356ad67e64921c72316ed3bf11ffab70f",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/mochi-ar/assets/한정선 멜론.png",
+      "sha256": "eca9ff681fe2d959f1da40bfb663949458ba6b5913331a3daf2de38e60d6d06a",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/mochi-ar/assets/한정선.png",
+      "sha256": "50ec41b388d707893d5ac19942dbb0d35fd03a20d7fb7f4b08866fbc3f929579",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/mochi-ar/assets/한정선_v2.png",
+      "sha256": "50ec41b388d707893d5ac19942dbb0d35fd03a20d7fb7f4b08866fbc3f929579",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/mochi-ar/assets/한정선_통귤.png",
+      "sha256": "4e661c7c94be3112ad663c2bc8bfd38449bbf872d0e36380b62c36469470cc5c",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/mochi-ar/assets/한정선_파인애플.png",
+      "sha256": "11a4ed3f23a2ed62593bbb1500b2c828c19b50cdd4eba226c95d2dca8f32de0d",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/mochi-ar/assets/한정선_하미과멜론.png",
+      "sha256": "4e97346c057edd214eb4fc3409be9554fe3d0f65a4ce617b7b354343a004ae8e",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/mochi-ar/index.html",
+      "sha256": "5b74990eba859e69df888e4cbc9bb481b57e408a36eb8c1154a166c7f31cd7d1",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/mochi-ar/style.css",
+      "sha256": "9f6720ecb325ac3e395f36ffea4831dbb0dec0a62cd9041755011be863a6ac33",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/mochi-ar/sketch.js",
+      "sha256": "45110767575e1912e2aa2812ebb378f73ffc2cc77104217305a60b907f9df967",
+      "comparison": "duplicate-video-declaration-removed"
+    },
+    {
+      "path": "games/a/week-02/balloon-pop/index.html",
+      "sha256": "ccaebacb2b030d236918ee9142aba7b7c9462484cf5cd88a6f54c566abe6884a",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/balloon-pop/sketch.js",
+      "sha256": "8632e086f7dbfb1d95f485dcfe7d429d3e4c8dea5151267c33e83fea610761d8",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/balloon-pop/style.css",
+      "sha256": "7375f5fa0125141d9b59b48626d0d334e7534c110b9e7f3587bfd63b34082f4d",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/pause-pose/css/style.css",
+      "sha256": "ef881aa9b672d9010ec6bc1616dd05587deeda4db3b7a11e722456effd248e97",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/pause-pose/handpose.html",
+      "sha256": "3704ed4dcff1eec3d851cebe9ec50241f239e845d772e58f13194ffa62ef32b6",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/pause-pose/index.html",
+      "sha256": "78d3cff872d3a3dfd227726b66cfea1145b1e673d7cda857705c5cc59b9f38bf",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/pause-pose/js/audio.js",
+      "sha256": "0d7aac071e3f086af8684056e3132db8e801319656322309eca52bea9489ffe7",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/pause-pose/js/config.js",
+      "sha256": "3e069e6b9672ef648037c4e8724b6db60f02c04e25bf62b16bcebc9a4bfd3b05",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/pause-pose/js/detector.js",
+      "sha256": "9b5791660c288579c4b4404421fd9d8ac97020fc8c0f9dc26e9a50e3cc4eb2d4",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/pause-pose/js/drawer.js",
+      "sha256": "765b3ae7b75d76063f112bf2f209c902d78b34c2363311f9becfd387e7722541",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/pause-pose/js/instrument.js",
+      "sha256": "383daa717ac61736b54ba5564a9f6a061548ded11d3946960af9000707fc4424",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/pause-pose/js/sketch.js",
+      "sha256": "0fe054724b95208927bfaa2605255def9d34fecde95ca4b5f443f314bc122f72",
+      "comparison": "identical-to-submission"
+    },
+    {
+      "path": "games/a/week-02/pause-pose/mosquito.html",
+      "sha256": "b3f129888ef151bf1485e930b054d32018ba630a87d0ac2375555d3157db25e3",
+      "comparison": "identical-to-submission"
+    }
+  ]
+}
