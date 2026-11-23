@@ -1,5 +1,5 @@
 <!-- GitHub Pages: main branch / root -->
-# 플레이 아카이브 · 창의컴퓨팅 II
+# 창의컴퓨팅 II : 바이브 코딩 결과물
 
 ## 바로 플레이하기
 
