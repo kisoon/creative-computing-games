@@ -6,21 +6,22 @@
       "session": 11,
       "directory": "games/b/week-02/ninjutsu",
       "method": "원본 파일 복사",
-      "identical": 2,
-      "runtimeChanges": 1,
-      "mdImplemented": 0,
       "files": [
         {
           "path": "games/b/week-02/ninjutsu/index.html",
-          "sha256": "d057ff2b4de730b1f0c207c3ea99a590a5f82a795d301d9c0f8ded6b5602e0a0",
-          "comparison": "identical",
-          "sourceSha256": "d057ff2b4de730b1f0c207c3ea99a590a5f82a795d301d9c0f8ded6b5602e0a0"
+          "sha256": "301f1c2ee7493717139a8616e3ed2ee81c76ecb46aaf07db67b4a437ee4453c9",
+          "comparison": "execution-only-ml5-adaptation",
+          "sourceSha256": "d057ff2b4de730b1f0c207c3ea99a590a5f82a795d301d9c0f8ded6b5602e0a0",
+          "baselineSha256": "d057ff2b4de730b1f0c207c3ea99a590a5f82a795d301d9c0f8ded6b5602e0a0",
+          "baselineComparison": "identical"
         },
         {
           "path": "games/b/week-02/ninjutsu/sketch.js",
-          "sha256": "4db2673142e4ef8b79f29032fc6dfc54ba64b71c77a2c9008c5b8a619070c057",
-          "comparison": "runtime-name-collision-fix",
-          "sourceSha256": "ddf7af8e34a1bf4fd3c2028c0fa61a454dc412cc63b5f3f5224b5e2df5a965a6"
+          "sha256": "9bbe7739241d2ea4997836b91f30c2c9e3acddb469dc3882f994584adf1068f5",
+          "comparison": "execution-only-ml5-adaptation",
+          "sourceSha256": "ddf7af8e34a1bf4fd3c2028c0fa61a454dc412cc63b5f3f5224b5e2df5a965a6",
+          "baselineSha256": "4db2673142e4ef8b79f29032fc6dfc54ba64b71c77a2c9008c5b8a619070c057",
+          "baselineComparison": "runtime-name-collision-fix"
         },
         {
           "path": "games/b/week-02/ninjutsu/style.css",
@@ -28,22 +29,26 @@
           "comparison": "identical",
           "sourceSha256": "83ae6193e4b804865b0624e9c7c210faab8a6660c6ea7d871e43b11738107ed4"
         }
-      ]
+      ],
+      "baselineCounts": {
+        "identical": 2,
+        "runtimeChanges": 1,
+        "mdImplemented": 0
+      }
     },
     {
       "id": "b-vibe-03-impro-script",
       "session": 11,
       "directory": "games/b/week-02/impro-script",
       "method": "원본 파일 복사",
-      "identical": 5,
-      "runtimeChanges": 0,
-      "mdImplemented": 0,
       "files": [
         {
           "path": "games/b/week-02/impro-script/index.html",
-          "sha256": "fa616c10c127beb7b25a060804c7ef79575ffaff9d23e6041ebbc72639697356",
-          "comparison": "identical",
-          "sourceSha256": "fa616c10c127beb7b25a060804c7ef79575ffaff9d23e6041ebbc72639697356"
+          "sha256": "c8b5adcc5640a8bac713ffead73c3ad08c5ded9138786f90e93ec498f0e1a5da",
+          "comparison": "execution-only-ml5-adaptation",
+          "sourceSha256": "fa616c10c127beb7b25a060804c7ef79575ffaff9d23e6041ebbc72639697356",
+          "baselineSha256": "fa616c10c127beb7b25a060804c7ef79575ffaff9d23e6041ebbc72639697356",
+          "baselineComparison": "identical"
         },
         {
           "path": "games/b/week-02/impro-script/ml5.min.js",
@@ -59,9 +64,11 @@
         },
         {
           "path": "games/b/week-02/impro-script/sketch.js",
-          "sha256": "840f40041c67f63872b98b24962e924597e90adf2ff1f04ab1d897b8ae427d9d",
-          "comparison": "identical",
-          "sourceSha256": "840f40041c67f63872b98b24962e924597e90adf2ff1f04ab1d897b8ae427d9d"
+          "sha256": "f591b87c34091f12b88d6659f77cd6350bd4c68d9b289a59d2b0481673a8dde1",
+          "comparison": "execution-only-ml5-adaptation",
+          "sourceSha256": "840f40041c67f63872b98b24962e924597e90adf2ff1f04ab1d897b8ae427d9d",
+          "baselineSha256": "840f40041c67f63872b98b24962e924597e90adf2ff1f04ab1d897b8ae427d9d",
+          "baselineComparison": "identical"
         },
         {
           "path": "games/b/week-02/impro-script/style.css",
@@ -69,16 +76,18 @@
           "comparison": "identical",
           "sourceSha256": "407280d1172e3802b739a92d523b940863dee95f841970d39c768b09ab9e5824"
         }
-      ]
+      ],
+      "baselineCounts": {
+        "identical": 5,
+        "runtimeChanges": 0,
+        "mdImplemented": 0
+      }
     },
     {
       "id": "b-vibe-03-referee",
       "session": 11,
       "directory": "games/b/week-02/referee",
       "method": "제출된 Python 실행 묶음 안의 완성된 정적 웹 빌드 사용",
-      "identical": 2,
-      "runtimeChanges": 1,
-      "mdImplemented": 0,
       "files": [
         {
           "path": "games/b/week-02/referee/assets/index-CArYjPWc.css",
@@ -88,92 +97,114 @@
         },
         {
           "path": "games/b/week-02/referee/assets/index-DF5NLF18.js",
-          "sha256": "af788fb4777008b20564addd44339ffd9d403e5bf1ca8c83cc7db3a73d7682ee",
-          "comparison": "await-model-initialization",
-          "sourceSha256": "52d31998a61a2d5a2b988240b2271841e22c9254edf80e4a43f37c7324941bb5"
+          "sha256": "cf6dcc8f0bc6524d19063dd689c165afd616fa50d024269c7568c1ac50c20677",
+          "comparison": "execution-only-ml5-adaptation",
+          "sourceSha256": "52d31998a61a2d5a2b988240b2271841e22c9254edf80e4a43f37c7324941bb5",
+          "baselineSha256": "af788fb4777008b20564addd44339ffd9d403e5bf1ca8c83cc7db3a73d7682ee",
+          "baselineComparison": "await-model-initialization"
         },
         {
           "path": "games/b/week-02/referee/index.html",
-          "sha256": "b8d240609462e2f420b852e9ea3cc4d608dbe56108d2f64e191c1f8396917028",
-          "comparison": "identical",
-          "sourceSha256": "b8d240609462e2f420b852e9ea3cc4d608dbe56108d2f64e191c1f8396917028"
+          "sha256": "4285303b05bf6d13e181347f36dae2712702b4448b4c06fdf47a303afe830d71",
+          "comparison": "execution-only-ml5-adaptation",
+          "sourceSha256": "b8d240609462e2f420b852e9ea3cc4d608dbe56108d2f64e191c1f8396917028",
+          "baselineSha256": "b8d240609462e2f420b852e9ea3cc4d608dbe56108d2f64e191c1f8396917028",
+          "baselineComparison": "identical"
         }
-      ]
+      ],
+      "baselineCounts": {
+        "identical": 2,
+        "runtimeChanges": 1,
+        "mdImplemented": 0
+      }
     },
     {
       "id": "b-vibe-03-elsa-filter",
       "session": 11,
       "directory": "games/b/week-02/elsa-filter",
       "method": "기획 MD의 13가지 효과를 바탕으로 새 실행 코드 보완 (원본 실행 코드 미제출)",
-      "identical": 0,
-      "runtimeChanges": 0,
-      "mdImplemented": 3,
       "files": [
         {
           "path": "games/b/week-02/elsa-filter/filter.js",
-          "sha256": "a37abe6777f70f3b0f5b1c53b6d11c7518294545d1120ff80c9121f0ad3e9182",
-          "comparison": "implemented-from-project-md"
+          "sha256": "bedfc54e8aafc77b886217a6175b92cca1b16088588564a7417ea06a3eed32a0",
+          "comparison": "execution-only-ml5-adaptation",
+          "baselineSha256": "a37abe6777f70f3b0f5b1c53b6d11c7518294545d1120ff80c9121f0ad3e9182",
+          "baselineComparison": "implemented-from-project-md"
         },
         {
           "path": "games/b/week-02/elsa-filter/index.html",
-          "sha256": "02acdb6abeba5bbb3bae63425781d96858869af6603026851640160e351b1d81",
-          "comparison": "implemented-from-project-md"
+          "sha256": "4ac0b8e3104b70b147b2a4736b796ca1270e4cc6c52affccc00606fd731faec6",
+          "comparison": "execution-only-ml5-adaptation",
+          "baselineSha256": "02acdb6abeba5bbb3bae63425781d96858869af6603026851640160e351b1d81",
+          "baselineComparison": "implemented-from-project-md"
         },
         {
           "path": "games/b/week-02/elsa-filter/style.css",
           "sha256": "347d78a2e48bb02af6cec152b543bf2ad692f0945ab50b5e741ea430c2f8b3b1",
           "comparison": "implemented-from-project-md"
         }
-      ]
+      ],
+      "baselineCounts": {
+        "identical": 0,
+        "runtimeChanges": 0,
+        "mdImplemented": 3
+      }
     },
     {
       "id": "b-vibe-03-mirror-move",
       "session": 11,
       "directory": "games/b/week-02/mirror-move",
       "method": "원본 파일 복사",
-      "identical": 1,
-      "runtimeChanges": 0,
-      "mdImplemented": 0,
       "files": [
         {
           "path": "games/b/week-02/mirror-move/index.html",
-          "sha256": "4662c740abdbe9eee625d2ccd54805d4ce0bdce6281a8a57ba756709c59ac379",
-          "comparison": "identical",
-          "sourceSha256": "4662c740abdbe9eee625d2ccd54805d4ce0bdce6281a8a57ba756709c59ac379"
+          "sha256": "072de7f168fc417b3d041a944752b16badfff96c3b43826ed1c28f331fde2daf",
+          "comparison": "execution-only-ml5-adaptation",
+          "sourceSha256": "4662c740abdbe9eee625d2ccd54805d4ce0bdce6281a8a57ba756709c59ac379",
+          "baselineSha256": "4662c740abdbe9eee625d2ccd54805d4ce0bdce6281a8a57ba756709c59ac379",
+          "baselineComparison": "identical"
         }
-      ]
+      ],
+      "baselineCounts": {
+        "identical": 1,
+        "runtimeChanges": 0,
+        "mdImplemented": 0
+      }
     },
     {
       "id": "b-vibe-03-touchline",
       "session": 11,
       "directory": "games/b/week-02/touchline",
       "method": "제출된 단일 HTML 실행본 사용",
-      "identical": 1,
-      "runtimeChanges": 0,
-      "mdImplemented": 0,
       "files": [
         {
           "path": "games/b/week-02/touchline/index.html",
-          "sha256": "526db95e7ed0ed9fe8132c50d8a11776c5893aede4a4340fe0f29dd615a07952",
-          "comparison": "identical",
-          "sourceSha256": "526db95e7ed0ed9fe8132c50d8a11776c5893aede4a4340fe0f29dd615a07952"
+          "sha256": "45cc7dc9cdfcffc23a8461447f4963652152e2fe1ca6c6b66fc9fa913e4847ac",
+          "comparison": "execution-only-ml5-adaptation",
+          "sourceSha256": "526db95e7ed0ed9fe8132c50d8a11776c5893aede4a4340fe0f29dd615a07952",
+          "baselineSha256": "526db95e7ed0ed9fe8132c50d8a11776c5893aede4a4340fe0f29dd615a07952",
+          "baselineComparison": "identical"
         }
-      ]
+      ],
+      "baselineCounts": {
+        "identical": 1,
+        "runtimeChanges": 0,
+        "mdImplemented": 0
+      }
     },
     {
       "id": "b-vibe-03-ink-mirror",
       "session": 11,
       "directory": "games/b/week-02/ink-mirror",
       "method": "원본 파일 복사",
-      "identical": 5,
-      "runtimeChanges": 0,
-      "mdImplemented": 0,
       "files": [
         {
           "path": "games/b/week-02/ink-mirror/index.html",
-          "sha256": "b83640563276c6f697d7e6f3e2124dd19c7df85794a301137a5972c9a55f2de2",
-          "comparison": "identical",
-          "sourceSha256": "b83640563276c6f697d7e6f3e2124dd19c7df85794a301137a5972c9a55f2de2"
+          "sha256": "3d38c36dfeb31e94a6420af30a76c64f1064cc8e9080f0a77ebf4f081fb553ca",
+          "comparison": "execution-only-ml5-adaptation",
+          "sourceSha256": "b83640563276c6f697d7e6f3e2124dd19c7df85794a301137a5972c9a55f2de2",
+          "baselineSha256": "b83640563276c6f697d7e6f3e2124dd19c7df85794a301137a5972c9a55f2de2",
+          "baselineComparison": "identical"
         },
         {
           "path": "games/b/week-02/ink-mirror/ml5.min.js",
@@ -199,28 +230,34 @@
           "comparison": "identical",
           "sourceSha256": "dd8b997d26d04faa7fa0aad08c56403ac4cca5623b3754821269fe716036e8f1"
         }
-      ]
+      ],
+      "baselineCounts": {
+        "identical": 5,
+        "runtimeChanges": 0,
+        "mdImplemented": 0
+      }
     },
     {
       "id": "b-vibe-03-weed-battle",
       "session": 11,
       "directory": "games/b/week-02/weed-battle",
       "method": "MD의 첫 HTML·CSS·JavaScript 코드 블록을 그대로 실행 파일로 복원",
-      "identical": 3,
-      "runtimeChanges": 0,
-      "mdImplemented": 0,
       "files": [
         {
           "path": "games/b/week-02/weed-battle/index.html",
-          "sha256": "fe849072598075595b565a73143b79dca0e403371818c1ebcf442c066d24c818",
-          "comparison": "identical",
-          "sourceSha256": "fe849072598075595b565a73143b79dca0e403371818c1ebcf442c066d24c818"
+          "sha256": "b3ef84d4cb45d0d75cef88b060088c53330658276bad8d052c7b8b9a7973eda0",
+          "comparison": "execution-only-ml5-adaptation",
+          "sourceSha256": "fe849072598075595b565a73143b79dca0e403371818c1ebcf442c066d24c818",
+          "baselineSha256": "fe849072598075595b565a73143b79dca0e403371818c1ebcf442c066d24c818",
+          "baselineComparison": "identical"
         },
         {
           "path": "games/b/week-02/weed-battle/sketch.js",
-          "sha256": "c90497f924257d951f19c3e935467ecafdefd3c3740f0207b972c8ba2b61908c",
-          "comparison": "identical",
-          "sourceSha256": "c90497f924257d951f19c3e935467ecafdefd3c3740f0207b972c8ba2b61908c"
+          "sha256": "ca0d2dc389d130201230b6aa1d633848671fb884638deb732b2e8ab6070849b4",
+          "comparison": "execution-only-ml5-adaptation",
+          "sourceSha256": "c90497f924257d951f19c3e935467ecafdefd3c3740f0207b972c8ba2b61908c",
+          "baselineSha256": "c90497f924257d951f19c3e935467ecafdefd3c3740f0207b972c8ba2b61908c",
+          "baselineComparison": "identical"
         },
         {
           "path": "games/b/week-02/weed-battle/style.css",
@@ -228,7 +265,13 @@
           "comparison": "identical",
           "sourceSha256": "703918ced036d6426c32264aeaa29fba7f9275a3d3862af4117c7e32ba1839a3"
         }
-      ]
+      ],
+      "baselineCounts": {
+        "identical": 3,
+        "runtimeChanges": 0,
+        "mdImplemented": 0
+      }
     }
-  ]
+  ],
+  "runtimeVerification": "../../../runtime/VERIFICATION.md"
 }

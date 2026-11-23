@@ -71,7 +71,7 @@ function setup() {
   createCanvas(CANVAS_W, CANVAS_H);
   textFont("sans-serif");
 
-  video = createCapture(VIDEO, { flipped: true });
+  video = createCapture(VIDEO);
   video.size(CANVAS_W, CANVAS_H);
   video.hide();
 

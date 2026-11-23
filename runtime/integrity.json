@@ -194,7 +194,7 @@
   {
     "path": "games/b/week-02/weed-battle/sketch.js",
     "previousSha256": "c90497f924257d951f19c3e935467ecafdefd3c3740f0207b972c8ba2b61908c",
-    "sha256": "7d2cb665f17d809fa029977eb783ae5267fc04b9513cd10f22a007b482afd8a7",
+    "sha256": "ca0d2dc389d130201230b6aa1d633848671fb884638deb732b2e8ab6070849b4",
     "change": "execution-only ml5 adapter"
   }
 ]

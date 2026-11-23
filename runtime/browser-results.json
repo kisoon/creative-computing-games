@@ -427,5 +427,407 @@
     "models": [],
     "errors": [],
     "status": "머리부터 발끝까지 화면에 들어오도록 한 걸음 물러나 보세요.\n\n손 제스처를 준비하는 중…"
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "a-week-02-palm-fruit",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 3142,
+        "starts": 1,
+        "streamResults": 69,
+        "nonempty": 69,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "a-week-02-hand-sign-portal",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 5185,
+        "starts": 1,
+        "streamResults": 64,
+        "nonempty": 64,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "a-week-02-hand-mole",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 2371,
+        "starts": 1,
+        "streamResults": 56,
+        "nonempty": 56,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "a-week-02-fingertip-magic",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 1309,
+        "starts": 1,
+        "streamResults": 38,
+        "nonempty": 38,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "a-week-02-hand-elements",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 836,
+        "starts": 1,
+        "streamResults": 38,
+        "nonempty": 38,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "a-week-02-jelly-touch",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 3497,
+        "starts": 1,
+        "streamResults": 22,
+        "nonempty": 22,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "a-week-02-balloon-pop",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 867,
+        "starts": 1,
+        "streamResults": 9,
+        "nonempty": 9,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "a-week-02-seal-trainer",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 1981,
+        "starts": 1,
+        "streamResults": 38,
+        "nonempty": 38,
+        "detectResults": 0,
+        "maxItems": 1
+      },
+      {
+        "name": "faceMesh",
+        "readyMs": 3503,
+        "starts": 0,
+        "streamResults": 0,
+        "nonempty": 0,
+        "detectResults": 0,
+        "maxItems": 0
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "a-week-02-pause-pose",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 1161,
+        "starts": 1,
+        "streamResults": 32,
+        "nonempty": 32,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "a-week-02-mosquito",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 1374,
+        "starts": 1,
+        "streamResults": 37,
+        "nonempty": 37,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "b-vibe-03-ninjutsu",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 1052,
+        "starts": 1,
+        "streamResults": 22,
+        "nonempty": 22,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "b-vibe-03-impro-script",
+    "models": [
+      {
+        "name": "bodyPose",
+        "readyMs": 2621,
+        "starts": 1,
+        "streamResults": 34,
+        "nonempty": 0,
+        "detectResults": 0,
+        "maxItems": 0
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "b-vibe-03-referee",
+    "models": [
+      {
+        "name": "bodyPose",
+        "readyMs": 2856,
+        "starts": 0,
+        "streamResults": 0,
+        "nonempty": 0,
+        "detectResults": 37,
+        "maxItems": 0
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "b-vibe-03-elsa-filter",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 1214,
+        "starts": 1,
+        "streamResults": 49,
+        "nonempty": 49,
+        "detectResults": 0,
+        "maxItems": 1
+      },
+      {
+        "name": "faceMesh",
+        "readyMs": 2010,
+        "starts": 1,
+        "streamResults": 38,
+        "nonempty": 0,
+        "detectResults": 0,
+        "maxItems": 0
+      },
+      {
+        "name": "bodyPose",
+        "readyMs": 2354,
+        "starts": 1,
+        "streamResults": 39,
+        "nonempty": 39,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "b-vibe-03-mirror-move",
+    "models": [
+      {
+        "name": "faceMesh",
+        "readyMs": 1882,
+        "starts": 1,
+        "streamResults": 39,
+        "nonempty": 0,
+        "detectResults": 0,
+        "maxItems": 0
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "b-vibe-03-touchline",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 1009,
+        "starts": 0,
+        "streamResults": 0,
+        "nonempty": 0,
+        "detectResults": 12,
+        "maxItems": 1
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "b-vibe-03-ink-mirror",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 1730,
+        "starts": 0,
+        "streamResults": 0,
+        "nonempty": 0,
+        "detectResults": 41,
+        "maxItems": 1
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-final",
+    "id": "b-vibe-03-weed-battle",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 667,
+        "starts": 0,
+        "streamResults": 0,
+        "nonempty": 0,
+        "detectResults": 0,
+        "maxItems": 0
+      }
+    ],
+    "errors": [],
+    "note": "Before final createCapture fix; superseded by ml5-weed-final"
+  },
+  {
+    "test": "ml5-public-face",
+    "id": "b-vibe-03-mirror-move",
+    "models": [
+      {
+        "name": "faceMesh",
+        "readyMs": 4391,
+        "starts": 1,
+        "streamResults": 36,
+        "nonempty": 36,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-public-face",
+    "id": "b-vibe-03-elsa-filter",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 4303,
+        "starts": 1,
+        "streamResults": 24,
+        "nonempty": 0,
+        "detectResults": 0,
+        "maxItems": 0
+      },
+      {
+        "name": "faceMesh",
+        "readyMs": 4389,
+        "starts": 1,
+        "streamResults": 23,
+        "nonempty": 23,
+        "detectResults": 0,
+        "maxItems": 1
+      },
+      {
+        "name": "bodyPose",
+        "readyMs": 3420,
+        "starts": 1,
+        "streamResults": 44,
+        "nonempty": 44,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": [],
+    "note": ""
+  },
+  {
+    "test": "ml5-weed-final",
+    "id": "b-vibe-03-weed-battle",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 1236,
+        "starts": 1,
+        "streamResults": 24,
+        "nonempty": 24,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": [],
+    "note": ""
   }
 ]
