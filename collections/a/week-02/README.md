@@ -21,16 +21,4 @@
 | [Pause Pose · 손으로 연주하는 악기](https://kisoon.github.io/creative-computing-games/play.html?game=a-week-02-pause-pose)<br>작품 11<br>카메라 · 손동작 · 연주 시작 | [<img src="../../../assets/previews/a-week-02-pause-pose.jpg" width="160" alt="Pause Pose · 손으로 연주하는 악기 실행 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=a-week-02-pause-pose) |
 | [모기 잡기](https://kisoon.github.io/creative-computing-games/play.html?game=a-week-02-mosquito)<br>작품 12<br>카메라 · 손뼉 / 데모 마우스 · Space | [<img src="../../../assets/previews/a-week-02-mosquito.jpg" width="160" alt="모기 잡기 실행 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=a-week-02-mosquito) |
 
-## 활동기록 제출
 
-별도로 제출된 1건은 AI 대화 활동기록(JSON)으로, 실행할 HTML·JavaScript 프로젝트 파일이 포함되어 있지 않아 실행 목록에는 추가하지 않았습니다. 실행 파일이 준비되면 같은 차수에 추가할 수 있습니다. 대화 원문은 공개하지 않습니다.
-
-## 반영 및 점검
-
-실행에 필요한 코드·이미지와 기존 크레딧 문서를 반영했습니다. 학번이 포함된 제출 파일명, AI 대화 원문, 별도 기획 문서와 중복 이미지 묶음은 공개 배포에 포함하지 않았습니다.
-
-찹쌀떡 AR 제출 코드에서 실행을 막던 중복 변수 선언 한 줄만 제거했습니다. 모델 로더를 포함한 나머지 실행 파일은 원본과 일치합니다. 원본 ZIP은 변경하지 않았습니다. 손끝 마법의 프리뷰는 제출 코드에서 제공하는 K 시뮬레이션 모드로 캡처했습니다. 카메라 영상은 실물이 아닌 브라우저 가상 카메라로 로딩을 점검하며, 실제 손동작의 인식 정확도와 모든 기기의 동작은 검증 범위에 포함하지 않습니다.
-
-12개 작품의 첫 화면과 로컬 파일 경로를 확인했습니다. 목록·장르 필터, 기존 1주차 분류, 모바일 배치, 플레이어 내 카메라 허용 설정, AR 클릭 반응, 마법 시뮬레이션 및 악기 버튼을 점검했습니다. 손바닥 원소는 가상 카메라에서 모델·카메라 시작까지 확인했습니다.
-
-[표현 보존 검증 상세](VERIFICATION.md): 실행 파일 58개 중 57개 원본 일치, 1개 실행 오류 수정.
