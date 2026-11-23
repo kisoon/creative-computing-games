@@ -1,0 +1,176 @@
+[
+  {
+    "source": "https://tfhub.dev/mediapipe/tfjs-model/handpose_3d/detector/full/1",
+    "prefix": "mediapipe/tfjs-model/handpose_3d/detector/full/1",
+    "files": [
+      {
+        "path": "mediapipe/tfjs-model/handpose_3d/detector/full/1/model.json",
+        "bytes": 125312,
+        "sha256": "846fd959511d3a58501d2c975f0d265824aa2af8d96bfa7d434103b5176022f2"
+      },
+      {
+        "path": "mediapipe/tfjs-model/handpose_3d/detector/full/1/group1-shard1of1.bin",
+        "bytes": 2264316,
+        "sha256": "42aa34ed1e4d66f40707e4ba8522620ee517093616624cf1cf1ea3a033380d46"
+      }
+    ]
+  },
+  {
+    "source": "https://tfhub.dev/mediapipe/tfjs-model/handpose_3d/detector/lite/1",
+    "prefix": "mediapipe/tfjs-model/handpose_3d/detector/lite/1",
+    "files": [
+      {
+        "path": "mediapipe/tfjs-model/handpose_3d/detector/lite/1/model.json",
+        "bytes": 108902,
+        "sha256": "2de2e139e240169c9794c21676b8ca94da2bbc0146a3e0664133ce66e021b1a5"
+      },
+      {
+        "path": "mediapipe/tfjs-model/handpose_3d/detector/lite/1/group1-shard1of1.bin",
+        "bytes": 1919420,
+        "sha256": "8ba46d2152f48320cdb8835854f53d469dc6a33933099ff89929755ca1a88d51"
+      }
+    ]
+  },
+  {
+    "source": "https://tfhub.dev/mediapipe/tfjs-model/handpose_3d/landmark/full/1",
+    "prefix": "mediapipe/tfjs-model/handpose_3d/landmark/full/1",
+    "files": [
+      {
+        "path": "mediapipe/tfjs-model/handpose_3d/landmark/full/1/model.json",
+        "bytes": 80978,
+        "sha256": "63af90ae19c3b36e96be83d69e723a6b9312772ccc4cbb09a52a61c34a89aca5"
+      },
+      {
+        "path": "mediapipe/tfjs-model/handpose_3d/landmark/full/1/group1-shard1of2.bin",
+        "bytes": 4194304,
+        "sha256": "f39aafa43217644549dea77b85fc845e2139784b865e81ef4aa26828019dc58e"
+      },
+      {
+        "path": "mediapipe/tfjs-model/handpose_3d/landmark/full/1/group1-shard2of2.bin",
+        "bytes": 1237064,
+        "sha256": "464523210c22f996b5cb9d8ea775d5077dd442ae3b87833944a2660b50ed2b25"
+      }
+    ]
+  },
+  {
+    "source": "https://tfhub.dev/mediapipe/tfjs-model/handpose_3d/landmark/lite/1",
+    "prefix": "mediapipe/tfjs-model/handpose_3d/landmark/lite/1",
+    "files": [
+      {
+        "path": "mediapipe/tfjs-model/handpose_3d/landmark/lite/1/model.json",
+        "bytes": 81452,
+        "sha256": "2d6bd4d3b34a684e96293ff71e31f9fbc1b4922e0a88d82184cb584055ff3783"
+      },
+      {
+        "path": "mediapipe/tfjs-model/handpose_3d/landmark/lite/1/group1-shard1of1.bin",
+        "bytes": 2023432,
+        "sha256": "444bee1c7d6d330991bd3ce840a95d0c0afcc3a3fcec47c0c3b7f66a3f3533b0"
+      }
+    ]
+  },
+  {
+    "source": "https://tfhub.dev/mediapipe/tfjs-model/face_detection/short/1",
+    "prefix": "mediapipe/tfjs-model/face_detection/short/1",
+    "files": [
+      {
+        "path": "mediapipe/tfjs-model/face_detection/short/1/model.json",
+        "bytes": 75722,
+        "sha256": "c131145fade749f714d39811f282e973760a69cb9e1a9c22f91e132bd8dcd396"
+      },
+      {
+        "path": "mediapipe/tfjs-model/face_detection/short/1/group1-shard1of1.bin",
+        "bytes": 201268,
+        "sha256": "e9b69ee1c1f8cd33c58120bcd75bf8c56bfba20c880f447e9d293ec102059d4b"
+      }
+    ]
+  },
+  {
+    "source": "https://tfhub.dev/mediapipe/tfjs-model/face_landmarks_detection/attention_mesh/1",
+    "prefix": "mediapipe/tfjs-model/face_landmarks_detection/attention_mesh/1",
+    "files": [
+      {
+        "path": "mediapipe/tfjs-model/face_landmarks_detection/attention_mesh/1/model.json",
+        "bytes": 934817,
+        "sha256": "df2f0944de7d65f8ce0377deb2ee658e24eca778f8e4d6fd70689e2d59f9634b"
+      },
+      {
+        "path": "mediapipe/tfjs-model/face_landmarks_detection/attention_mesh/1/group1-shard1of1.bin",
+        "bytes": 2382414,
+        "sha256": "1ae49614abaa80c6efce9b39e2ec316314fc4d6fab183409afb0a97ae13ba892"
+      }
+    ]
+  },
+  {
+    "source": "https://tfhub.dev/mediapipe/tfjs-model/face_landmarks_detection/face_mesh/1",
+    "prefix": "mediapipe/tfjs-model/face_landmarks_detection/face_mesh/1",
+    "files": [
+      {
+        "path": "mediapipe/tfjs-model/face_landmarks_detection/face_mesh/1/model.json",
+        "bytes": 100158,
+        "sha256": "074a5d7143977d5e08a049c46a743e5b924aad79e7e69c7079bc2e083def62e6"
+      },
+      {
+        "path": "mediapipe/tfjs-model/face_landmarks_detection/face_mesh/1/group1-shard1of1.bin",
+        "bytes": 1477958,
+        "sha256": "3826da640b0a3021161605369ee6af293f75d518040355b960ec71a3390c1c0b"
+      }
+    ]
+  },
+  {
+    "source": "https://tfhub.dev/google/tfjs-model/movenet/multipose/lightning/1",
+    "prefix": "google/tfjs-model/movenet/multipose/lightning/1",
+    "files": [
+      {
+        "path": "google/tfjs-model/movenet/multipose/lightning/1/model.json",
+        "bytes": 249070,
+        "sha256": "7d1875fc5508a0e094de7f4c6a9ab8037680fde8f1c8780da9b09d966983ae7a"
+      },
+      {
+        "path": "google/tfjs-model/movenet/multipose/lightning/1/group1-shard1of3.bin",
+        "bytes": 4194304,
+        "sha256": "67b47c89fdec3307e0523e7e9854ea762e7e8f332c71e7a255d94eff96b37f7c"
+      },
+      {
+        "path": "google/tfjs-model/movenet/multipose/lightning/1/group1-shard2of3.bin",
+        "bytes": 4194304,
+        "sha256": "44e8bcd60443be39f69c53242324bdf1ef7e19a934816097e00f05792c71baa5"
+      },
+      {
+        "path": "google/tfjs-model/movenet/multipose/lightning/1/group1-shard3of3.bin",
+        "bytes": 1060230,
+        "sha256": "bebbeadc125f787f07948865c88d1a998d9f3fc1f67e1ecaa7e76f8e5fdf8bf0"
+      }
+    ]
+  },
+  {
+    "source": "https://tfhub.dev/google/tfjs-model/movenet/singlepose/lightning/4",
+    "prefix": "google/tfjs-model/movenet/singlepose/lightning/4",
+    "files": [
+      {
+        "path": "google/tfjs-model/movenet/singlepose/lightning/4/model.json",
+        "bytes": 168013,
+        "sha256": "c65a3447162efa0c42af29498a4b151f4415b36ff3ae6fae2b28a32e840dcbfb"
+      },
+      {
+        "path": "google/tfjs-model/movenet/singlepose/lightning/4/group1-shard1of2.bin",
+        "bytes": 4194304,
+        "sha256": "b42c3232bf13b0efc691d3f0693dd3fc74404f709b1deee0a271828af6dbbea2"
+      },
+      {
+        "path": "google/tfjs-model/movenet/singlepose/lightning/4/group1-shard2of2.bin",
+        "bytes": 455912,
+        "sha256": "8253ab965aa3122c08f331777ca395ce9ca19bb9e7cb278b99de1c46dbdeb6dc"
+      }
+    ]
+  },
+  {
+    "source": "https://storage.googleapis.com/mediapipe-models/pose_landmarker/pose_landmarker_lite/float16/1/pose_landmarker_lite.task",
+    "files": [
+      {
+        "path": "pose_landmarker_lite.task",
+        "bytes": 5777746,
+        "sha256": "59929e1d1ee95287735ddd833b19cf4ac46d29bc7afddbbf6753c459690d574a"
+      }
+    ]
+  }
+]

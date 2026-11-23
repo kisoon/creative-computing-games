@@ -168,7 +168,7 @@ function onCameraReady() {
   safeText('health-hint','손바닥 하나를 펼쳐 보여주세요. 초록 점 21개가 보이면 ml5 손 추적 성공입니다.');
   get('train').disabled = false;
   try {
-    handPose.detectStart(video, gotHands);
+    window.Ml5Runtime.start(handPose, video, gotHands);
   } catch(error) {
     console.error('[NINJUTSU] detectStart error',error);
     safeText('model-status','DETECT ERROR');

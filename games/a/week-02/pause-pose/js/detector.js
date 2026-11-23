@@ -45,7 +45,7 @@ const HandDetector = {
     this.rememberSourceSize(media);
 
     // detectStart 는 웹캠/비디오에서 결과가 나올 때마다 콜백을 호출합니다.
-    this.model.detectStart(media, (results) => {
+    window.Ml5Runtime.start(this.model, media, (results) => {
       this.hands = results || [];
       if (typeof onResults === "function") onResults(this.hands);
     });
@@ -69,7 +69,7 @@ const HandDetector = {
   async detectOnce(media) {
     if (!this.model) return [];
     this.rememberSourceSize(media);
-    const results = await this.model.detect(media);
+    const results = await window.Ml5Runtime.detect(this.model, media);
     return results || [];
   },
 

@@ -254,7 +254,7 @@ function tryStartDetection() {
   if (!video || !handPose || video.readyState < 2) return;
 
   try {
-    handPose.detectStart(video, gotHands);
+    window.Ml5Runtime.start(handPose, video, gotHands);
     detectionStarted = true;
   } catch (error) {
     detectionStarted = false;

@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head>
+<head><script src="../../../../runtime/ml5-support.js"></script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>손바닥 과일 받기 · ml5.js</title>
@@ -364,7 +364,7 @@
       }
 
       try {
-        handPose.detectStart(videoEl, onHands);
+        window.Ml5Runtime.start(handPose, videoEl, onHands);
         detectionOn = true;
         detectionError = "";
         detectFrames = 0;

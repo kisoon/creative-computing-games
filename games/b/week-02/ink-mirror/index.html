@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="ko">
-<head>
+<head><script src="../../../../runtime/ml5-support.js"></script>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>움직임이 남는 거울</title>
@@ -270,7 +270,7 @@
             if (id !== runId) return;
 
             try {
-              pendingDetection = model.detect(input);
+              pendingDetection = window.Ml5Runtime.detect(model, input);
               const [hand] = await pendingDetection;
               if (id !== runId) return;
 

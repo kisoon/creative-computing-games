@@ -121,7 +121,7 @@ async function setup() {
 
     connections = bodyPose.getSkeleton();
 
-    bodyPose.detectStart(video, gotPoses);
+    window.Ml5Runtime.start(bodyPose, video, gotPoses);
 
     modelReady = true;
 

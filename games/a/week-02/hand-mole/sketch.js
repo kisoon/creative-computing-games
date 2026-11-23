@@ -84,7 +84,7 @@ function setup() {
   video.hide();
 
   try {
-    handPose.detectStart(video, gotHands);
+    window.Ml5Runtime.start(handPose, video, gotHands);
   } catch (e) {
     console.warn("손 인식 시작 실패:", e);
   }

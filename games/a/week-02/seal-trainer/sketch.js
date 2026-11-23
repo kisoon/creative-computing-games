@@ -166,7 +166,7 @@ function setup() {
       handPose = await ml5.handPose({ maxHands: 2, flipped: true });
       setStatus("준비 완료 · 시작을 눌러 주세요");
       if (state === "play" && video && video.elt && video.elt.videoWidth > 0 && !detecting) {
-        handPose.detectStart(video, onHands);
+        window.Ml5Runtime.start(handPose, video, onHands);
         detecting = true;
       }
     } catch (e) {
@@ -310,7 +310,7 @@ async function startExperience(asDemo) {
 
     setStatus("손을 카메라에 보여 주세요");
     if (handPose) {
-      handPose.detectStart(video, onHands);
+      window.Ml5Runtime.start(handPose, video, onHands);
       detecting = true;
     }
     // 호화구 발동 시 바로 쓸 수 있도록 얼굴 모델을 미리 준비
@@ -967,7 +967,7 @@ async function startFaceMesh() {
   if (!effect || effect.type !== "fireball" || effect.phase !== "charge") return;
 
   try {
-    faceMesh.detectStart(video, onFaces);
+    window.Ml5Runtime.start(faceMesh, video, onFaces);
     faceDetecting = true;
   } catch (e) {
     console.error("faceMesh detectStart failed", e);
@@ -1607,6 +1607,8 @@ function noise(dur, vol, filter = "bandpass", freq = 1200) {
 function wireUI() {
   document.getElementById("btnStart").onclick = () => startExperience(false);
   document.getElementById("btnDemo").onclick = () => startExperience(true);
+  document.getElementById("btnStart").disabled = false;
+  document.getElementById("btnDemo").disabled = false;
 
   document.getElementById("btnTrain").onclick = () => {
     openDrawer();

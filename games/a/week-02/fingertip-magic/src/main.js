@@ -74,7 +74,7 @@ const sketch = (p) => {
     const boot = document.getElementById('boot');
     try {
       if (handPose.ready) await handPose.ready;
-      handPose.detectStart(video, (results) => {
+      window.Ml5Runtime.start(handPose, video, (results) => {
         const now = p.millis();
         if (detectTime > 0) {
           featDt = Math.min(Math.max((now - detectTime) / 1000, 1 / 120), 0.2);

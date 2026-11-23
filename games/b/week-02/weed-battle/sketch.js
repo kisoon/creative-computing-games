@@ -75,7 +75,7 @@ function setup() {
   video.size(CANVAS_W, CANVAS_H);
   video.hide();
 
-  handPose.detectStart(video, gotHands);
+  window.Ml5Runtime.start(handPose, video, gotHands);
 
   resetObjects();
 }

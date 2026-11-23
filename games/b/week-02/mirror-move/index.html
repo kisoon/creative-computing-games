@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="ko">
-<head>
+<head><script src="../../../../runtime/ml5-support.js"></script>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Mirror & Move — 가상 립 컬러 체험</title>
@@ -166,7 +166,7 @@
         });
 
         faceMesh = await ml5.faceMesh({ maxFaces: 1, refineLandmarks: true, flipHorizontal: false });
-        faceMesh.detectStart(video, (results) => {
+        window.Ml5Runtime.start(faceMesh, video, (results) => {
           faces = results || [];
           if (faces.length > 0) setStatus('얼굴을 찾았어요. 색상을 골라보세요!');
           else setStatus('얼굴을 화면 중앙에 맞춰 주세요.');

@@ -1,0 +1,431 @@
+[
+  {
+    "test": "ml5-local-after",
+    "id": "a-week-02-hand-sign-portal",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 5645,
+        "streamResults": 13,
+        "nonempty": 13,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "a-week-02-palm-fruit",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 10692,
+        "streamResults": 63,
+        "nonempty": 63,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "a-week-02-hand-mole",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 3466,
+        "streamResults": 28,
+        "nonempty": 28,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "a-week-02-fingertip-magic",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 31284,
+        "streamResults": 53,
+        "nonempty": 53,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "a-week-02-jelly-touch",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 2052,
+        "streamResults": 23,
+        "nonempty": 23,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "a-week-02-hand-elements",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 1531,
+        "streamResults": 29,
+        "nonempty": 29,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "a-week-02-balloon-pop",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 1848,
+        "streamResults": 9,
+        "nonempty": 9,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "a-week-02-pause-pose",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 1147,
+        "streamResults": 38,
+        "nonempty": 38,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "a-week-02-mosquito",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 1770,
+        "streamResults": 30,
+        "nonempty": 30,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "b-vibe-03-ninjutsu",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 1093,
+        "streamResults": 22,
+        "nonempty": 22,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "b-vibe-03-impro-script",
+    "models": [
+      {
+        "name": "bodyPose",
+        "readyMs": 804,
+        "streamResults": 57,
+        "nonempty": 0,
+        "detectResults": 0,
+        "maxItems": 0
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "b-vibe-03-referee",
+    "models": [
+      {
+        "name": "bodyPose",
+        "readyMs": 1288,
+        "streamResults": 0,
+        "nonempty": 0,
+        "detectResults": 51,
+        "maxItems": 0
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "b-vibe-03-elsa-filter",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 754,
+        "streamResults": 37,
+        "nonempty": 37,
+        "detectResults": 0,
+        "maxItems": 1
+      },
+      {
+        "name": "faceMesh",
+        "readyMs": 848,
+        "streamResults": 58,
+        "nonempty": 0,
+        "detectResults": 0,
+        "maxItems": 0
+      },
+      {
+        "name": "bodyPose",
+        "readyMs": 826,
+        "streamResults": 78,
+        "nonempty": 78,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "b-vibe-03-mirror-move",
+    "models": [
+      {
+        "name": "faceMesh",
+        "readyMs": 1419,
+        "streamResults": 68,
+        "nonempty": 0,
+        "detectResults": 0,
+        "maxItems": 0
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "a-week-02-seal-trainer",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 3477,
+        "streamResults": 0,
+        "nonempty": 0,
+        "detectResults": 0,
+        "maxItems": 0
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "b-vibe-03-ink-mirror",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 2194,
+        "streamResults": 0,
+        "nonempty": 0,
+        "detectResults": 65,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "b-vibe-03-touchline",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 3163,
+        "streamResults": 0,
+        "nonempty": 0,
+        "detectResults": 14,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-local-after",
+    "id": "b-vibe-03-weed-battle",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 950,
+        "streamResults": 0,
+        "nonempty": 0,
+        "detectResults": 0,
+        "maxItems": 0
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-target-final",
+    "id": "b-vibe-03-touchline",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 5983,
+        "streamResults": 0,
+        "nonempty": 0,
+        "detectResults": 22,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-target-final",
+    "id": "a-week-02-seal-trainer",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 11887,
+        "streamResults": 1098,
+        "nonempty": 1098,
+        "detectResults": 0,
+        "maxItems": 1
+      },
+      {
+        "name": "faceMesh",
+        "readyMs": 12363,
+        "streamResults": 0,
+        "nonempty": 0,
+        "detectResults": 0,
+        "maxItems": 0
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-face-proper",
+    "id": "b-vibe-03-mirror-move",
+    "models": [
+      {
+        "name": "faceMesh",
+        "readyMs": 4033,
+        "streamResults": 38,
+        "nonempty": 38,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-face-proper",
+    "id": "b-vibe-03-elsa-filter",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 5306,
+        "streamResults": 32,
+        "nonempty": 0,
+        "detectResults": 0,
+        "maxItems": 0
+      },
+      {
+        "name": "faceMesh",
+        "readyMs": 5391,
+        "streamResults": 27,
+        "nonempty": 27,
+        "detectResults": 0,
+        "maxItems": 1
+      },
+      {
+        "name": "bodyPose",
+        "readyMs": 5369,
+        "streamResults": 58,
+        "nonempty": 58,
+        "detectResults": 0,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-pose-final",
+    "id": "b-vibe-03-referee",
+    "models": [
+      {
+        "name": "bodyPose",
+        "readyMs": 8023,
+        "streamResults": 0,
+        "nonempty": 0,
+        "detectResults": 45,
+        "maxItems": 3
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-pose-final",
+    "id": "b-vibe-03-impro-script",
+    "models": [
+      {
+        "name": "bodyPose",
+        "readyMs": 8062,
+        "streamResults": 54,
+        "nonempty": 54,
+        "detectResults": 0,
+        "maxItems": 3
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-pose-final",
+    "id": "b-vibe-03-touchline",
+    "models": [
+      {
+        "name": "handPose",
+        "readyMs": 5180,
+        "streamResults": 0,
+        "nonempty": 0,
+        "detectResults": 23,
+        "maxItems": 1
+      }
+    ],
+    "errors": []
+  },
+  {
+    "test": "ml5-extra-final",
+    "id": "seal-face",
+    "models": [],
+    "errors": [],
+    "faceCount": 1
+  },
+  {
+    "test": "ml5-extra-final",
+    "id": "touchline-pose",
+    "models": [],
+    "errors": [],
+    "status": "머리부터 발끝까지 화면에 들어오도록 한 걸음 물러나 보세요.\n\n손 제스처를 준비하는 중…"
+  }
+]

@@ -62,7 +62,7 @@ export class HandTracker {
     this.syncSize();
     this.drawFrame();
 
-    this.model.detectStart(this.frameCanvas, (results) => {
+    window.Ml5Runtime.start(this.model, this.frameCanvas, (results) => {
       this.latest = Array.isArray(results) ? results : [];
       this.lastAt = performance.now();
       this.callbacks++;

@@ -43,7 +43,7 @@ async function setup() {
   video.size(640, 480);
   video.hide();
 
-  handPose.detectStart(video, gotHands);
+  window.Ml5Runtime.start(handPose, video, gotHands);
 }
 
 function draw() {

@@ -573,7 +573,7 @@ async function bootCamera() {
       throw e;
     }
 
-    handPose.detectStart(video, onHands);
+    window.Ml5Runtime.start(handPose, video, onHands);
     if (typeof handPose.getConnections === "function") {
       connections = handPose.getConnections() || DEFAULT_CONNECTIONS;
     }
@@ -638,7 +638,7 @@ async function ensureFaceModel() {
   if (faceMesh) {
     if (!state.faceRunning) {
       try {
-        faceMesh.detectStart(video, onFaces);
+        window.Ml5Runtime.start(faceMesh, video, onFaces);
         state.faceRunning = true;
         state.faceStatus = "ready";
       } catch (err) {
@@ -661,7 +661,7 @@ async function ensureFaceModel() {
     } catch (err) {
       faceTriangles = [];
     }
-    faceMesh.detectStart(video, onFaces);
+    window.Ml5Runtime.start(faceMesh, video, onFaces);
     state.faceRunning = true;
     state.faceStatus = "ready";
   } catch (err) {
