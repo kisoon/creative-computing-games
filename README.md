@@ -7,40 +7,30 @@
 
 설치나 GitHub 로그인 없이 브라우저에서 실행할 수 있습니다. 게임 카드의 **플레이**를 누르세요. 여러 버전이 있는 게임은 실행 화면 상단에서 버전을 선택할 수 있습니다. 키보드 게임은 PC에서 이용하고, 소리가 나오지 않으면 게임 화면을 클릭하거나 시작 버튼을 눌러 주세요.
 
-### 게임별 실행 링크와 실제 첫 화면
+## 반·주차별 결과물
 
-아래 이미지는 각 게임을 PC 브라우저(1280 × 800)에서 직접 실행해 캡처한 첫 화면입니다. 이미지를 클릭하면 해당 게임이 열립니다.
+A·B반의 총 3주간 결과물을 모읍니다. 현재 올라온 A반 10회차 자료를 **1주차**로 분류했습니다. 2·3주차의 실제 수업 회차와 날짜는 자료 등록 시 기록합니다.
 
-| 게임 / 버전 | 실제 실행 첫 화면 |
-| --- | --- |
-| [슈게임 · 뜨개질](https://kisoon.github.io/creative-computing-games/play.html?game=game-01) | [<img src="assets/previews/game-01.jpg" width="320" alt="슈게임 · 뜨개질 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-01) |
-| [Bubble Pop](https://kisoon.github.io/creative-computing-games/play.html?game=game-02) | [<img src="assets/previews/game-02.jpg" width="320" alt="Bubble Pop 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-02) |
-| [LEMON TEN](https://kisoon.github.io/creative-computing-games/play.html?game=game-03) | [<img src="assets/previews/game-03.jpg" width="320" alt="LEMON TEN 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-03) |
-| [해골 기사 · 대표 버전](https://kisoon.github.io/creative-computing-games/play.html?game=game-04) | [<img src="assets/previews/game-04.jpg" width="320" alt="해골 기사 · 대표 버전 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-04) |
-| [해골 기사 · 미니 버전](https://kisoon.github.io/creative-computing-games/play.html?game=game-04&version=1) | [<img src="assets/previews/game-04-v1.jpg" width="320" alt="해골 기사 · 미니 버전 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-04&version=1) |
-| [해골 기사 · MVP 버전](https://kisoon.github.io/creative-computing-games/play.html?game=game-04&version=2) | [<img src="assets/previews/game-04-v2.jpg" width="320" alt="해골 기사 · MVP 버전 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-04&version=2) |
-| [장미와 모란](https://kisoon.github.io/creative-computing-games/play.html?game=game-05) | [<img src="assets/previews/game-05.jpg" width="320" alt="장미와 모란 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-05) |
-| [NEON BEAT · 대표 버전](https://kisoon.github.io/creative-computing-games/play.html?game=game-06) | [<img src="assets/previews/game-06.jpg" width="320" alt="NEON BEAT · 대표 버전 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-06) |
-| [NEON BEAT · 다른 제출 버전](https://kisoon.github.io/creative-computing-games/play.html?game=game-06&version=1) | [<img src="assets/previews/game-06-v1.jpg" width="320" alt="NEON BEAT · 다른 제출 버전 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-06&version=1) |
-| [물불 크로싱 · 대표 버전](https://kisoon.github.io/creative-computing-games/play.html?game=game-08) | [<img src="assets/previews/game-08.jpg" width="320" alt="물불 크로싱 · 대표 버전 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-08) |
-| [물불 크로싱 · 물불 원정대 · 2D](https://kisoon.github.io/creative-computing-games/play.html?game=game-08&version=1) | [<img src="assets/previews/game-08-v1.jpg" width="320" alt="물불 크로싱 · 물불 원정대 · 2D 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-08&version=1) |
-| [지붕 위의 닌자](https://kisoon.github.io/creative-computing-games/play.html?game=game-09) | [<img src="assets/previews/game-09.jpg" width="320" alt="지붕 위의 닌자 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-09) |
-| [달콤 옷장](https://kisoon.github.io/creative-computing-games/play.html?game=game-10) | [<img src="assets/previews/game-10.jpg" width="320" alt="달콤 옷장 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-10) |
-| [숲길을 건너는 호랑이](https://kisoon.github.io/creative-computing-games/play.html?game=game-11) | [<img src="assets/previews/game-11.jpg" width="320" alt="숲길을 건너는 호랑이 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-11) |
-| [고요한 호숫가](https://kisoon.github.io/creative-computing-games/play.html?game=game-12) | [<img src="assets/previews/game-12.jpg" width="320" alt="고요한 호숫가 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-12) |
-| [GRAY BOX FIGHTERS](https://kisoon.github.io/creative-computing-games/play.html?game=fight) | [<img src="assets/previews/fight.jpg" width="320" alt="GRAY BOX FIGHTERS 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=fight) |
+| 구분 | 1주차 | 2주차 | 3주차 |
+| --- | --- | --- | --- |
+| A반 | [12개 작품 · 16개 실행 화면](collections/a/week-01/README.md) | [등록 예정](collections/a/week-02/README.md) | [등록 예정](collections/a/week-03/README.md) |
+| B반 | [등록 예정](collections/b/week-01/README.md) | [등록 예정](collections/b/week-02/README.md) | [등록 예정](collections/b/week-03/README.md) |
 
-2026학년도 2학기 창의컴퓨팅 II A반 · 10회차 수업 활동.
+각 반·주차 문서에 작은 프리뷰(가로 160px)와 개별 실행 링크를 제공합니다. [결과물 추가 방법](CONTRIBUTING.md)을 따라 새 자료를 등록할 수 있습니다.
+
+2026학년도 2학기 창의컴퓨팅 II · A·B반 · 3주간 수업 활동.
 
 > 이 페이지의 게임은 AI를 활용하여 수업 활동의 목적으로 제작한 학생 창작 결과물입니다.
 
-12개 작품, 총 16개 실행 화면을 하나의 대표 페이지에서 연결합니다. 별도 서버, 데이터베이스, API 키, 설치 과정이 없는 HTML/CSS/JavaScript 정적 웹사이트입니다.
+현재 A반 1주차의 12개 작품, 총 16개 실행 화면을 하나의 대표 페이지에서 연결합니다. 별도 서버, 데이터베이스, API 키, 설치 과정이 없는 HTML/CSS/JavaScript 정적 웹사이트입니다.
 
 ## 파일 구성
 
 - `index.html`: 대표 페이지
 - `style.css`: 반응형 디자인
-- `catalog.js`: 게임 제목, 제작자, 소개, 조작법, 경로, 버전 목록
+- `catalog.js`: 반·주차 설정, 게임 제목, 제작자, 소개, 조작법, 경로, 버전 목록
+- `collections/`: A·B반 × 3주차 결과물 문서
+- `CONTRIBUTING.md`: 새 결과물 등록 방법
 - `play.html`, `player.js`: 게임 실행 화면
 - `games/`: 원본 게임 HTML, 스크립트, 이미지, 음원
 - `assets/`: `assets/previews/`는 실제 게임 첫 화면 캡처입니다. 기존 SVG 주제 일러스트도 보관합니다.
@@ -80,7 +70,7 @@ GitHub Free에서는 공개 저장소를 사용합니다. 브라우저 업로드
 
 - 카드의 플레이 버튼을 누르면 상단에 목록 복귀, 버전 선택, 다시 시작, 전체 화면, 새 탭 실행이 표시됩니다.
 - 검색은 게임 제목·제작자·소개를 대상으로 동작합니다.
-- 새 게임을 `games` 하위 폴더에 넣고 `catalog.js`에 항목을 추가합니다. 홈페이지 총 개수도 조정합니다.
+- 새 게임은 반·주차별 폴더에 넣고 `catalog.js`에 반·주차 정보와 함께 등록합니다. 홈페이지 개수는 자동 계산합니다. 자세한 절차는 [추가 안내](CONTRIBUTING.md)를 참고하세요.
 - 제작자 표기는 제출 파일명 기준입니다. 파일명에 팀원 전체가 없는 경우, 확인된 이름만 사용했습니다.
 - 대표 페이지는 모바일에 대응하지만 원본 게임의 모바일 조작 지원 여부는 서로 다릅니다. 키보드 게임은 PC를 사용하세요.
 - 물불 크로싱 3D와 호랑이 게임은 WebGL2가 필요합니다. 물불 크로싱은 WebGL2 미지원 시 화면에서 2D 버전으로 이동할 수 있습니다.

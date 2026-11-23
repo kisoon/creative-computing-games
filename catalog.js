@@ -1,3 +1,25 @@
+window.ARCHIVE = {
+  "classes": [
+    "A",
+    "B"
+  ],
+  "weeks": [
+    {
+      "id": 1,
+      "label": "1주차",
+      "note": "기존 자료: 10회차 수업"
+    },
+    {
+      "id": 2,
+      "label": "2주차"
+    },
+    {
+      "id": 3,
+      "label": "3주차"
+    }
+  ]
+};
+
 window.GAMES = [
   {
     "id": "game-01",
@@ -14,7 +36,9 @@ window.GAMES = [
         "preview": "assets/previews/game-01.jpg"
       }
     ],
-    "art": "assets/previews/game-01.jpg"
+    "art": "assets/previews/game-01.jpg",
+    "classroom": "A",
+    "week": 1
   },
   {
     "id": "game-02",
@@ -31,7 +55,9 @@ window.GAMES = [
         "preview": "assets/previews/game-02.jpg"
       }
     ],
-    "art": "assets/previews/game-02.jpg"
+    "art": "assets/previews/game-02.jpg",
+    "classroom": "A",
+    "week": 1
   },
   {
     "id": "game-03",
@@ -48,7 +74,9 @@ window.GAMES = [
         "preview": "assets/previews/game-03.jpg"
       }
     ],
-    "art": "assets/previews/game-03.jpg"
+    "art": "assets/previews/game-03.jpg",
+    "classroom": "A",
+    "week": 1
   },
   {
     "id": "game-04",
@@ -75,7 +103,9 @@ window.GAMES = [
         "preview": "assets/previews/game-04-v2.jpg"
       }
     ],
-    "art": "assets/previews/game-04.jpg"
+    "art": "assets/previews/game-04.jpg",
+    "classroom": "A",
+    "week": 1
   },
   {
     "id": "game-05",
@@ -92,7 +122,9 @@ window.GAMES = [
         "preview": "assets/previews/game-05.jpg"
       }
     ],
-    "art": "assets/previews/game-05.jpg"
+    "art": "assets/previews/game-05.jpg",
+    "classroom": "A",
+    "week": 1
   },
   {
     "id": "game-06",
@@ -114,7 +146,9 @@ window.GAMES = [
         "preview": "assets/previews/game-06-v1.jpg"
       }
     ],
-    "art": "assets/previews/game-06.jpg"
+    "art": "assets/previews/game-06.jpg",
+    "classroom": "A",
+    "week": 1
   },
   {
     "id": "game-08",
@@ -137,7 +171,9 @@ window.GAMES = [
         "preview": "assets/previews/game-08-v1.jpg"
       }
     ],
-    "art": "assets/previews/game-08.jpg"
+    "art": "assets/previews/game-08.jpg",
+    "classroom": "A",
+    "week": 1
   },
   {
     "id": "game-09",
@@ -154,7 +190,9 @@ window.GAMES = [
         "preview": "assets/previews/game-09.jpg"
       }
     ],
-    "art": "assets/previews/game-09.jpg"
+    "art": "assets/previews/game-09.jpg",
+    "classroom": "A",
+    "week": 1
   },
   {
     "id": "game-10",
@@ -171,7 +209,9 @@ window.GAMES = [
         "preview": "assets/previews/game-10.jpg"
       }
     ],
-    "art": "assets/previews/game-10.jpg"
+    "art": "assets/previews/game-10.jpg",
+    "classroom": "A",
+    "week": 1
   },
   {
     "id": "game-11",
@@ -188,7 +228,9 @@ window.GAMES = [
         "preview": "assets/previews/game-11.jpg"
       }
     ],
-    "art": "assets/previews/game-11.jpg"
+    "art": "assets/previews/game-11.jpg",
+    "classroom": "A",
+    "week": 1
   },
   {
     "id": "game-12",
@@ -205,7 +247,9 @@ window.GAMES = [
         "preview": "assets/previews/game-12.jpg"
       }
     ],
-    "art": "assets/previews/game-12.jpg"
+    "art": "assets/previews/game-12.jpg",
+    "classroom": "A",
+    "week": 1
   },
   {
     "id": "fight",
@@ -222,6 +266,8 @@ window.GAMES = [
         "preview": "assets/previews/fight.jpg"
       }
     ],
-    "art": "assets/previews/fight.jpg"
+    "art": "assets/previews/fight.jpg",
+    "classroom": "A",
+    "week": 1
   }
 ];
