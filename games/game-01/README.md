@@ -1,3 +1,5 @@
+[🎮 이 게임 실행하기](https://kisoon.github.io/creative-computing-games/play.html?game=game-01) · [전체 게임 목록](https://kisoon.github.io/creative-computing-games/)
+
 # 슈게임 · 뜨개질 (MVP)
 
 간단한 뜨개질 도안을 플레이어가 직접 채워 가는 미니게임입니다.

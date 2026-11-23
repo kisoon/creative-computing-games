@@ -10,10 +10,11 @@ window.GAMES = [
     "versions": [
       {
         "label": "대표 버전",
-        "path": "games/game-01/index.html"
+        "path": "games/game-01/index.html",
+        "preview": "assets/previews/game-01.jpg"
       }
     ],
-    "art": "assets/knit.svg"
+    "art": "assets/previews/game-01.jpg"
   },
   {
     "id": "game-02",
@@ -26,10 +27,11 @@ window.GAMES = [
     "versions": [
       {
         "label": "대표 버전",
-        "path": "games/game-02/index.html"
+        "path": "games/game-02/index.html",
+        "preview": "assets/previews/game-02.jpg"
       }
     ],
-    "art": "assets/bubble.svg"
+    "art": "assets/previews/game-02.jpg"
   },
   {
     "id": "game-03",
@@ -42,10 +44,11 @@ window.GAMES = [
     "versions": [
       {
         "label": "대표 버전",
-        "path": "games/game-03/index.html"
+        "path": "games/game-03/index.html",
+        "preview": "assets/previews/game-03.jpg"
       }
     ],
-    "art": "assets/lemon.svg"
+    "art": "assets/previews/game-03.jpg"
   },
   {
     "id": "game-04",
@@ -58,18 +61,21 @@ window.GAMES = [
     "versions": [
       {
         "label": "대표 버전",
-        "path": "games/game-04/index.html"
+        "path": "games/game-04/index.html",
+        "preview": "assets/previews/game-04.jpg"
       },
       {
         "label": "미니 버전",
-        "path": "games/game-04/skul-mini.html"
+        "path": "games/game-04/skul-mini.html",
+        "preview": "assets/previews/game-04-v1.jpg"
       },
       {
         "label": "MVP 버전",
-        "path": "games/game-04/skul-mvp.html"
+        "path": "games/game-04/skul-mvp.html",
+        "preview": "assets/previews/game-04-v2.jpg"
       }
     ],
-    "art": "assets/skull.svg"
+    "art": "assets/previews/game-04.jpg"
   },
   {
     "id": "game-05",
@@ -82,10 +88,11 @@ window.GAMES = [
     "versions": [
       {
         "label": "대표 버전",
-        "path": "games/game-05/index.html"
+        "path": "games/game-05/index.html",
+        "preview": "assets/previews/game-05.jpg"
       }
     ],
-    "art": "assets/rose.svg"
+    "art": "assets/previews/game-05.jpg"
   },
   {
     "id": "game-06",
@@ -98,14 +105,16 @@ window.GAMES = [
     "versions": [
       {
         "label": "대표 버전",
-        "path": "games/game-06/index.html"
+        "path": "games/game-06/index.html",
+        "preview": "assets/previews/game-06.jpg"
       },
       {
         "label": "다른 제출 버전",
-        "path": "games/game-06/../game-07/index.html"
+        "path": "games/game-06/../game-07/index.html",
+        "preview": "assets/previews/game-06-v1.jpg"
       }
     ],
-    "art": "assets/beat.svg"
+    "art": "assets/previews/game-06.jpg"
   },
   {
     "id": "game-08",
@@ -118,15 +127,17 @@ window.GAMES = [
     "versions": [
       {
         "label": "대표 버전",
-        "path": "games/game-08/index.html"
+        "path": "games/game-08/index.html",
+        "preview": "assets/previews/game-08.jpg"
       },
       {
         "label": "물불 원정대 · 2D",
         "path": "games/game-08/legacy-2d/index.html",
-        "controls": "P1: A / D 이동 · W 점프 | P2: 방향키"
+        "controls": "P1: A / D 이동 · W 점프 | P2: 방향키",
+        "preview": "assets/previews/game-08-v1.jpg"
       }
     ],
-    "art": "assets/cross.svg"
+    "art": "assets/previews/game-08.jpg"
   },
   {
     "id": "game-09",
@@ -139,10 +150,11 @@ window.GAMES = [
     "versions": [
       {
         "label": "대표 버전",
-        "path": "games/game-09/index.html"
+        "path": "games/game-09/index.html",
+        "preview": "assets/previews/game-09.jpg"
       }
     ],
-    "art": "assets/ninja.svg"
+    "art": "assets/previews/game-09.jpg"
   },
   {
     "id": "game-10",
@@ -155,10 +167,11 @@ window.GAMES = [
     "versions": [
       {
         "label": "대표 버전",
-        "path": "games/game-10/index.html"
+        "path": "games/game-10/index.html",
+        "preview": "assets/previews/game-10.jpg"
       }
     ],
-    "art": "assets/dress.svg"
+    "art": "assets/previews/game-10.jpg"
   },
   {
     "id": "game-11",
@@ -171,10 +184,11 @@ window.GAMES = [
     "versions": [
       {
         "label": "대표 버전",
-        "path": "games/game-11/index.html"
+        "path": "games/game-11/index.html",
+        "preview": "assets/previews/game-11.jpg"
       }
     ],
-    "art": "assets/tiger.svg"
+    "art": "assets/previews/game-11.jpg"
   },
   {
     "id": "game-12",
@@ -187,10 +201,11 @@ window.GAMES = [
     "versions": [
       {
         "label": "대표 버전",
-        "path": "games/game-12/index.html"
+        "path": "games/game-12/index.html",
+        "preview": "assets/previews/game-12.jpg"
       }
     ],
-    "art": "assets/fish.svg"
+    "art": "assets/previews/game-12.jpg"
   },
   {
     "id": "fight",
@@ -203,9 +218,10 @@ window.GAMES = [
     "versions": [
       {
         "label": "대표 버전",
-        "path": "games/game-02/fight.html"
+        "path": "games/game-02/fight.html",
+        "preview": "assets/previews/fight.jpg"
       }
     ],
-    "art": "assets/fight.svg"
+    "art": "assets/previews/fight.jpg"
   }
 ];

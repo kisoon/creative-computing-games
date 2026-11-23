@@ -1,3 +1,5 @@
+[🎮 이 게임 실행하기](https://kisoon.github.io/creative-computing-games/play.html?game=game-08) · [전체 게임 목록](https://kisoon.github.io/creative-computing-games/)
+
 # 물불 원정대 · Elemental Duo
 
 두 명이 한 키보드에서 물 캐릭터와 불 캐릭터를 각각 조작하는 **2인 협동 횡스크롤 스테이지 MVP**입니다.
