@@ -2,9 +2,7 @@
 
 [전체 아카이브](../../../README.md) · [첫 번째 바이브 코딩 보기](https://kisoon.github.io/creative-computing-games/?class=A&round=1#collection)
 
-9회차 p5.js Pong 실험입니다. 슬라이드에서 확인한 링크를 중복 제거해 익명 작품별로 묶었습니다. 실명과 슬라이드 회고 원문은 옮기지 않습니다.
-
-스크린샷을 누르면 p5.js 원본 실행 페이지로 이동합니다. GitHub의 Markdown 링크는 클릭 방식에 따라 같은 탭에서 열릴 수 있으므로, **웹 아카이브에서는 모든 프리뷰를 새 창으로 열도록 설정했습니다.**
+작은 실행 화면을 눌러 작품을 체험해 보세요. 웹 아카이브에서는 새 창에서 열립니다. 실행 화면이 없는 링크는 원본 페이지에서 확인할 수 있습니다.
 
 | 작품 | 작은 실행 화면 및 원본 링크 |
 | --- | --- |
@@ -21,7 +19,3 @@
 | 작품 11 | [<img src="../../../assets/previews/p5-a-11-1.jpg" width="140" alt="Pong 실험 11 링크 1">](https://editor.p5js.org/akwlsgur0/full/V8j-r7vJ-) [<img src="../../../assets/previews/p5-a-11-2.jpg" width="140" alt="Pong 실험 11 링크 2">](https://editor.p5js.org/akwlsgur0/full/Q2ixkzlv6) |
 | 작품 12 | [<img src="../../../assets/previews/p5-a-12-1.jpg" width="140" alt="Pong 실험 12 링크 1">](https://editor.p5js.org/love88464114/full/BDn1smwAO) |
 | 작품 13 | [<img src="../../../assets/previews/p5-a-13-1.jpg" width="140" alt="Pong 실험 13 링크 1">](https://editor.p5js.org/haru0925/full/6q8CkIctT) [<img src="../../../assets/previews/p5-a-13-2.jpg" width="140" alt="Pong 실험 13 링크 2">](https://editor.p5js.org/haru0925/full/tZSb298mS) |
-
-## 실행 화면 확인
-
-A반 24개 링크 중 23개의 실제 캔버스를 캡처했습니다. 작품 02의 링크 2는 재확인 중에도 로딩 화면에 머물러 스크린샷을 임의로 만들지 않고 원본 링크만 제공합니다.

@@ -2,7 +2,7 @@
 
 [전체 아카이브](../../../README.md) · [B반 두 번째 바이브 코딩 체험하기](https://kisoon.github.io/creative-computing-games/?class=B&round=2#collection)
 
-학생 실명과 학번은 공개하지 않고 제출 순서의 작품 번호로 표시합니다. 작은 이미지는 실제 실행 화면이며, 웹 아카이브에서는 새 창에서 열립니다.
+작은 실행 화면을 눌러 작품을 체험해 보세요. 웹 아카이브에서는 새 창에서 열립니다.
 
 | 작품 | 작은 실행 화면 |
 | --- | --- |
@@ -14,9 +14,3 @@
 | [산타의 옷장](https://kisoon.github.io/creative-computing-games/play.html?game=b-vibe-02-santa-closet)<br>작품 07<br>마우스 클릭·드래그 | [<img src="../../../assets/previews/b-vibe-02-santa-closet.jpg" width="140" alt="산타의 옷장 실행 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=b-vibe-02-santa-closet) |
 | [마녀의 과자집](https://kisoon.github.io/creative-computing-games/play.html?game=b-vibe-02-witch-house)<br>작품 08<br>게임 내 2인 키보드 안내 | [<img src="../../../assets/previews/b-vibe-02-witch-house.jpg" width="140" alt="마녀의 과자집 실행 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=b-vibe-02-witch-house) |
 | [PARRY RUSH](https://kisoon.github.io/creative-computing-games/play.html?game=b-vibe-02-parry-rush)<br>작품 09<br>WASD 이동 · Space 패리 · Esc 일시정지 | [<img src="../../../assets/previews/b-vibe-02-parry-rush.jpg" width="140" alt="PARRY RUSH 실행 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=b-vibe-02-parry-rush) |
-
-## 실행 파일 누락 · 작품 02
-
-「실 꿰기」는 HTML만 제출되었고 참조하는 `game.js`와 `style.css`가 없습니다. 원본 표현과 게임 규칙을 임의로 재제작하지 않아 실행 목록에서는 보류했습니다. 제출 HTML은 이름이 없는 [원본 파일](../../../games/b/week-01/thread-needle/submission.html)로 보관합니다. 누락 파일이 추가되면 바로 등록할 수 있습니다.
-
-[원본 대조 및 검증 기록](VERIFICATION.md)

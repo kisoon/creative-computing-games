@@ -2,11 +2,7 @@
 
 [전체 아카이브](../../../README.md) · [이 반·바이브 코딩 실행 페이지](https://kisoon.github.io/creative-computing-games/?class=A&round=2#collection)
 
-기존 10회차 수업 결과물입니다. 현재 아카이브에서는 두 번째 바이브 코딩으로 분류합니다.
-
-### 게임별 실행 링크와 실제 첫 화면
-
-아래 이미지는 각 게임을 PC 브라우저(1280 × 800)에서 직접 실행해 캡처한 첫 화면입니다. 이미지를 클릭하면 해당 게임이 열립니다.
+작은 실행 화면을 눌러 작품을 체험해 보세요. 웹 아카이브에서는 새 창에서 열립니다.
 
 | 게임 / 버전 | 실제 실행 첫 화면 |
 | --- | --- |
@@ -26,4 +22,3 @@
 | [숲길을 건너는 호랑이](https://kisoon.github.io/creative-computing-games/play.html?game=game-11) | [<img src="../../../assets/previews/game-11.jpg" width="160" alt="숲길을 건너는 호랑이 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-11) |
 | [고요한 호숫가](https://kisoon.github.io/creative-computing-games/play.html?game=game-12) | [<img src="../../../assets/previews/game-12.jpg" width="160" alt="고요한 호숫가 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=game-12) |
 | [GRAY BOX FIGHTERS](https://kisoon.github.io/creative-computing-games/play.html?game=fight) | [<img src="../../../assets/previews/fight.jpg" width="160" alt="GRAY BOX FIGHTERS 실제 실행 첫 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=fight) |
-

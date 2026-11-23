@@ -1226,7 +1226,7 @@ window.GAMES = [
         "preview": "assets/previews/b-vibe-03-elsa-filter.jpg"
       }
     ],
-    "supplemented": "MD 기반 실행 보완"
+    "supplemented": "기획안 기반 체험판"
   },
   {
     "id": "b-vibe-03-mirror-move",
@@ -1306,7 +1306,6 @@ window.GAMES = [
         "path": "games/b/week-02/weed-battle/index.html",
         "preview": "assets/previews/b-vibe-03-weed-battle.jpg"
       }
-    ],
-    "supplemented": "MD 코드 복원"
+    ]
   }
 ];

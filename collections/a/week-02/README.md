@@ -2,9 +2,7 @@
 
 [전체 아카이브](../../../README.md) · [A반 세 번째 바이브 코딩 체험하기](https://kisoon.github.io/creative-computing-games/?class=A&round=3#collection)
 
-2026년도 2학기 서울예술대학 「창의컴퓨팅2」 수업의 바이브코딩 결과물입니다. 제출된 파일명에 다른 주차가 적혀 있는 경우에도 이번 11회차 제출 묶음 기준으로 분류했습니다.
-
-11개 실행 프로젝트에서 12개 작품을 등록했습니다. 손 인식·카메라 작품은 PC Chrome/Edge와 카메라 권한이 필요하며, 외부 모델을 처음 불러올 때 시간이 걸릴 수 있습니다. 데모가 있는 작품은 카메라 없이도 체험할 수 있습니다.
+작은 실행 화면을 눌러 작품을 체험해 보세요. 웹 아카이브에서는 새 창에서 열립니다.
 
 | 작품 | 실행 화면 |
 | --- | --- |
@@ -20,5 +18,3 @@
 | [하늘빛 풍선 팡팡](https://kisoon.github.io/creative-computing-games/play.html?game=a-week-02-balloon-pop)<br>작품 10<br>카메라 · 손끝 이동 (손 인식 후 시작) | [<img src="../../../assets/previews/a-week-02-balloon-pop.jpg" width="160" alt="하늘빛 풍선 팡팡 실행 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=a-week-02-balloon-pop) |
 | [Pause Pose · 손으로 연주하는 악기](https://kisoon.github.io/creative-computing-games/play.html?game=a-week-02-pause-pose)<br>작품 11<br>카메라 · 손동작 · 연주 시작 | [<img src="../../../assets/previews/a-week-02-pause-pose.jpg" width="160" alt="Pause Pose · 손으로 연주하는 악기 실행 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=a-week-02-pause-pose) |
 | [모기 잡기](https://kisoon.github.io/creative-computing-games/play.html?game=a-week-02-mosquito)<br>작품 12<br>카메라 · 손뼉 / 데모 마우스 · Space | [<img src="../../../assets/previews/a-week-02-mosquito.jpg" width="160" alt="모기 잡기 실행 화면">](https://kisoon.github.io/creative-computing-games/play.html?game=a-week-02-mosquito) |
-
-
