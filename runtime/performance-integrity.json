@@ -1,0 +1,17 @@
+[
+  {
+    "path": "runtime/ml5-support.js",
+    "beforeSha256": "4e0c8450f23fcf0067cc85438948ecb685b0e5a2bf415cb90b691c08c0b6e793",
+    "sha256": "d5223adab2c26ed7f83c10ffd36cb79284e0b09ee0cf6a9efe835c821f49608d"
+  },
+  {
+    "path": "runtime/tests/ml5-support.cjs",
+    "beforeSha256": "7a437024e490675d17f50a810d70f2def6154ad59009b78355bdfc506944bddd",
+    "sha256": "f90c68304e3ce3512c4f68baa9785f8492e9f634f61649076b0fc9e20a43d42f"
+  },
+  {
+    "path": "games/a/week-02/jelly-touch/src/input/handTracker.js",
+    "beforeSha256": "04afb18467f9a4ffec96430a116931c0d27d048897688b7441450818748d2184",
+    "sha256": "c61bfe9f5c5e24561132b7b6de5df6e5f1edf27074be770a1198df5e55299800"
+  }
+]

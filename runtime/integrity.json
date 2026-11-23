@@ -68,8 +68,9 @@
   {
     "path": "games/a/week-02/jelly-touch/src/input/handTracker.js",
     "previousSha256": "1072b7eb298e61a24ea68b6f998a3e0defc5a76f90a49fce72c8570cc464cd3f",
-    "sha256": "04afb18467f9a4ffec96430a116931c0d27d048897688b7441450818748d2184",
-    "change": "execution-only ml5 adapter"
+    "sha256": "c61bfe9f5c5e24561132b7b6de5df6e5f1edf27074be770a1198df5e55299800",
+    "change": "execution-only ml5 adapter",
+    "performanceBaselineSha256": "04afb18467f9a4ffec96430a116931c0d27d048897688b7441450818748d2184"
   },
   {
     "path": "games/a/week-02/mochi-ar/index.html",

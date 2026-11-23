@@ -1,0 +1,101 @@
+{
+  "environment": "macOS Chrome, native Apple M2 GPU, 400x350 15fps fake camera; 7s warm-up then 8s measurement; sequential pages",
+  "measurements": [
+    {
+      "id": "fruit",
+      "durationSeconds": 8,
+      "before": {
+        "id": "fruit",
+        "copies": 480,
+        "frames": 480,
+        "last": 17926.8,
+        "p95": 16.700000000000728,
+        "video": []
+      },
+      "after": {
+        "id": "fruit",
+        "copies": 120,
+        "frames": 473,
+        "last": 17916.5,
+        "p95": 16.799999999999272,
+        "video": []
+      },
+      "copyReductionPercent": 75.0
+    },
+    {
+      "id": "elsa",
+      "durationSeconds": 8,
+      "before": {
+        "id": "elsa",
+        "copies": 1440,
+        "frames": 480,
+        "last": 15707.9,
+        "p95": 16.700000000000728,
+        "video": []
+      },
+      "after": {
+        "id": "elsa",
+        "copies": 120,
+        "frames": 480,
+        "last": 15641.4,
+        "p95": 16.700000000000728,
+        "video": []
+      },
+      "copyReductionPercent": 91.7
+    },
+    {
+      "id": "jelly",
+      "durationSeconds": 8,
+      "before": {
+        "id": "jelly",
+        "copies": 480,
+        "frames": 480,
+        "last": 16101.7,
+        "p95": 16.799999999999272,
+        "video": [
+          {
+            "w": 400,
+            "h": 350,
+            "fps": 15
+          }
+        ]
+      },
+      "after": {
+        "id": "jelly",
+        "copies": 120,
+        "frames": 480,
+        "last": 16007.2,
+        "p95": 16.799999999999272,
+        "video": [
+          {
+            "w": 400,
+            "h": 350,
+            "fps": 15
+          }
+        ]
+      },
+      "copyReductionPercent": 75.0
+    },
+    {
+      "id": "ink",
+      "durationSeconds": 8,
+      "before": {
+        "id": "ink",
+        "copies": 480,
+        "frames": 480,
+        "last": 16943.3,
+        "p95": 16.700000000000728,
+        "video": []
+      },
+      "after": {
+        "id": "ink",
+        "copies": 120,
+        "frames": 480,
+        "last": 17245.6,
+        "p95": 16.799999999999272,
+        "video": []
+      },
+      "copyReductionPercent": 75.0
+    }
+  ]
+}

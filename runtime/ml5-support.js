@@ -29,7 +29,7 @@
   };
 })();
 
-/* A canvas snapshot avoids video-texture inference failures on some GPU backends. */
+/* Share original-size video frames; inference and artwork keep their own cadence. */
 (() => {
   'use strict';
   const streams = new Map();
@@ -39,25 +39,80 @@
     const element = source?.elt || source;
     return element?.tagName === 'VIDEO' ? element : null;
   }
-  function snapshot(video) {
-    if (video.readyState < 2 || !video.videoWidth || !video.videoHeight) return null;
-    let frame = snapshots.get(video);
-    if (!frame) { frame = document.createElement('canvas'); snapshots.set(video, frame); }
-    if (frame.width !== video.videoWidth || frame.height !== video.videoHeight) {
-      frame.width = video.videoWidth;
-      frame.height = video.videoHeight;
+  function recordFor(video) {
+    let record = snapshots.get(video);
+    if (!record) {
+      const canvas = document.createElement('canvas');
+      record = { video, canvas, context: canvas.getContext('2d', { alpha: false }),
+        users: new Set(), handle: null, kind: null, lastFrame: null, stream: null };
+      snapshots.set(video, record);
     }
-    frame.getContext('2d', { alpha: false }).drawImage(video, 0, 0, frame.width, frame.height);
-    return frame;
+    return record;
+  }
+  function snapshot(record) {
+    const { video, canvas, context } = record;
+    if (video.readyState < 2 || !video.videoWidth || !video.videoHeight) return null;
+    const frames = video.getVideoPlaybackQuality?.().totalVideoFrames;
+    const key = frames > 0 ? frames : video.currentTime;
+    const resized = canvas.width !== video.videoWidth || canvas.height !== video.videoHeight;
+    if (resized) {
+      canvas.width = video.videoWidth;
+      canvas.height = video.videoHeight;
+    }
+    if (resized || record.lastFrame !== key || record.stream !== video.srcObject) {
+      context.drawImage(video, 0, 0, canvas.width, canvas.height);
+      record.lastFrame = key;
+      record.stream = video.srcObject;
+    }
+    return canvas;
+  }
+  function cancel(record) {
+    if (record.handle === null) return;
+    if (record.kind === 'video') record.video.cancelVideoFrameCallback(record.handle);
+    else cancelAnimationFrame(record.handle);
+    record.handle = null;
   }
   function stop(model) {
     const state = streams.get(model);
     if (state) {
       state.stopped = true;
-      cancelAnimationFrame(state.frame);
       streams.delete(model);
+      if (state.record) {
+        state.record.users.delete(state);
+        if (!state.record.users.size) cancel(state.record);
+      }
     }
     originalStops.get(model)?.();
+  }
+  function schedule(record) {
+    if (record.handle !== null || !record.users.size) return;
+    const next = () => { record.handle = null; pump(record); };
+    // Wait with rAF before the first camera frame; then follow camera delivery,
+    // rather than copying the same image at the display refresh rate per model.
+    if (record.video.readyState >= 2 && record.video.requestVideoFrameCallback && record.video.cancelVideoFrameCallback) {
+      record.kind = 'video';
+      record.handle = record.video.requestVideoFrameCallback(next);
+    } else {
+      record.kind = 'animation';
+      record.handle = requestAnimationFrame(next);
+    }
+  }
+  function pump(record) {
+    if (!record.users.size) return;
+    const video = record.video;
+    if (video.srcObject && !video.srcObject.active) {
+      for (const state of [...record.users]) stop(state.model);
+      return;
+    }
+    const frame = snapshot(record);
+    if (frame) {
+      for (const state of record.users) {
+        if (state.stopped || state.started) continue;
+        state.started = true;
+        state.model.detectStart(frame, state.callback);
+      }
+    }
+    schedule(record);
   }
   async function start(model, source, callback) {
     model = model?.then ? await model : model;
@@ -66,23 +121,20 @@
       model.detectStop = () => stop(model);
     }
     stop(model);
-    const video = videoOf(source);
-    const state = { stopped: false, frame: 0, started: false };
+    const state = { model, callback, stopped: false, started: false, record: null };
     streams.set(model, state);
-    if (model.ready) await model.ready;
-    if (state.stopped) return;
-    if (!video) { model.detectStart(source, callback); return; }
-    function pump() {
+    try {
+      if (model.ready) await model.ready;
       if (state.stopped) return;
-      if (video.srcObject && !video.srcObject.active) { stop(model); return; }
-      const frame = snapshot(video);
-      if (frame && !state.started) {
-        state.started = true;
-        model.detectStart(frame, callback);
-      }
-      state.frame = requestAnimationFrame(pump);
+      const video = videoOf(source);
+      if (!video) { model.detectStart(source, callback); return; }
+      state.record = recordFor(video);
+      state.record.users.add(state);
+      pump(state.record);
+    } catch (error) {
+      if (streams.get(model) === state) stop(model);
+      throw error;
     }
-    pump();
   }
   window.Ml5Runtime = {
     start(model, source, callback) {
@@ -95,7 +147,7 @@
       if (model.ready) await model.ready;
       const video = videoOf(source);
       if (!video) return model.detect(source);
-      const frame = snapshot(video);
+      const frame = snapshot(recordFor(video));
       return frame ? model.detect(frame) : [];
     },
   };
