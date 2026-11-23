@@ -3,25 +3,477 @@ window.ARCHIVE = {
     "A",
     "B"
   ],
-  "weeks": [
+  "rounds": [
     {
       "id": 1,
-      "label": "1주차",
-      "note": "기존 자료: 10회차 수업"
+      "label": "첫 번째 바이브 코딩",
+      "note": "9회차 · p5.js Pong 실험"
     },
     {
       "id": 2,
-      "label": "2주차",
-      "note": "11회차 수업"
+      "label": "두 번째 바이브 코딩",
+      "note": "기존 1주차 · 10회차"
     },
     {
       "id": 3,
-      "label": "3주차"
+      "label": "세 번째 바이브 코딩",
+      "note": "기존 2주차 · 11회차"
     }
   ]
 };
 
 window.GAMES = [
+  {
+    "id": "a-vibe-01-01",
+    "classroom": "A",
+    "round": 1,
+    "title": "Pong 실험 01",
+    "by": "작품 01",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/sunsun134/full/O8ltO7z8b",
+    "art": "assets/previews/p5-a-01-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/sunsun134/full/O8ltO7z8b",
+        "preview": "assets/previews/p5-a-01-1.jpg"
+      },
+      {
+        "label": "링크 2",
+        "path": "https://editor.p5js.org/sunsun134/full/NLe2_i8_k",
+        "preview": "assets/previews/p5-a-01-2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-vibe-01-02",
+    "classroom": "A",
+    "round": 1,
+    "title": "Pong 실험 02",
+    "by": "작품 02",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/ekgoan/full/QtOR8aMdC",
+    "art": "assets/previews/p5-a-02-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/ekgoan/full/QtOR8aMdC",
+        "preview": "assets/previews/p5-a-02-1.jpg"
+      },
+      {
+        "label": "링크 2",
+        "path": "https://editor.p5js.org/ekgoan/full/PI9HWReOZ",
+        "preview": null,
+        "available": false
+      }
+    ]
+  },
+  {
+    "id": "a-vibe-01-03",
+    "classroom": "A",
+    "round": 1,
+    "title": "Pong 실험 03",
+    "by": "작품 03",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/dohyun070128/full/AIfRAv6aq",
+    "art": "assets/previews/p5-a-03-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/dohyun070128/full/AIfRAv6aq",
+        "preview": "assets/previews/p5-a-03-1.jpg"
+      },
+      {
+        "label": "링크 2",
+        "path": "https://editor.p5js.org/dohyun070128/full/2PiU_OUgI",
+        "preview": "assets/previews/p5-a-03-2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-vibe-01-04",
+    "classroom": "A",
+    "round": 1,
+    "title": "Pong 실험 04",
+    "by": "작품 04",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/misu420yaong/full/UMvUxxyv6",
+    "art": "assets/previews/p5-a-04-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/misu420yaong/full/UMvUxxyv6",
+        "preview": "assets/previews/p5-a-04-1.jpg"
+      },
+      {
+        "label": "링크 2",
+        "path": "https://editor.p5js.org/misu420yaong/full/pOei0Rnr8",
+        "preview": "assets/previews/p5-a-04-2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-vibe-01-05",
+    "classroom": "A",
+    "round": 1,
+    "title": "Pong 실험 05",
+    "by": "작품 05",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/pej000805/full/ZmZrtAfqL",
+    "art": "assets/previews/p5-a-05-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/pej000805/full/ZmZrtAfqL",
+        "preview": "assets/previews/p5-a-05-1.jpg"
+      },
+      {
+        "label": "링크 2",
+        "path": "https://editor.p5js.org/pej000805/full/N3xNBO4il",
+        "preview": "assets/previews/p5-a-05-2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-vibe-01-06",
+    "classroom": "A",
+    "round": 1,
+    "title": "Pong 실험 06",
+    "by": "작품 06",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/2353011/full/UtOF-j_jl",
+    "art": "assets/previews/p5-a-06-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/2353011/full/UtOF-j_jl",
+        "preview": "assets/previews/p5-a-06-1.jpg"
+      },
+      {
+        "label": "링크 2",
+        "path": "https://editor.p5js.org/2353011/full/0VyUkDulp",
+        "preview": "assets/previews/p5-a-06-2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-vibe-01-07",
+    "classroom": "A",
+    "round": 1,
+    "title": "Pong 실험 07",
+    "by": "작품 07",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/cozycozy03/full/4Y8M2guLR",
+    "art": "assets/previews/p5-a-07-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/cozycozy03/full/4Y8M2guLR",
+        "preview": "assets/previews/p5-a-07-1.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-vibe-01-08",
+    "classroom": "A",
+    "round": 1,
+    "title": "Pong 실험 08",
+    "by": "작품 08",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/dt6420/full/8I5Xz4zTK",
+    "art": "assets/previews/p5-a-08-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/dt6420/full/8I5Xz4zTK",
+        "preview": "assets/previews/p5-a-08-1.jpg"
+      },
+      {
+        "label": "링크 2",
+        "path": "https://editor.p5js.org/dt6420/full/icUZ7AmE0",
+        "preview": "assets/previews/p5-a-08-2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-vibe-01-09",
+    "classroom": "A",
+    "round": 1,
+    "title": "Pong 실험 09",
+    "by": "작품 09",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/hgk3692/full/N0jnA678C",
+    "art": "assets/previews/p5-a-09-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/hgk3692/full/N0jnA678C",
+        "preview": "assets/previews/p5-a-09-1.jpg"
+      },
+      {
+        "label": "링크 2",
+        "path": "https://editor.p5js.org/hgk3692/full/SkpmYXjtI",
+        "preview": "assets/previews/p5-a-09-2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-vibe-01-10",
+    "classroom": "A",
+    "round": 1,
+    "title": "Pong 실험 10",
+    "by": "작품 10",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/chldbcks/full/jiwrPtsBI",
+    "art": "assets/previews/p5-a-10-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/chldbcks/full/jiwrPtsBI",
+        "preview": "assets/previews/p5-a-10-1.jpg"
+      },
+      {
+        "label": "링크 2",
+        "path": "https://editor.p5js.org/chldbcks/full/57luU7fU8",
+        "preview": "assets/previews/p5-a-10-2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-vibe-01-11",
+    "classroom": "A",
+    "round": 1,
+    "title": "Pong 실험 11",
+    "by": "작품 11",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/akwlsgur0/full/V8j-r7vJ-",
+    "art": "assets/previews/p5-a-11-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/akwlsgur0/full/V8j-r7vJ-",
+        "preview": "assets/previews/p5-a-11-1.jpg"
+      },
+      {
+        "label": "링크 2",
+        "path": "https://editor.p5js.org/akwlsgur0/full/Q2ixkzlv6",
+        "preview": "assets/previews/p5-a-11-2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-vibe-01-12",
+    "classroom": "A",
+    "round": 1,
+    "title": "Pong 실험 12",
+    "by": "작품 12",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/love88464114/full/BDn1smwAO",
+    "art": "assets/previews/p5-a-12-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/love88464114/full/BDn1smwAO",
+        "preview": "assets/previews/p5-a-12-1.jpg"
+      }
+    ]
+  },
+  {
+    "id": "a-vibe-01-13",
+    "classroom": "A",
+    "round": 1,
+    "title": "Pong 실험 13",
+    "by": "작품 13",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/haru0925/full/6q8CkIctT",
+    "art": "assets/previews/p5-a-13-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/haru0925/full/6q8CkIctT",
+        "preview": "assets/previews/p5-a-13-1.jpg"
+      },
+      {
+        "label": "링크 2",
+        "path": "https://editor.p5js.org/haru0925/full/tZSb298mS",
+        "preview": "assets/previews/p5-a-13-2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-01-01",
+    "classroom": "B",
+    "round": 1,
+    "title": "Pong 실험 01",
+    "by": "작품 01",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/esther7459/full/qDGWaJPlW",
+    "art": "assets/previews/p5-b-01-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/esther7459/full/qDGWaJPlW",
+        "preview": "assets/previews/p5-b-01-1.jpg"
+      },
+      {
+        "label": "링크 2",
+        "path": "https://editor.p5js.org/esther7459/full/4XpkcYEv5",
+        "preview": "assets/previews/p5-b-01-2.jpg"
+      },
+      {
+        "label": "링크 3",
+        "path": "https://editor.p5js.org/esther7459/full/nTEOQ_deg",
+        "preview": "assets/previews/p5-b-01-3.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-01-02",
+    "classroom": "B",
+    "round": 1,
+    "title": "Pong 실험 02",
+    "by": "작품 02",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/twinsjosj/full/hOyRmJ5FX",
+    "art": "assets/previews/p5-b-02-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/twinsjosj/full/hOyRmJ5FX",
+        "preview": "assets/previews/p5-b-02-1.jpg"
+      },
+      {
+        "label": "링크 2",
+        "path": "https://editor.p5js.org/twinsjosj/full/CZM3JVDd5",
+        "preview": "assets/previews/p5-b-02-2.jpg"
+      },
+      {
+        "label": "링크 3",
+        "path": "https://editor.p5js.org/twinsjosj/full/iB2IdCfd6",
+        "preview": "assets/previews/p5-b-02-3.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-01-03",
+    "classroom": "B",
+    "round": 1,
+    "title": "Pong 실험 03",
+    "by": "작품 03",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/zync0309/full/gsG-PP_mMZ",
+    "art": "assets/previews/p5-b-03-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/zync0309/full/gsG-PP_mMZ",
+        "preview": "assets/previews/p5-b-03-1.jpg"
+      },
+      {
+        "label": "링크 2",
+        "path": "https://editor.p5js.org/zync0309/full/NP8kY3Jt5",
+        "preview": "assets/previews/p5-b-03-2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-01-04",
+    "classroom": "B",
+    "round": 1,
+    "title": "Pong 실험 04",
+    "by": "작품 04",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/dusgh0204/full/A8phj7ytg",
+    "art": "assets/previews/p5-b-04-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/dusgh0204/full/A8phj7ytg",
+        "preview": "assets/previews/p5-b-04-1.jpg"
+      },
+      {
+        "label": "링크 2",
+        "path": "https://editor.p5js.org/dusgh0204/full/zsTib0VFs",
+        "preview": "assets/previews/p5-b-04-2.jpg"
+      }
+    ]
+  },
+  {
+    "id": "b-vibe-01-05",
+    "classroom": "B",
+    "round": 1,
+    "title": "Pong 실험 05",
+    "by": "작품 05",
+    "category": "아케이드",
+    "description": "p5.js로 만든 Pong 바이브 코딩 실험. 작은 화면을 누르면 원본이 새 창에서 열립니다.",
+    "controls": "원본 화면의 조작 안내를 확인하세요.",
+    "external": true,
+    "path": "https://editor.p5js.org/pse1207/full/YQj-geO_6",
+    "art": "assets/previews/p5-b-05-1.jpg",
+    "versions": [
+      {
+        "label": "링크 1",
+        "path": "https://editor.p5js.org/pse1207/full/YQj-geO_6",
+        "preview": "assets/previews/p5-b-05-1.jpg"
+      },
+      {
+        "label": "링크 2",
+        "path": "https://editor.p5js.org/pse1207/full/lnDMl3nHq",
+        "preview": "assets/previews/p5-b-05-2.jpg"
+      }
+    ]
+  },
   {
     "id": "game-01",
     "title": "슈게임 · 뜨개질",
@@ -39,7 +491,8 @@ window.GAMES = [
     ],
     "art": "assets/previews/game-01.jpg",
     "classroom": "A",
-    "week": 1
+    "week": 1,
+    "round": 2
   },
   {
     "id": "game-02",
@@ -58,7 +511,8 @@ window.GAMES = [
     ],
     "art": "assets/previews/game-02.jpg",
     "classroom": "A",
-    "week": 1
+    "week": 1,
+    "round": 2
   },
   {
     "id": "game-03",
@@ -77,7 +531,8 @@ window.GAMES = [
     ],
     "art": "assets/previews/game-03.jpg",
     "classroom": "A",
-    "week": 1
+    "week": 1,
+    "round": 2
   },
   {
     "id": "game-04",
@@ -106,7 +561,8 @@ window.GAMES = [
     ],
     "art": "assets/previews/game-04.jpg",
     "classroom": "A",
-    "week": 1
+    "week": 1,
+    "round": 2
   },
   {
     "id": "game-05",
@@ -125,7 +581,8 @@ window.GAMES = [
     ],
     "art": "assets/previews/game-05.jpg",
     "classroom": "A",
-    "week": 1
+    "week": 1,
+    "round": 2
   },
   {
     "id": "game-06",
@@ -149,7 +606,8 @@ window.GAMES = [
     ],
     "art": "assets/previews/game-06.jpg",
     "classroom": "A",
-    "week": 1
+    "week": 1,
+    "round": 2
   },
   {
     "id": "game-08",
@@ -174,7 +632,8 @@ window.GAMES = [
     ],
     "art": "assets/previews/game-08.jpg",
     "classroom": "A",
-    "week": 1
+    "week": 1,
+    "round": 2
   },
   {
     "id": "game-09",
@@ -193,7 +652,8 @@ window.GAMES = [
     ],
     "art": "assets/previews/game-09.jpg",
     "classroom": "A",
-    "week": 1
+    "week": 1,
+    "round": 2
   },
   {
     "id": "game-10",
@@ -212,7 +672,8 @@ window.GAMES = [
     ],
     "art": "assets/previews/game-10.jpg",
     "classroom": "A",
-    "week": 1
+    "week": 1,
+    "round": 2
   },
   {
     "id": "game-11",
@@ -231,7 +692,8 @@ window.GAMES = [
     ],
     "art": "assets/previews/game-11.jpg",
     "classroom": "A",
-    "week": 1
+    "week": 1,
+    "round": 2
   },
   {
     "id": "game-12",
@@ -250,7 +712,8 @@ window.GAMES = [
     ],
     "art": "assets/previews/game-12.jpg",
     "classroom": "A",
-    "week": 1
+    "week": 1,
+    "round": 2
   },
   {
     "id": "fight",
@@ -269,7 +732,8 @@ window.GAMES = [
     ],
     "art": "assets/previews/fight.jpg",
     "classroom": "A",
-    "week": 1
+    "week": 1,
+    "round": 2
   },
   {
     "id": "a-week-02-lemon-ten",
@@ -289,7 +753,8 @@ window.GAMES = [
         "path": "games/a/week-02/lemon-ten/index.html",
         "preview": "assets/previews/a-week-02-lemon-ten.jpg"
       }
-    ]
+    ],
+    "round": 3
   },
   {
     "id": "a-week-02-hand-sign-portal",
@@ -309,7 +774,8 @@ window.GAMES = [
         "path": "games/a/week-02/hand-sign-portal/index.html",
         "preview": "assets/previews/a-week-02-hand-sign-portal.jpg"
       }
-    ]
+    ],
+    "round": 3
   },
   {
     "id": "a-week-02-palm-fruit",
@@ -329,7 +795,8 @@ window.GAMES = [
         "path": "games/a/week-02/palm-fruit/index.html",
         "preview": "assets/previews/a-week-02-palm-fruit.jpg"
       }
-    ]
+    ],
+    "round": 3
   },
   {
     "id": "a-week-02-hand-mole",
@@ -349,7 +816,8 @@ window.GAMES = [
         "path": "games/a/week-02/hand-mole/index.html",
         "preview": "assets/previews/a-week-02-hand-mole.jpg"
       }
-    ]
+    ],
+    "round": 3
   },
   {
     "id": "a-week-02-jelly-touch",
@@ -369,7 +837,8 @@ window.GAMES = [
         "path": "games/a/week-02/jelly-touch/index.html",
         "preview": "assets/previews/a-week-02-jelly-touch.jpg"
       }
-    ]
+    ],
+    "round": 3
   },
   {
     "id": "a-week-02-fingertip-magic",
@@ -389,7 +858,8 @@ window.GAMES = [
         "path": "games/a/week-02/fingertip-magic/index.html",
         "preview": "assets/previews/a-week-02-fingertip-magic.jpg"
       }
-    ]
+    ],
+    "round": 3
   },
   {
     "id": "a-week-02-hand-elements",
@@ -409,7 +879,8 @@ window.GAMES = [
         "path": "games/a/week-02/hand-elements/index.html",
         "preview": "assets/previews/a-week-02-hand-elements.jpg"
       }
-    ]
+    ],
+    "round": 3
   },
   {
     "id": "a-week-02-seal-trainer",
@@ -429,7 +900,8 @@ window.GAMES = [
         "path": "games/a/week-02/seal-trainer/index.html",
         "preview": "assets/previews/a-week-02-seal-trainer.jpg"
       }
-    ]
+    ],
+    "round": 3
   },
   {
     "id": "a-week-02-mochi-ar",
@@ -449,7 +921,8 @@ window.GAMES = [
         "path": "games/a/week-02/mochi-ar/index.html",
         "preview": "assets/previews/a-week-02-mochi-ar.jpg"
       }
-    ]
+    ],
+    "round": 3
   },
   {
     "id": "a-week-02-balloon-pop",
@@ -469,7 +942,8 @@ window.GAMES = [
         "path": "games/a/week-02/balloon-pop/index.html",
         "preview": "assets/previews/a-week-02-balloon-pop.jpg"
       }
-    ]
+    ],
+    "round": 3
   },
   {
     "id": "a-week-02-pause-pose",
@@ -489,7 +963,8 @@ window.GAMES = [
         "path": "games/a/week-02/pause-pose/handpose.html",
         "preview": "assets/previews/a-week-02-pause-pose.jpg"
       }
-    ]
+    ],
+    "round": 3
   },
   {
     "id": "a-week-02-mosquito",
@@ -509,6 +984,7 @@ window.GAMES = [
         "path": "games/a/week-02/pause-pose/mosquito.html",
         "preview": "assets/previews/a-week-02-mosquito.jpg"
       }
-    ]
+    ],
+    "round": 3
   }
 ];

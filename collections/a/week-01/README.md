@@ -1,8 +1,8 @@
-# A반 · 1주차
+# A반 · 두 번째 바이브 코딩
 
-[전체 아카이브](../../../README.md) · [이 반·주차 실행 페이지](https://kisoon.github.io/creative-computing-games/?class=A&week=1#collection)
+[전체 아카이브](../../../README.md) · [이 반·바이브 코딩 실행 페이지](https://kisoon.github.io/creative-computing-games/?class=A&round=2#collection)
 
-기존 10회차 수업 결과물입니다. 3주간 아카이브에서는 1주차로 분류합니다.
+기존 10회차 수업 결과물입니다. 현재 아카이브에서는 두 번째 바이브 코딩으로 분류합니다.
 
 ### 게임별 실행 링크와 실제 첫 화면
 
